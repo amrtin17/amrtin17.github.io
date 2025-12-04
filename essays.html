@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Essays | Shiqi Ge</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-bar">
+      <div class="logo">Shiqi Ge</div>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Portfolio</a>
+        <a href="essays.html">Essays</a>
+        <a href="about.html">About</a>
+        <a href="mailto:your-email@example.com">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container" style="max-width: 760px;">
+      <h2>Essays</h2>
+      <p style="color:#666;">
+        A selection of long-form reflections on digital systems, cultural
+        memory, and the politics of technology, written during my Digital Arts
+        &amp; Humanities studies.
+      </p>
+
+      <div class="essay-list">
+        <article class="essay-list-item">
+          <h3>
+            <a href="essay-ai-systems.html">
+              Digital Systems, Invisible Labour, and the Politics of Knowledge:
+              From AI Supply Chains to the Legacy of Aaron Swartz
+            </a>
+          </h3>
+          <p class="essay-meta">Approx. 2,000 words · Critical reflection</p>
+          <p>
+            A critical response that connects AI infrastructures and supply
+            chains with the political struggles around open access and
+            knowledge commons.
+          </p>
+        </article>
+
+        <article class="essay-list-item">
+          <h3>
+            <a href="essay-open-glam.html">
+              Digitisation as Cultural Power: Open GLAM, AI, and the Future of
+              Cultural Memory
+            </a>
+          </h3>
+          <p class="essay-meta">Approx. 2,000 words · Critical reflection</p>
+          <p>
+            An exploration of how digitisation, open cultural data, and
+            AI-driven tools reshape who controls and accesses cultural memory.
+          </p>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> Shiqi Ge · Digital Arts &amp; Humanities</p>
+    </div>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </footer>
+</body>
+</html>
