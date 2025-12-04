@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Shiqi Ge | Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <!-- Top navigation -->
+  <header class="site-header">
+    <div class="container nav-bar">
+      <div class="logo">Shiqi Ge</div>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Portfolio</a>
+        <a href="about.html">About</a>
+        <a href="mailto:your-email@example.com">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero section -->
+    <section class="hero">
+      <div class="container hero-content">
+        <h1>Digital Arts &amp; Humanities Portfolio</h1>
+        <p>
+          Posters, Python graphics, and digital humanities projects – combining
+          visual storytelling with code.
+        </p>
+        <div class="hero-buttons">
+          <a class="btn primary" href="projects.html">View portfolio</a>
+          <a class="btn secondary" href="#">Download CV</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured cards -->
+    <section class="section">
+      <div class="container">
+        <h2>Featured projects</h2>
+        <div class="card-grid">
+          <!-- Card 1 -->
+          <article class="card">
+            <div class="card-image">
+              <img src="assets/img/poster-placeholder.jpg"
+                   alt="Dead Poets Society poster preview">
+            </div>
+            <div class="card-body">
+              <h3>Dead Poets Society Poster</h3>
+              <p>
+                A film poster designed in GIMP plus a Python-Fu plug-in that
+                auto-generates the same layout from user images.
+              </p>
+              <div class="card-tags">
+                <span class="tag">Poster</span>
+                <span class="tag">Python</span>
+                <span class="tag">GIMP</span>
+              </div>
+              <a href="projects/dead-poets-poster.html" class="card-link">
+                View details →
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="card">
+            <div class="card-image">
+              <img src="assets/img/fractal-placeholder.jpg"
+                   alt="Turtle fractals preview">
+            </div>
+            <div class="card-body">
+              <h3>Turtle Fractals Collection</h3>
+              <p>
+                A small library of Python Turtle fractals, including trees and
+                ferns used in class projects and experiments.
+              </p>
+              <div class="card-tags">
+                <span class="tag">Python</span>
+                <span class="tag">Turtle</span>
+                <span class="tag">Fractals</span>
+              </div>
+              <a href="projects/turtle-fractals.html" class="card-link">
+                View details →
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="card">
+            <div class="card-image">
+              <img src="assets/img/dh-placeholder.jpg"
+                   alt="Digital humanities project preview">
+            </div>
+            <div class="card-body">
+              <h3>Digital Humanities Project</h3>
+              <p>
+                Selected coursework in UCC’s DAH programme, exploring data,
+                visualization, and media for cultural analysis.
+              </p>
+              <div class="card-tags">
+                <span class="tag">DH</span>
+                <span class="tag">Data Viz</span>
+              </div>
+              <a href="projects/dh-project.html" class="card-link">
+                View details →
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> Shiqi Ge · Digital Arts &amp; Humanities</p>
+    </div>
+    <script>
+      // tiny helper to always show current year
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </footer>
+</body>
+</html>
