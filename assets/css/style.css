@@ -296,6 +296,17 @@ a:hover {
   margin-top: 6px;
 }
 
+/* References list style */
+.reference-list {
+  list-style: none;
+  padding-left: 0;
+  line-height: 1.6;
+}
+
+.reference-list li {
+  margin-bottom: 1rem;
+}
+
 
 /* 响应式：平板 & 手机 */
 @media (max-width: 900px) {
