@@ -1,1 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Crowdsourcing, Classification, and Research Design</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav-bar">
+    <div class="logo">Shiqi Ge</div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Portfolio</a>
+      <a href="essays.html">Essays</a>
+      <a href="about.html">About</a>
+      <a href="mailto:your-email@example.com">Contact</a>
+    </nav>
+  </div>
+</header>
 
+<main class="section essay-main">
+  <div class="container essay-container">
+    <header class="essay-header">
+      <p class="essay-label">Essay</p>
+      <h1>Crowdsourcing, Classification, and Research Design</h1>
+      <p class="essay-meta">
+        Course: Digital Humanities · Word count: 2095<br />
+        Author: Shiqi Ge
+      </p>
+    </header>
+
+    <!-- 顶部插图占位符：整篇文章的主题配图 -->
+    <!--
+    <figure class="essay-figure essay-figure-cover">
+      <img src="assets/img/essays/ai-knowledge-ecosystem-cover.jpg" alt="Abstract visualization of AI infrastructures and knowledge flows" />
+      <figcaption>Cover image: Visualising the entanglement of AI infrastructures, invisible labour, and knowledge systems.</figcaption>
+    </figure>
+    -->
+
+    <!-- 可选：文章内部导航（如果你不想要可以整段删掉） -->
+    <!--
+    <nav class="essay-toc">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#intro">Confronting the materiality of AI</a></li>
+        <li><a href="#invisible-labour">Invisible labour in AI systems</a></li>
+        <li><a href="#bias-data-dignity">Bias, data dignity, and algorithmic harms</a></li>
+        <li><a href="#swartz">Aaron Swartz and knowledge infrastructures</a></li>
+        <li><a href="#parallels">Parallels between AI and academic publishing</a></li>
+        <li><a href="#dh-practice">Digital humanities and responsible practice</a></li>
+        <li><a href="#conclusion">Conclusion: towards a more equitable knowledge landscape</a></li>
+      </ol>
+    </nav>
+    -->
+
+    <article class="essay-body">
+
+      <h2 id="intro">Confronting the materiality of AI</h2>
+      <p>
+        Advances in artificial intelligence are often narrated through metaphors of weightlessness and abstraction:
+        “the cloud,” “smart assistants,” “machine learning models,” and “automation.” Yet, as
+        <em>Anatomy of an AI System</em> reveals, this sleek imagery conceals a dense and sprawling terrain of
+        material infrastructures, human labour, ecological extraction, and economic dependencies
+        (Crawford &amp; Joler, 2018).
+      </p>
+      <p>
+        My initial response to the reading was an unexpected jolt of moral discomfort, not because the concepts were
+        unfamiliar, but because the piece hit me while I was using my AI smart device to play background music for study.
+        It forced a confrontation with the actual physical scale of what contemporary AI systems require. A simple voice
+        command such as “Alexa, turn on the lights” is never simple. Building on Crawford and Joler’s anatomy of the Echo,
+        we might also extend this chain to include not only mining operations, factories, logistics, and warehouses, but
+        contemporary regimes of data annotation, content moderation, and energy-intensive data centres, all coordinated
+        through layers of algorithmic engineering. What feels like a clean interface is, in reality, a carefully designed
+        surface that hides the messy infrastructure behind it.
+      </p>
+
+      <!-- 插图占位符 -->
+      
+      <figure class="essay-figure">
+        <img src="assets/img/essays/ai-supply-chain-diagram.jpg" alt="Diagram of AI supply chains from extraction to interface" />
+        <figcaption>Figure 1. A schematic view of AI supply chains, from mineral extraction to user-facing interfaces.</figcaption>
+      </figure>
+     
+
+      <h2 id="process">The Process</h2>
+      
+      <p>
+      When I first browsed Zooniverse, I noticed that most featured projects were related to natural sciences, 
+        such as wildlife images and astronomical data. I was initially hesitant to engage with these projects, 
+        as I felt I lacked the necessary background knowledge. I therefore began with <em>Transcribe 2026</em>, 
+        which consisted of two tasks: transcribing entire texts and identifying names from scanned documents.
+      </p>
+      
+      <p>
+      The task resembled what people typically associate with crowdsourcing projects, such as CAPTCHA. At first, 
+        the work felt relaxing, since typing letters demanded relatively little cognitive effort. However, boredom
+        soon set in. I spent considerable time typing and double-checking for accuracy, yet the sense of achievement
+        did not feel proportionate to the effort invested. Consequently, I turned to another project, 
+        <em>Sovraimpressioni</em>, which aimed to classify photographs by General Cesare Lomaglio.
+      </p>
+      
+      <p>
+      This more complex task required participants to choose from four category labels for each photo—living 
+        beings, environment, buildings, and vehicles—followed by additional questions regarding identifiable 
+        faces, handwritten notes, and the determination of location and time.
+      </p>
+      
+      <p>
+      Although each item took less time than the transcription task, the cognitive demands were significantly 
+        higher. Many photographs contained limited contextual cues: portraits against blank walls, partial 
+        rooftops, or small interior corners.
+      </p>
+      
+      <figure class="essay-figure">
+        <img src="assets/img/essays/indoor-uncertain.jpg" alt="An indoor photograph with minimal contextual cues" />
+        <figcaption>
+          An indoor environment with insufficient visual information, making building type classification nearly impossible.
+        </figcaption>
+      </figure>
+      
+      <p>
+      I frequently faced uncertainty when distinguishing between categories such as urban, rural, or other, as well
+        as among different building types. Between guessing and giving up, I decided to experiment with consulting 
+        ChatGPT and assess whether its suggestions could be reasonably applied.
+      </p>
+      
+      <p>
+      Most photographs were difficult to situate in time or space, as they lacked obvious landmarks or temporal 
+        indicators. Some participants appeared willing to guess based on personal experience, particularly when 
+        inferring period from clothing styles. However, unfamiliar with Italian historical and geographical 
+        contexts, I often selected negative or indeterminate responses.
+      </p>
+      
+      <figure class="essay-figure">
+        <img src="assets/img/essays/period-by-costume.jpg" alt="Photograph showing historical costume details" />
+        <figcaption>
+          Participants frequently inferred historical periods from costume details and dress style.
+        </figcaption>
+      </figure>
+      
+      <p>
+      In another project, <em>Cameras for Conservation</em>, only blurred fragments of animals were sometimes
+        visible. In such cases, classification bordered on speculation.
+      </p>
+      
+      <figure class="essay-figure">
+        <img src="assets/img/essays/blurred-animal-fragment.jpg" alt="Blurred wildlife fragment captured by motion camera" />
+        <figcaption>
+          Some photographs captured only a limited, blurred fragment of an animal, challenging reliable classification.
+        </figcaption>
+      </figure>
+
+      <h2 id="fragmentation">Surprising Finding: Fragmentation and the Loss of Context</h2>
+      
+      <p>
+      While annotating photographs, I encountered two images that were clearly taken at the same location, 
+        from nearly the same angle, and within a short time interval. In both images, a particular individual 
+        appeared; in the first he stood closer to the camera, while in the second he had moved farther down the road.
+      </p>
+      
+      <figure class="essay-figure">
+        <img src="assets/img/essays/related-photos-1.jpg" alt="First related archival photograph" />
+        <img src="assets/img/essays/related-photos-2.jpg" alt="Second related archival photograph" />
+        <figcaption>
+          Two highly related photographs that were separated and assigned as independent tasks within the platform.
+        </figcaption>
+      </figure>
+      
+      <p>
+      Although their continuity was evident when viewed together, the platform presented them as isolated tasks. 
+        This fragmentation detaches samples from archival sequence and weakens relational inference.
+      </p>
+
+      <!-- 插图占位符：数字人文实践 / 课堂或作品截图 -->
+      <!--
+      <figure class="essay-figure">
+        <img src="assets/img/essays/dh-practice.jpg" alt="Screenshot of a digital humanities project interface" />
+        <figcaption>Figure 4. Situating digital humanities practice within broader infrastructures and ethics.</figcaption>
+      </figure>
+      -->
+
+      <h2 id="conclusion">Conclusion: towards a more equitable knowledge landscape</h2>
+      <p>
+        From AI supply chains to academic publishing, we encounter a tightly interconnected landscape of knowledge
+        production, which offers extraordinary possibilities while reproducing deep inequalities. The task of digital
+        humanists is not only to create but to critique; not only to innovate but to imagine alternatives. Aaron Swartz may
+        not have lived to see the transformations he hoped for, but his legacy endures as a reminder that knowledge can and
+        should be a public good. Through my own small contributions to openness, reflexivity, and digital ethics, I aim to
+        contribute, in small ways, to a more equitable knowledge landscape.
+      </p>
+      <h2>References</h2>
+      <ul class="reference-list">
+        <li>
+          Bender, E., Gebru, T., McMillan-Major, A. and Mitchell, M. (2021) 
+          'On the dangers of stochastic parrots: Can language models be too big?'.
+          <em>Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency (FAccT '21). </em>
+          Association for Computing Machinery, New York, NY, USA, pp. 610–623. 
+          https://doi.org/10.1145/3442188.3445922.
+        </li>
+        <li>
+          Buolamwini, J. (2016) 
+          'How I’m fighting bias in algorithms', TED Talk. 
+          Available at: https://www.ted.com/talks/joy_buolamwini_how_i_m_fighting_bias_in_algorithms 
+          (Accessed: 27 November 2025).
+        </li>
+        <li>
+          Crawford, K. and Joler, V. (2018) 
+          <em>Anatomy of an AI System: The Amazon Echo as an anatomical map of human labor, data and planetary resources.</em> 
+          Available at: https://anatomyof.ai 
+          (Accessed: 27 November 2025).
+        </li>
+        <li>
+          Knappenberger, B. (2014) 
+          <em>The Internet’s Own Boy: The Story of Aaron Swartz</em> [Documentary film]. 
+          Available at: https://www.youtube.com/watch?v=9vz06QO3UkQ 
+          (Accessed: 26 November 2025).
+        </li>
+        <li>
+          Lanier, J. (2023) 
+          ‘There Is No A.I.’, <em>The New Yorker</em>, 16 April. 
+          Available at: https://www.newyorker.com/science/annals-of-artificial-intelligence/there-is-no-ai 
+          (Accessed: 27 November 2025).
+        </li>
+        <li>
+          Lessig, L. (2001) 
+          <em>The Future of Ideas: The Fate of the Commons in a Connected World.</em> 
+          New York: Random House.
+        </li>
+        <li>
+          Noble, S.U. (2014) 
+          'How biased are our algorithms?'. TEDxUIUC [Video]. 
+          Available at: https://scalar.usc.edu/works/intro-to-dh-hs3393/how-biased-are-our-algorithms--safiya-umoja-noble--tedxuiuc 
+          (Accessed: 27 November 2025).
+        </li>
+      </ul>
+    </article>
+  </div>
+</main>
+
+
+<footer class="site-footer">
+  <div class="container">
+    <p>© <span id="year"></span> Shiqi Ge · Digital Arts &amp; Humanities</p>
+  </div>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</footer>
+</body>
+</html>
