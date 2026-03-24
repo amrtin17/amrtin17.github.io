@@ -371,5 +371,20 @@ body {
     </div>
 </div>
 
+<script>
+function showTab(index) {
+    const cards = document.querySelectorAll('.card');
+    const contents = document.querySelectorAll('.content');
+
+    // 移除所有 active
+    cards.forEach(card => card.classList.remove('active'));
+    contents.forEach(c => c.classList.remove('active'));
+
+    // 激活当前
+    cards[index].classList.add('active');
+    contents[index].classList.add('active');
+}
+</script>
+
 </body>
 </html>
