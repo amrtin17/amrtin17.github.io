@@ -171,6 +171,37 @@ body {
     display: block;
 }
 
+.text-block {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #334155;
+    margin-bottom: 18px;
+}
+
+/* 中间那段做“视觉强调”，但不改内容 */
+.text-block.highlight {
+    background: #F8FAFC;
+    padding: 16px;
+    border-radius: 10px;
+    border-left: 4px solid #6C3BFF;
+}
+
+/* goals 分两列 */
+.goals {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 16px;
+}
+.goal {
+    background: #F1F5F9;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+
+    
 /* TIMELINE */
 .timeline {
     display: flex;
