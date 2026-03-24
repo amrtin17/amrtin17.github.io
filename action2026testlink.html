@@ -190,7 +190,7 @@ body {
     border-left: 4px solid #6C3BFF;
 }*/
 
-/* goals 分两列 */
+/* goals 分两列 
 .goals {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -201,7 +201,49 @@ body {
     background: #F1F5F9;
     padding: 10px 12px;
     border-radius: 8px;
+    font-size: 20px;
+}*/
+
+/* 整个 goals 变成一个独立模块 */
+.goals {
+    max-width: 720px;
+    margin-top: 32px;
+    padding: 20px;
+    background: #FFFFFF;
+    border-radius: 14px;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+}
+/* 加一个标题 */
+.goals::before {
+    content: "Key Objectives";
+    display: block;
     font-size: 14px;
+    font-weight: 600;
+    color: #6C3BFF;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+/* 内部再分两列 */
+.goals {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+/* 每一项 */
+.goal {
+    background: #F8FAFC;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #0F172A;
+    transition: all 0.2s ease;
+}
+/* hover 微反馈 */
+.goal:hover {
+    background: #EEF2FF;
+    transform: translateY(-2px);
 }
 
 
