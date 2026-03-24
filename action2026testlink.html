@@ -36,10 +36,18 @@ body {
 /* HERO */
 .hero {
     height: 90vh;
+    /* 背景图只改这里 */
     background: url("assets/img/Action2026background.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
+    /* 保留原来的文字布局！！ */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 80px;
+    color: white;
 }
 .hero h1 {
     font-size: 56px;
