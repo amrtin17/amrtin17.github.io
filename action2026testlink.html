@@ -131,11 +131,19 @@ body {
 }
 
 /* ABOUT CARDS */
+.about-container {
+    max-width: 900px;   /* ✅ 控制整体宽度 */
+    margin: 0 auto;     /* ✅ 居中 */
+}
+    
 .cards {
     display: flex;
     gap: 20px;
     margin-bottom: 20px;
+    width: 100%;   /* ✅ 关键 */
 }
+
+
 .card {
     flex: 1;
     background: #F1F5F9;
@@ -163,6 +171,7 @@ body {
     padding: 24px;
     border-radius: 12px;
     min-height: 120px;
+    width: 100%;
 }
 /* 默认隐藏 */
 .content {
@@ -328,57 +337,61 @@ body {
 <!-- ABOUT -->
 <div class="section">
     <h2>About the Hackathon</h2>
-
-    <!-- tabs -->
-    <div class="cards">
-        <div class="card active" onclick="showTab(0)">
-            <h3>Background and Goals</h3>
+    
+    <div class="about-container">
+    
+        <!-- tabs -->
+        <div class="cards">
+            <div class="card active" onclick="showTab(0)">
+                <h3>Background and Goals</h3>
+            </div>
+            <div class="card" onclick="showTab(1)">
+                <h3>Awards and Benefits</h3>
+            </div>
+            <div class="card" onclick="showTab(2)">
+                <h3>Focus Areas</h3>
+            </div>
         </div>
-        <div class="card" onclick="showTab(1)">
-            <h3>Awards and Benefits</h3>
-        </div>
-        <div class="card" onclick="showTab(2)">
-            <h3>Focus Areas</h3>
-        </div>
-    </div>
-
-    <!-- content -->
-    <div class="tab-content">
-        <div class="content active">
-            <div class="text-block">
-                The World Meteorological Organization (WMO) and the World Health Organization (WHO) have repeatedly warned that climate change poses severe challenges to global public health. In recent years, more and more countries around the world have prioritized addressing health risks from climate change. However, the current responses are largely concentrated in institutional frameworks, academic discourse, and public engagement initiatives, demonstrating substantive deficiencies in tangible and actionable technological solutions. This critical gap underscores the urgent global demand for cost-effective, replicable, and scalable technological solutions—including but not limited to new technologies, new materials and new informatics tools—to safeguard human health amidst the climate crisis.
-            </div>
-            <div class="text-block">
-                To fill in the gap, Tsinghua University, in collaboration with The University of Hong Kong, National University of Singapore and supported by Asian Universities Alliance and the International Competence Development Committee of the Chinese Society of Educational Development Strategy convened the inaugural <b>Asian Climate-SDG Technology Innovation HackathOn for Next-generation (ACTION): Safeguarding Human Health in the Climate Crisis</b>, from May to November, 2025. ACTION 2025 attracted over 200 outstanding students from 14 leading Asian universities. It received support from WMO and WHO, and was incorporated into the WMO Regional Association II Action Plan. ACTION 2025 produced a range of innovative solutions that combined technological ingenuity with humanistic care, and five finalist teams showcased their projects at COP30 in Brazil, receiving high praise from ministerial officials.
-            </div>
-            <div class="text-block">
-                The success of ACTION 2025 laid a solid foundation for engaging Asian youth in tackling climate and health challenges through innovation.
-            </div>
-            <div class="text-block">
-                Building on this momentum, ACTION 2026 aims to further deepen interdisciplinary collaboration, stimulate scalable and impactful solutions, and empower the next generation of innovators to translate ideas into real-world applications. This hackathon will require university students to submit project proposals outlining innovative solutions, accompanied by a 3-minute demonstration video. Finalist teams will be awarded prizes (shown below). It aims to:
-            </div>
+    
+        <!-- content -->
+        <div class="tab-content">
+            <div class="content active">
+                <div class="text-block">
+                    The World Meteorological Organization (WMO) and the World Health Organization (WHO) have repeatedly warned that climate change poses severe challenges to global public health. In recent years, more and more countries around the world have prioritized addressing health risks from climate change. However, the current responses are largely concentrated in institutional frameworks, academic discourse, and public engagement initiatives, demonstrating substantive deficiencies in tangible and actionable technological solutions. This critical gap underscores the urgent global demand for cost-effective, replicable, and scalable technological solutions—including but not limited to new technologies, new materials and new informatics tools—to safeguard human health amidst the climate crisis.
+                </div>
+                <div class="text-block">
+                    To fill in the gap, Tsinghua University, in collaboration with The University of Hong Kong, National University of Singapore and supported by Asian Universities Alliance and the International Competence Development Committee of the Chinese Society of Educational Development Strategy convened the inaugural <b>Asian Climate-SDG Technology Innovation HackathOn for Next-generation (ACTION): Safeguarding Human Health in the Climate Crisis</b>, from May to November, 2025. ACTION 2025 attracted over 200 outstanding students from 14 leading Asian universities. It received support from WMO and WHO, and was incorporated into the WMO Regional Association II Action Plan. ACTION 2025 produced a range of innovative solutions that combined technological ingenuity with humanistic care, and five finalist teams showcased their projects at COP30 in Brazil, receiving high praise from ministerial officials.
+                </div>
+                <div class="text-block">
+                    The success of ACTION 2025 laid a solid foundation for engaging Asian youth in tackling climate and health challenges through innovation.
+                </div>
+                <div class="text-block">
+                    Building on this momentum, ACTION 2026 aims to further deepen interdisciplinary collaboration, stimulate scalable and impactful solutions, and empower the next generation of innovators to translate ideas into real-world applications. This hackathon will require university students to submit project proposals outlining innovative solutions, accompanied by a 3-minute demonstration video. Finalist teams will be awarded prizes (shown below). It aims to:
+                </div>
+                
+                <div class="goals">
+                    <div class="goal">Foster a deeper understanding on climate change and health issues among Asian university students</div>
+                    <div class="goal">Encourage interdisciplinary collaboration</div>
+                    <div class="goal">Stimulate innovative solutions to real-world challenges</div>
+                    <div class="goal">Enhance their leadership and entrepreneurship skills</div>
+                </div>
             
-            <div class="goals">
-                <div class="goal">Foster a deeper understanding on climate change and health issues among Asian university students</div>
-                <div class="goal">Encourage interdisciplinary collaboration</div>
-                <div class="goal">Stimulate innovative solutions to real-world challenges</div>
-                <div class="goal">Enhance their leadership and entrepreneurship skills</div>
             </div>
-        
-        </div>
+    
+            <div class="content">
+                <p>
+                    The goal is to design impactful climate-tech solutions aligned with the UN Sustainable Development Goals.
+                    Teams are encouraged to think about scalability, feasibility, and long-term environmental impact.
+                </p>
+            </div>
+    
+            <div class="content">
+                <p>
+                    Participants should submit a proposal, relevant data insights, and a working demo or prototype.
+                    Strong storytelling and clarity of problem-solution fit will be key evaluation criteria.
+                </p>
+            </div>
 
-        <div class="content">
-            <p>
-                The goal is to design impactful climate-tech solutions aligned with the UN Sustainable Development Goals.
-                Teams are encouraged to think about scalability, feasibility, and long-term environmental impact.
-            </p>
-        </div>
-
-        <div class="content">
-            <p>
-                Participants should submit a proposal, relevant data insights, and a working demo or prototype.
-                Strong storytelling and clarity of problem-solution fit will be key evaluation criteria.
-            </p>
         </div>
     </div>
 </div>
