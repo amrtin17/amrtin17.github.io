@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asian Climate-SDG Technology Innovation Hackathon for Next-Generation (ACTION)</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #0F172A;
+    background: #ffffff;
+}
+
+/* NAV */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 60px;
+    align-items: center;
+}
+.nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #0F172A;
+}
+.btn {
+    background: #6C3BFF;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+}
+
+/* HERO */
+.hero {
+    height: 90vh;
+    background: linear-gradient(135deg, #0FAF8F 0%, #2EC4B6 40%, #6C3BFF 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 80px;
+    color: white;
+}
+.hero h1 {
+    font-size: 64px;
+    margin: 10px 0;
+}
+.hero p {
+    letter-spacing: 2px;
+}
+.hero button {
+    margin-top: 20px;
+    background: #6C3BFF;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+}
+
+/* SECTION */
+.section {
+    padding: 80px;
+}
+
+/* CARDS */
+.cards {
+    display: flex;
+    gap: 20px;
+}
+.card {
+    flex: 1;
+    background: #F1F5F9;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+/* TIMELINE */
+.timeline {
+    display: flex;
+    justify-content: space-between;
+}
+.timeline .item {
+    background: #E6F7F3;
+    padding: 20px;
+    border-radius: 12px;
+    width: 30%;
+    text-align: center;
+}
+
+/* SPEAKER */
+.speaker {
+    display: flex;
+    gap: 40px;
+}
+.speaker img {
+    width: 200px;
+    border-radius: 12px;
+}
+.quote {
+    font-size: 20px;
+    color: #334155;
+}
+
+/* VIDEO */
+.video {
+    margin-top: 40px;
+    background: #000;
+    height: 300px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .cards, .timeline, .speaker {
+        flex-direction: column;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- NAV -->
+<div class="nav">
+    <div><b>Tsinghua Hackathon</b></div>
+    <div>
+        <a href="#">About</a>
+        <a href="#">Timeline</a>
+        <a href="#">Speakers</a>
+        <a href="#">FAQ</a>
+        <a href="#" class="btn">Apply Now</a>
+    </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+    <p>CLIMATE × TECHNOLOGY × ASIA</p>
+    <h1>HACKATHON<br>FOR NEXT GENERATION</h1>
+    <button>Apply Now</button>
+</div>
+
+<!-- ABOUT -->
+<div class="section">
+    <h2>About the Hackathon</h2>
+    <div class="cards">
+        <div class="card">
+            <h3>Who is it for?</h3>
+            <p>Young innovators in Asia</p>
+        </div>
+        <div class="card">
+            <h3>Challenge Goal</h3>
+            <p>Climate-tech solutions for SDGs</p>
+        </div>
+        <div class="card">
+            <h3>What to Submit</h3>
+            <p>Proposal, data & demo</p>
+        </div>
+    </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="section">
+    <h2>Timeline</h2>
+    <div class="timeline">
+        <div class="item">
+            <h3>Registration</h3>
+            <p>May 20</p>
+        </div>
+        <div class="item">
+            <h3>Submission</h3>
+            <p>June 30</p>
+        </div>
+        <div class="item">
+            <h3>Final Event</h3>
+            <p>August 15</p>
+        </div>
+    </div>
+</div>
+
+<!-- SPEAKER -->
+<div class="section">
+    <h2>Welcoming Remarks</h2>
+    <div class="speaker">
+        <img src="https://via.placeholder.com/200">
+        <div>
+            <h3>Peng Gong</h3>
+            <p>Vice President, The University of Hong Kong</p>
+            <p class="quote">“Transformative thinking and collaboration are key to climate innovation.”</p>
+        </div>
+    </div>
+
+    <!-- VIDEO -->
+    <div class="video">
+        ▶ Watch Previous Hackathon
+    </div>
+</div>
+
+</body>
+</html>
