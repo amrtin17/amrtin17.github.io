@@ -81,6 +81,36 @@ body {
     padding: 80px;
 }
 
+.welcome {
+    background: #f3f4f6;   /* 灰底 */
+    padding: 60px 80px;
+}
+
+.welcome-inner {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.welcome-img img {
+    width: 220px;
+    border-radius: 12px;
+}
+
+.welcome-text {
+    max-width: 700px;
+    color: #444;
+    line-height: 1.6;
+}
+
+.welcome-text a {
+    display: inline-block;
+    margin-top: 20px;
+    color: #111;
+    font-weight: bold;
+    text-decoration: none;
+}
+
 /* CARDS */
 .cards {
     display: flex;
@@ -168,6 +198,21 @@ body {
     <h2>Asian Climate-SDG Technology Innovation</h2><br>
     <h1>HackathOn for Next-generation (ACTION)</h1>
     <button>Apply Now</button>
+</div>
+
+<div class="welcome">
+    <div class="welcome-inner">
+        <div class="welcome-img">
+            <img src="assets/img/person.png" alt="person">
+        </div>
+        <div class="welcome-text">
+            <p>
+                After the Supervisory Board meeting of the KBB on the future of the Berlinale, 
+                we welcome the Board’s confirmation of the importance of the independence of our work...
+            </p>
+            <a href="#">Berlinale Note by Tricia Tuttle ></a>
+        </div>
+    </div>
 </div>
 
 <!-- ABOUT -->
