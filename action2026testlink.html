@@ -157,6 +157,9 @@ body {
 }
 /* 内容区域 */
 .tab-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background: #F8FAFC;
     padding: 24px;
     border-radius: 12px;
@@ -172,10 +175,11 @@ body {
 }
 
 .text-block {
+    max-width: 720px;          /* ❗核心：限制阅读宽度 */
     font-size: 15px;
-    line-height: 1.7;
+    line-height: 1.8;          /* 更舒服的行距 */
     color: #334155;
-    margin-bottom: 18px;
+    margin-bottom: 24px;       /* 段落间距更大 */
 }
 
 /* 中间那段做“视觉强调”，但不改内容 
@@ -347,11 +351,15 @@ body {
                 The World Meteorological Organization (WMO) and the World Health Organization (WHO) have repeatedly warned that climate change poses severe challenges to global public health. In recent years, more and more countries around the world have prioritized addressing health risks from climate change. However, the current responses are largely concentrated in institutional frameworks, academic discourse, and public engagement initiatives, demonstrating substantive deficiencies in tangible and actionable technological solutions. This critical gap underscores the urgent global demand for cost-effective, replicable, and scalable technological solutions—including but not limited to new technologies, new materials and new informatics tools—to safeguard human health amidst the climate crisis.
             </div>
             <div class="text-block highlight">
-                To fill in the gap, Tsinghua University, in collaboration with The University of Hong Kong, National University of Singapore and supported by Asian Universities Alliance and the International Competence Development Committee of the Chinese Society of Educational Development Strategy convened the inaugural Asian Climate-SDG Technology Innovation HackathOn for Next-generation (ACTION): Safeguarding Human Health in the Climate Crisis, from May to November, 2025. ACTION 2025 attracted over 200 outstanding students from 14 leading Asian universities. It received support from WMO and WHO, and was incorporated into the WMO Regional Association II Action Plan. ACTION 2025 produced a range of innovative solutions that combined technological ingenuity with humanistic care, and five finalist teams showcased their projects at COP30 in Brazil, receiving high praise from ministerial officials.
+                To fill in the gap, Tsinghua University, in collaboration with The University of Hong Kong, National University of Singapore and supported by Asian Universities Alliance and the International Competence Development Committee of the Chinese Society of Educational Development Strategy convened the inaugural <b>Asian Climate-SDG Technology Innovation HackathOn for Next-generation (ACTION): Safeguarding Human Health in the Climate Crisis</b>, from May to November, 2025. ACTION 2025 attracted over 200 outstanding students from 14 leading Asian universities. It received support from WMO and WHO, and was incorporated into the WMO Regional Association II Action Plan. ACTION 2025 produced a range of innovative solutions that combined technological ingenuity with humanistic care, and five finalist teams showcased their projects at COP30 in Brazil, receiving high praise from ministerial officials.
             </div>
             <div class="text-block">
-                The success of ACTION 2025 laid a solid foundation for engaging Asian youth in tackling climate and health challenges through innovation. Building on this momentum, ACTION 2026 aims to further deepen interdisciplinary collaboration, stimulate scalable and impactful solutions, and empower the next generation of innovators to translate ideas into real-world applications. This hackathon will require university students to submit project proposals outlining innovative solutions, accompanied by a 3-minute demonstration video. Finalist teams will be awarded prizes (shown below).
+                The success of ACTION 2025 laid a solid foundation for engaging Asian youth in tackling climate and health challenges through innovation.
             </div>
+            <div class="text-block">
+                Building on this momentum, ACTION 2026 aims to further deepen interdisciplinary collaboration, stimulate scalable and impactful solutions, and empower the next generation of innovators to translate ideas into real-world applications. This hackathon will require university students to submit project proposals outlining innovative solutions, accompanied by a 3-minute demonstration video. Finalist teams will be awarded prizes (shown below).
+            </div>
+            
             <div class="goals">
                 <div class="goal">Foster a deeper understanding on climate change and health issues among Asian university students</div>
                 <div class="goal">Encourage interdisciplinary collaboration</div>
