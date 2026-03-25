@@ -129,6 +129,11 @@ body {
     margin: 4px 0 0;
 }
 
+
+
+
+
+    
 /* VIDEO */
 /* ===== 视频容器 ===== */
 .video-hero {
@@ -155,7 +160,6 @@ body {
     right: 0;
     bottom: 0;
     z-index: 2;
-    pointer-events: none;   /* 让 overlay “不拦截点击” */
 }
 
 /* ===== 通用隐藏 ===== */
@@ -216,6 +220,9 @@ body {
   background-repeat: no-repeat;
 }
 
+
+
+    
 /* ABOUT CARDS */
 .about-container {
     max-width: 90%;   /* ✅ 控制整体宽度 */
@@ -298,6 +305,8 @@ body {
 
 
 
+    
+
 /* TIMELINE */
 .timeline {
     display: flex;
@@ -337,6 +346,12 @@ body {
 
 
 
+
+
+
+
+
+    
 <body>
 
 <!-- NAV -->
@@ -534,7 +549,7 @@ body {
     color: #812e8f;
     line-height: 1.2;
 ">
-    Know Before You Apply
+    Know Before You Apply...
 </div>
 
 <!-- TIMELINE -->
@@ -589,36 +604,38 @@ function showTab(index) {
 }
 
 // ===== 视频播放 =====
-
 function initVideo() {
     const video = document.getElementById("bgVideo");
     const btn = document.getElementById("playBtn");
 
     if (!video || !btn) return;
 
-    // ▶ 点击按钮 → 播放
+    // ▶ 按钮点击 → 播放
     btn.addEventListener("click", (e) => {
         e.stopPropagation();
         video.play();
+    });
+
+    // 🎬 视频点击 → 切换
+    video.addEventListener("click", () => {
+        if (video.paused) {
+            video.play();
+        } else {
+            video.pause();
+        }
+    });
+
+    // 🎯 用 video 状态统一控制按钮（关键！）
+    video.addEventListener("play", () => {
         btn.classList.add("hide");
         btn.classList.remove("pause");
     });
 
-    // 🎬 点击视频 → 播放 / 暂停切换
-    video.addEventListener("click", () => {
-        if (video.paused) {
-            video.play();
-            btn.classList.add("hide");
-            btn.classList.remove("pause");
-        } else {
-            video.pause();
-            btn.classList.remove("hide");
-            btn.classList.add("pause");
-        }
+    video.addEventListener("pause", () => {
+        btn.classList.remove("hide");
+        btn.classList.add("pause");
     });
 }
-
-initVideo();
 </script>
 
 </html>
