@@ -317,22 +317,41 @@ body {
 }
 
 
-/* 整体容器（可选优化） */
+.organizers {
+  background: #f3f4f6;   /* 灰底：做分区 */
+  padding: 80px 20px;
+}
+.organizers-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.organizer-group {
+  background: #ffffff;
+  padding: 40px 50px;
+  border-radius: 12px;
+  margin-bottom: 40px;
+}
+.organizer-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
 .organizer-logos {
   display: flex;
   align-items: center;
-  gap: 32px;           /* logo之间间距 */
-  flex-wrap: wrap;     /* 小屏自动换行 */
+  gap: 60px;        /* ❗从32改成60，拉开 */
+  flex-wrap: wrap;
 }
-
-/* 核心：统一 logo 高度 */
 .organizer-logos img {
-  height: 60px;        /* ← 你可以改成 50 / 70 看视觉 */
-  width: auto;         /* 保持比例 */
-  object-fit: contain; /* 防止被拉伸 */
+  height: 50px;     /* 比60更精致一点 */
+  width: auto;
+  object-fit: contain;
   display: block;
 }
-
+.organizer-group:nth-child(2) {
+  background: #f9fafb;
+}
+    
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
