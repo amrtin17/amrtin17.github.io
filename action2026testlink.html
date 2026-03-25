@@ -148,13 +148,6 @@ body {
   transform: translate(-50%, -50%);
 }
 
-/* 蒙层 */
-.video-hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-}
 
 /* 内容层 */
 .video-overlay {
@@ -166,14 +159,41 @@ body {
   transform: translateY(-50%);
 }
 
-button {
-  margin-top: 20px;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 8px;
-  background: #6C3BFF;
-  color: white;
+/* 播放按钮容器 */
+.play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.85);
   cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: all 0.2s ease;
+}
+/* hover 动效 */
+.play-btn:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: white;
+}
+/* 三角形 */
+.play-btn::before {
+  content: "";
+  display: block;
+  margin-left: 4px;
+
+  width: 0;
+  height: 0;
+  border-left: 18px solid #6C3BFF;   /* 三角形颜色 */
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
 }
 
 /* ABOUT CARDS */
@@ -296,14 +316,6 @@ button {
   transform: translate(-50%, -50%);
 }
 
-/* 蒙层（让文字更清晰） */
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-}
-
 .overlay {
   position: relative;
   z-index: 2;
@@ -416,7 +428,7 @@ button {
     <div class="video-overlay">
         <h1>Berlinale 2026</h1>
         <p>Relive highlights of the festival.</p>
-        <button id="playBtn">▶ Play</button>
+        <div class="play-btn" id="playBtn"></div>
     </div>
 </section>
 
@@ -589,15 +601,19 @@ function showTab(index) {
 }
 
 // ===== 视频播放 =====
-const video = document.getElementById("bgVideo");
-const btn = document.getElementById("playBtn");
+function initVideo() {
+    const video = document.getElementById("bgVideo");
+    const btn = document.getElementById("playBtn");
 
-if (video && btn) {
-  btn.addEventListener("click", () => {
-    video.play();
-    btn.style.display = "none";
-  });
+    if (video && btn) {
+        btn.addEventListener("click", () => {
+            video.play();
+            btn.classList.add("hide");
+        });
+    }
 }
+
+initVideo();
 </script>
 
 </html>
