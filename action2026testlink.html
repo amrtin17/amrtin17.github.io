@@ -317,6 +317,85 @@ body {
 }
 
 
+.schedule {
+  background: #F8FAFC;
+  padding: 80px 20px;
+}
+
+.schedule-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.schedule-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 60px;
+}
+
+/* ===== 时间轴 ===== */
+.timeline {
+  position: relative;
+  border-left: 2px solid #E2E8F0;
+}
+/* 每一项 */
+.timeline-item {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 50px;
+  position: relative;
+}
+/* 时间 */
+.timeline-time {
+  width: 120px;
+  font-weight: 600;
+  color: #475569;
+  flex-shrink: 0;
+}
+/* 圆点 */
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  top: 5px;
+  width: 12px;
+  height: 12px;
+  background: #6366F1;
+  border-radius: 50%;
+}
+/* 内容卡片 */
+.timeline-content {
+  background: #ffffff;
+  padding: 20px 24px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  flex: 1;
+}
+/* Phase */
+.phase {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #0F172A;
+}
+/* Events */
+.events {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #475569;
+  margin-bottom: 12px;
+}
+/* Format */
+.format {
+  font-size: 13px;
+  color: #6366F1;
+  font-weight: 500;
+}
+
+
+    
+
 .organizers {
   background: #f3f4f6;   /* 灰底：做分区 */
   padding: 80px 20px;
@@ -358,6 +437,11 @@ body {
 }
 </style>
 
+
+
+
+
+    
 </head>
 
 
@@ -575,6 +659,109 @@ body {
     </div>
 </div>
 
+
+<section class="schedule">
+  <div class="schedule-container">
+    <h2 class="schedule-title">Preliminary Schedule (subject to change)</h2>
+
+    <div class="timeline">
+
+      <!-- item -->
+      <div class="timeline-item">
+        <div class="timeline-time">April-July</div>
+        <div class="timeline-content">
+          <div class="phase">Hackathon Promotion and Training</div>
+          <div class="events">
+            Tsinghua University will hold information sessions (including hackathon training and Q&A sessions) in April or May. Students interested in participating are strongly recommended to attend to enhance the competitiveness of their projects. Specific time and guest speakers of the information sessions can be found on the event website. Specific date and email to submit required documents are decided by each invited university (mostly likely in end of July) Please copy your submissions to gofio@mail.tsinghua.edu.cn Late entries will not be be accepted! If unsure of your school’s submission email, please contact healthclimate@tsinghua.edu.cn
+          </div>
+          <div class="format">Virtual. Training materials can be downloaded from the event website.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-time">July.20-24</div>
+        <div class="timeline-content">
+          <div class="phase">University Nomination</div>
+          <div class="events">
+            Each university needs to nominate up to 3 teams and send their submission documents to Tsinghua University (healthclimate@tsinghua.edu.cn) by July 24. Submissions lacking university nomination will not be considered.
+          </div>
+          <div class="format">/</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-time">Aug.01-10</div>
+        <div class="timeline-content">
+          <div class="phase">Preliminary review</div>
+          <div class="events">
+            Tsinghua University invites judges to review all nominated submissions and selects 10 teams to enter semi-finals.
+          </div>
+          <div class="format">Virtual</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-time">Aug.14-25</div>
+        <div class="timeline-content">
+          <div class="phase">Mentoring</div>
+          <div class="events">
+            Tsinghua University assigns mentors to each of the 10 teams, to further improve the submissions. Updated submissions to be sent to Tsinghua University (healthclimate@tsinghua.edu.cn) by Aug.25.
+          </div>
+          <div class="format">Virtual</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-time">Aug.26-Sep.05</div>
+        <div class="timeline-content">
+          <div class="phase">Semi-final</div>
+          <div class="events">
+            Tsinghua University invites judges to further evaluate the 10 teams’ updated submissions and selects 5 finalist teams.
+          </div>
+          <div class="format">Virtual</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-time">Sep.07</div>
+        <div class="timeline-content">
+          <div class="phase">Announcement of the Final list</div>
+          <div class="events">
+            Results to be announced on event website by Sep 07.
+          </div>
+          <div class="format">Virtual</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-time">Sep-October</div>
+        <div class="timeline-content">
+          <div class="phase">Roadshow</div>
+          <div class="events">
+            Finalist teams will participate in a startup project roadshow, where they will present their projects and receive suggestions for improvement.
+          </div>
+          <div class="format">In person in Hong Kong</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-time">November</div>
+        <div class="timeline-content">
+          <div class="phase">Finals and Award Ceremony at COP31</div>
+          <div class="events">
+            Each finalist team selects one representative to present solutions alongside WMO and COP activities, invite experts to review, and announce results with organizers and winning teams.
+          </div>
+          <div class="format">In person in Turkey</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+    
 <!-- ORGANIZERS -->
 <section class="organizers">
   <div class="organizers-container">
