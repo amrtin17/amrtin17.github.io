@@ -412,10 +412,15 @@ body {
 
 <!-- VIDEO -->
 <section class="video-hero">
-    <video id="bgVideo" class="video-bg" preload="metadata">
+    <!-- 视频 -->
+    <video id="bgVideo" class="video-bg" preload="metadata" muted playsinline>
         <source src="https://v.cic.tsinghua.edu.cn/vod/video/4/a/732007.mp4">
     </video>
-    
+    <!-- 封面图 -->
+    <div class="video-poster" id="videoPoster" 
+        style="background: url('img/video-cover.png') center/cover no-repeat;">
+    </div>
+    <!-- 按钮 -->
     <div class="video-overlay">
         <div class="play-btn" id="playBtn"></div>
     </div>
