@@ -171,32 +171,22 @@ body {
     margin: 0 auto;
 }
 
-/* ===== 视频本体 ===== */
+/* ===== 视频 ===== */
 .video-bg {
-    position: static;
     display: block;
     width: 100%;
-    height: auto;
-    transform: none;
     cursor: pointer;
 }
 
-/* ===== 按钮层 ===== */
+/* ===== overlay（交互层）===== */
 .video-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     z-index: 2;
+    cursor: pointer;
 }
 
-/* ===== 通用隐藏 ===== */
-.hide {
-  display: none;
-}
-
-/* ===== 播放按钮 ===== */
+/* ===== 按钮默认隐藏（关键）===== */
 .play-btn {
     position: absolute;
     top: 50%;
@@ -207,46 +197,56 @@ body {
     height: 70px;
     border-radius: 50%;
     background: rgba(255,255,255,0.85);
-    cursor: pointer;
-    
+
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    transition: all 0.2s ease;
-    pointer-events: auto;   /* 让按钮重新可点击 */
+
+    opacity: 0;                /* ❗默认隐藏 */
+    transition: all 0.25s ease;
 }
 
-/* hover */
+/* 👉 hover 才出现 */
+.video-hero:hover .play-btn {
+    opacity: 1;
+}
+
+/* 👉 播放时彻底隐藏 */
+.play-btn.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* hover 动效 */
 .play-btn:hover {
-  transform: translate(-50%, -50%) scale(1.1);
-  background: white;
+    transform: translate(-50%, -50%) scale(1.1);
+    background: white;
 }
 
-/* ▶ 三角形 */
+/* ▶ */
 .play-btn::before {
-  content: "";
-  margin-left: 4px;
+    content: "";
+    margin-left: 4px;
 
-  border-left: 18px solid #812e8f;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
+    border-left: 18px solid #812e8f;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
 }
 
-/* ⏸ 暂停状态 */
+/* ⏸ */
 .play-btn.pause::before {
-  content: none;
+    content: none;
 }
 
 .play-btn.pause::after {
-  content: '';
-  width: 16px;
-  height: 20px;
-  background:
-    linear-gradient(#6C3BFF, #6C3BFF) left,
-    linear-gradient(#6C3BFF, #6C3BFF) right;
-  background-size: 5px 100%;
-  background-repeat: no-repeat;
+    content: '';
+    width: 16px;
+    height: 20px;
+    background:
+        linear-gradient(#6C3BFF, #6C3BFF) left,
+        linear-gradient(#6C3BFF, #6C3BFF) right;
+    background-size: 5px 100%;
+    background-repeat: no-repeat;
 }
 
 
@@ -811,11 +811,17 @@ body {
 
 <!-- VIDEO -->
 <section class="video-hero">
-    <!-- 视频 -->
-    <video id="bgVideo" class="video-bg" preload="metadata muted playsinline poster="assets/img/projects/ACTION2026/ACTIONvideo-cover.png">
+    <video 
+        id="bgVideo" 
+        class="video-bg" 
+        preload="metadata" 
+        muted 
+        playsinline 
+        poster="assets/img/projects/ACTION2026/ACTIONvideo-cover.png"
+    >
         <source src="https://v.cic.tsinghua.edu.cn/vod/video/4/a/732007.mp4">
     </video>
-    <!-- 按钮 -->
+
     <div class="video-overlay">
         <div class="play-btn" id="playBtn"></div>
     </div>
@@ -1282,17 +1288,12 @@ function showTab(index) {
 function initVideo() {
     const video = document.getElementById("bgVideo");
     const btn = document.getElementById("playBtn");
+    const overlay = document.querySelector(".video-overlay");
 
-    if (!video || !btn) return;
+    if (!video || !btn || !overlay) return;
 
-    // ▶ 按钮点击 → 播放
-    btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        video.play();
-    });
-
-    // 视频点击 → 切换
-    video.addEventListener("click", () => {
+    // 👉 整个区域点击 = 播放 / 暂停
+    overlay.addEventListener("click", () => {
         if (video.paused) {
             video.play();
         } else {
@@ -1300,17 +1301,25 @@ function initVideo() {
         }
     });
 
-    // 用 video 状态统一控制按钮（关键！）
+    // 👉 按钮点击（只播放，不触发 overlay）
+    btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        video.play();
+    });
+
+    // 👉 播放时
     video.addEventListener("play", () => {
-        btn.classList.add("hide");
+        btn.classList.add("hide");      // 隐藏按钮
         btn.classList.remove("pause");
     });
 
+    // 👉 暂停时
     video.addEventListener("pause", () => {
-        btn.classList.remove("hide");
-        btn.classList.add("pause");
+        btn.classList.remove("hide");   // 显示按钮
+        btn.classList.add("pause");     // 显示暂停图标
     });
 }
+
 document.addEventListener("DOMContentLoaded", initVideo);
 
 </script>
