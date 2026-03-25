@@ -445,69 +445,71 @@ body {
   font-size: 14px;
 }
 
-/* 评分参考 */
-.judging-new {
+/* =====评分参考===== */
+.judging-final {
   background: #faf7fb;
   padding: 100px 20px;
 }
 
-.judging-wrapper {
+.wrapper {
   max-width: 1100px;
   margin: 0 auto;
 }
 
-.section-title {
+.title {
   text-align: center;
   font-size: 34px;
-  margin-bottom: 70px;
+  margin-bottom: 60px;
 }
 
-/* grid结构 */
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr 2fr;
-  gap: 40px 30px;
-  align-items: center;
+/* 🔥 100%总条 */
+.total-bar {
+  display: flex;
+  height: 60px;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 50px;
 }
 
-/* 百分比块 */
-.percent {
+/* 每一段 */
+.seg {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 14px;
-  font-weight: 700;
   color: white;
-  letter-spacing: 1px;
+  font-weight: 700;
+  font-size: 18px;
 }
 
-/* 30%（最深） */
-.percent.big {
-  height: 85px;
-  font-size: 28px;
+/* 30%（深紫） */
+.seg1, .seg2 {
+  width: 30%;
   background: #812e8f;
 }
 
-/* 20%（浅一档） */
-.percent.small {
-  height: 65px;
-  font-size: 22px;
+/* 20%（浅紫） */
+.seg3, .seg4 {
+  width: 20%;
   background: #b76ac4;
 }
 
-/* 描述 */
-.desc h3 {
-  margin: 0 0 8px;
-  font-size: 18px;
-  color: #1f1f1f;
+/* 描述区 */
+.desc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
 }
 
-.desc p {
-  margin: 0;
+/* 每个说明 */
+.item h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.item p {
   font-size: 14px;
   color: #555;
   line-height: 1.6;
-  max-width: 320px;
 }
 
 /* Note */
@@ -518,6 +520,10 @@ body {
   font-size: 13px;
   color: #666;
 }
+
+
+
+
 
 
 /* ELIGIBILITY */
@@ -554,7 +560,7 @@ body {
   margin-bottom: 60px;
 }
 
-/* ===== Block (替代 card) ===== */
+/* ===== Block ===== */
 .eligibility__block {
   background: #ffffff;
   padding: 30px;
@@ -1069,41 +1075,45 @@ body {
 
 
 <!-- ===== 评分参考 ===== -->
-<section class="judging-new">
-  <div class="judging-wrapper">
+<section class="judging-final">
+  <div class="wrapper">
 
-    <h2 class="section-title">Judging Criteria</h2>
+    <h2 class="title">Judging Criteria</h2>
 
-    <div class="grid">
+    <!--  100%总条 -->
+    <div class="total-bar">
+      <div class="seg seg1">30%</div>
+      <div class="seg seg2">30%</div>
+      <div class="seg seg3">20%</div>
+      <div class="seg seg4">20%</div>
+    </div>
 
-      <!-- Row 1 -->
-      <div class="percent big">30%</div>
-      <div class="desc">
+    <!--  描述区 -->
+    <div class="desc-grid">
+
+      <div class="item">
+        <h3>Technical Innovation</h3>
+        <p>Emphasizes breakthrough thinking and originality and assesses the novelty of the solution</p>
+      </div>
+
+      <div class="item">
         <h3>Scalability Potential</h3>
         <p>Assesses the practicality and potential for the solution to be adapted and/or expanded, and if the solution could create lasting impact</p>
       </div>
 
-      <div class="percent big">30%</div>
-      <div class="desc">
+      <div class="item">
+        <h3>Health Impact Metrics</h3>
+        <p>Evaluates how effectively the solution addresses a health-related challenge, and includes measurable benefits or projected outcomes</p>
+      </div>
+
+      <div class="item">
         <h3>Commercial Viability</h3>
         <p>Evaluates the business potential and long-term feasibility and success in the market</p>
       </div>
 
-      <!-- Row 2 -->
-      <div class="desc">
-        <h3>Technical Innovation</h3>
-        <p>Emphasizes breakthrough thinking and originality and assesses the novelty of the solution</p>
-      </div>
-      <div class="percent small">20%</div>
-
-      <div class="desc">
-        <h3>Health Impact Metrics</h3>
-        <p>Evaluates how effectively the solution addresses a health-related challenge, and includes measurable benefits or projected outcomes</p>
-      </div>
-      <div class="percent small">20%</div>
-
     </div>
 
+    <!-- note -->
     <div class="note">
       <strong>Note:</strong> Commercial entities (if applicable) must be registered after 1 January 2019. 
       The project must demonstrable ownership rights with zero active IP disputes.
