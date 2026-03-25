@@ -77,8 +77,14 @@ body {
 }
 
 /* SECTION */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 80px;
+}
+
 .section {
-    padding: 80px;
+    padding: 80px 0;
 }
 
 .welcome {
@@ -416,102 +422,104 @@ button {
 
 <!-- ABOUT -->
 <div class="section">
-    <h2>About the Hackathon</h2>
+    <div class="container">
+        <h2>About the Hackathon</h2>
     
-    <div class="about-container">
+        <div class="about-container">
+        
+            <!-- tabs -->
+            <div class="cards">
+                <div class="card active" onclick="showTab(0)">
+                    <h3>Background and Goals</h3>
+                </div>
+                <div class="card" onclick="showTab(1)">
+                    <h3>Awards and Benefits</h3>
+                </div>
+                <div class="card" onclick="showTab(2)">
+                    <h3>Focus Areas</h3>
+                </div>
+            </div>
+        
+            <!-- content -->
+            <div class="tab-content">
+                <div class="content active">
+                    <div class="text-block">
+                        The World Meteorological Organization (WMO) and the World Health Organization (WHO) have repeatedly warned that climate change poses severe challenges to global public health. In recent years, more and more countries around the world have prioritized addressing health risks from climate change. However, the current responses are largely concentrated in institutional frameworks, academic discourse, and public engagement initiatives, demonstrating substantive deficiencies in tangible and actionable technological solutions. This critical gap underscores the urgent global demand for cost-effective, replicable, and scalable technological solutions—including but not limited to new technologies, new materials and new informatics tools—to safeguard human health amidst the climate crisis.<br>
+                    </div>
+                    <div class="text-block">
+                        To fill in the gap, Tsinghua University, in collaboration with The University of Hong Kong, National University of Singapore and supported by Asian Universities Alliance and the International Competence Development Committee of the Chinese Society of Educational Development Strategy convened the inaugural <b>Asian Climate-SDG Technology Innovation HackathOn for Next-generation (ACTION): Safeguarding Human Health in the Climate Crisis</b>, from May to November, 2025. ACTION 2025 attracted over 200 outstanding students from 14 leading Asian universities. It received support from WMO and WHO, and was incorporated into the WMO Regional Association II Action Plan. ACTION 2025 produced a range of innovative solutions that combined technological ingenuity with humanistic care, and five finalist teams showcased their projects at COP30 in Brazil, receiving high praise from ministerial officials.<br>
+                    </div>
+                    <div class="text-block">
+                        The success of ACTION 2025 laid a solid foundation for engaging Asian youth in tackling climate and health challenges through innovation.<br>
+                    </div>
+                    <div class="text-block">
+                        Building on this momentum, ACTION 2026 aims to further deepen interdisciplinary collaboration, stimulate scalable and impactful solutions, and empower the next generation of innovators to translate ideas into real-world applications. This hackathon will require university students to submit project proposals outlining innovative solutions, accompanied by a 3-minute demonstration video. Finalist teams will be awarded prizes (shown below). It aims to:<br>
+                    </div>
+                    <div class="goals">
+                        <div class="goal">Foster a deeper understanding on climate change and health issues</div>
+                        <div class="goal">Encourage interdisciplinary collaboration</div>
+                        <div class="goal">Stimulate innovative solutions to real-world challenges</div>
+                        <div class="goal">Enhance their leadership and entrepreneurship skills</div>
+                    </div>
+                </div>
+        
+                <div class="content">
+                    <div class="text-block">
+                        <p><b>Participation in COP31:</b> Each of the five finalist teams will receive one official accreditation to attend the 31th United Nations Climate Change Conference (COP31) to be held in Turkey (Tsinghua students will receive funding support from the university). These representatives will present their projects in front of senior UN officials and ministers from multiple countries.</p>
+                    </div>
+                    <div class="text-block">
+                        <p><b>Pitching Opportunity with Scholarship:</b> Selected finalist teams will receive financial support to participate in a roadshow event in a major Asian city, with scholarship amounts and specific location to be confirmed as planning progresses.</p>
+                    </div>
+                    <div class="text-block">
+                        <p><b>Certificate Award:</b> Each team nominated by their respective universities will receive a certificate jointly issued by all organizers.</p>
+                    </div>
+                    <div class="text-block">
+                        <p><b>Professional Guidance:</b> All teams will receive expert training in the fields of climate and health. The 10 teams advancing to the semi-finals will also receive personalized mentorship.</p>
+                    </div>
+                    <div class="text-block note">
+                        <p><b>Note:</b> An invitation to co-organize this hackathon has been extended to the World Meteorological Organization, with confirmation anticipated by mid-2026. Additional participation benefits will be announced in due course.</p>
+                    </div>
+                </div>
+        
+                <div class="content">
+                    <div class="text-block">
+                        <p>
+                          The hackathon invites innovative solutions focusing on, but not limited to, the following key areas:<br>
+                        </p>
+                    </div>
+                    
+                    <div class="text-block">
+                        <h3>1. AI-Powered Climate and Health Intelligence</h3>
+                        <p>
+                          This theme calls for innovations that leverage artificial intelligence, big data, and digital tools to enhance climate resilience and protect public health. Examples include AI-driven early warning systems for extreme weather events with personalized health alerts, intelligent disease surveillance platforms for predicting and tracking climate-sensitive infectious diseases, digital health tools that provide tailored protective recommendations for vulnerable populations, and low-cost forecasting solutions powered by machine learning and satellite data for regions with weak meteorological infrastructure.<br>
+                        </p>
+                    </div>
+                    <div class="text-block">
+                        <h3>2. Renewable Energy for Health Resilience</h3>
+                        <p>
+                          This theme seeks solutions that apply clean energy technologies to address health challenges exacerbated by climate change. Submissions may include solar-powered cold storage for vaccines and medicines in off-grid or disaster-affected areas, renewable energy systems ensuring continuous operation of health clinics during extreme weather events, clean energy innovations that reduce indoor air pollution and associated respiratory illnesses, and off-grid water purification systems powered by renewables to ensure safe drinking water during floods and droughts.<br>
+                        </p>
+                    </div>
+                    <div class="text-block">
+                        <h3>3. Climate-Adaptive Technologies for Vulnerable Populations</h3>
+                        <p>
+                          This theme focuses on tangible technologies and materials designed to protect those most at risk from climate-related health threats. Relevant innovations include wearable or portable cooling devices for outdoor workers and the elderly, low-cost temperature regulation materials for housing and public spaces, personal hygiene, and sanitation technologies for use during floods or displacement, and innovative protective gear for coping with extreme weather events such as typhoons, cold waves, and mudslides.<br>
+                        </p>
+                    </div>
+                    <div class="text-block">
+                        <h3>4. Infectious Disease Control and Environmental Health Innovation</h3>
+                        <p>
+                          This theme invites novel approaches to preventing and managing climate-sensitive diseases, with an emphasis on scalability and affordability. Potential solutions include smart mosquito and vector control systems powered by AI, drone-based larvicide dispersal, low-cost rapid diagnostic tools for under-resourced settings, innovative rodent control and sanitation technologies for marginalized communities, and nature-based solutions that simultaneously improve environmental health and reduce disease transmission.<br>
+                        </p>
+                    </div>
+                    <div class="text-block note">
+                        <p>
+                          <b>Cross-Cutting Priority:</b><br> All projects should articulate how their innovation directly or indirectly improves human health outcomes, whether through reducing exposure, enhancing adaptive capacity, or strengthening health systems in the face of climate change.
+                        </p>
+                    </div>
+                </div>
     
-        <!-- tabs -->
-        <div class="cards">
-            <div class="card active" onclick="showTab(0)">
-                <h3>Background and Goals</h3>
             </div>
-            <div class="card" onclick="showTab(1)">
-                <h3>Awards and Benefits</h3>
-            </div>
-            <div class="card" onclick="showTab(2)">
-                <h3>Focus Areas</h3>
-            </div>
-        </div>
-    
-        <!-- content -->
-        <div class="tab-content">
-            <div class="content active">
-                <div class="text-block">
-                    The World Meteorological Organization (WMO) and the World Health Organization (WHO) have repeatedly warned that climate change poses severe challenges to global public health. In recent years, more and more countries around the world have prioritized addressing health risks from climate change. However, the current responses are largely concentrated in institutional frameworks, academic discourse, and public engagement initiatives, demonstrating substantive deficiencies in tangible and actionable technological solutions. This critical gap underscores the urgent global demand for cost-effective, replicable, and scalable technological solutions—including but not limited to new technologies, new materials and new informatics tools—to safeguard human health amidst the climate crisis.<br>
-                </div>
-                <div class="text-block">
-                    To fill in the gap, Tsinghua University, in collaboration with The University of Hong Kong, National University of Singapore and supported by Asian Universities Alliance and the International Competence Development Committee of the Chinese Society of Educational Development Strategy convened the inaugural <b>Asian Climate-SDG Technology Innovation HackathOn for Next-generation (ACTION): Safeguarding Human Health in the Climate Crisis</b>, from May to November, 2025. ACTION 2025 attracted over 200 outstanding students from 14 leading Asian universities. It received support from WMO and WHO, and was incorporated into the WMO Regional Association II Action Plan. ACTION 2025 produced a range of innovative solutions that combined technological ingenuity with humanistic care, and five finalist teams showcased their projects at COP30 in Brazil, receiving high praise from ministerial officials.<br>
-                </div>
-                <div class="text-block">
-                    The success of ACTION 2025 laid a solid foundation for engaging Asian youth in tackling climate and health challenges through innovation.<br>
-                </div>
-                <div class="text-block">
-                    Building on this momentum, ACTION 2026 aims to further deepen interdisciplinary collaboration, stimulate scalable and impactful solutions, and empower the next generation of innovators to translate ideas into real-world applications. This hackathon will require university students to submit project proposals outlining innovative solutions, accompanied by a 3-minute demonstration video. Finalist teams will be awarded prizes (shown below). It aims to:<br>
-                </div>
-                <div class="goals">
-                    <div class="goal">Foster a deeper understanding on climate change and health issues</div>
-                    <div class="goal">Encourage interdisciplinary collaboration</div>
-                    <div class="goal">Stimulate innovative solutions to real-world challenges</div>
-                    <div class="goal">Enhance their leadership and entrepreneurship skills</div>
-                </div>
-            </div>
-    
-            <div class="content">
-                <div class="text-block">
-                    <p><b>Participation in COP31:</b> Each of the five finalist teams will receive one official accreditation to attend the 31th United Nations Climate Change Conference (COP31) to be held in Turkey (Tsinghua students will receive funding support from the university). These representatives will present their projects in front of senior UN officials and ministers from multiple countries.</p>
-                </div>
-                <div class="text-block">
-                    <p><b>Pitching Opportunity with Scholarship:</b> Selected finalist teams will receive financial support to participate in a roadshow event in a major Asian city, with scholarship amounts and specific location to be confirmed as planning progresses.</p>
-                </div>
-                <div class="text-block">
-                    <p><b>Certificate Award:</b> Each team nominated by their respective universities will receive a certificate jointly issued by all organizers.</p>
-                </div>
-                <div class="text-block">
-                    <p><b>Professional Guidance:</b> All teams will receive expert training in the fields of climate and health. The 10 teams advancing to the semi-finals will also receive personalized mentorship.</p>
-                </div>
-                <div class="text-block note">
-                    <p><b>Note:</b> An invitation to co-organize this hackathon has been extended to the World Meteorological Organization, with confirmation anticipated by mid-2026. Additional participation benefits will be announced in due course.</p>
-                </div>
-            </div>
-    
-            <div class="content">
-                <div class="text-block">
-                    <p>
-                      The hackathon invites innovative solutions focusing on, but not limited to, the following key areas:<br>
-                    </p>
-                </div>
-                
-                <div class="text-block">
-                    <h3>1. AI-Powered Climate and Health Intelligence</h3>
-                    <p>
-                      This theme calls for innovations that leverage artificial intelligence, big data, and digital tools to enhance climate resilience and protect public health. Examples include AI-driven early warning systems for extreme weather events with personalized health alerts, intelligent disease surveillance platforms for predicting and tracking climate-sensitive infectious diseases, digital health tools that provide tailored protective recommendations for vulnerable populations, and low-cost forecasting solutions powered by machine learning and satellite data for regions with weak meteorological infrastructure.<br>
-                    </p>
-                </div>
-                <div class="text-block">
-                    <h3>2. Renewable Energy for Health Resilience</h3>
-                    <p>
-                      This theme seeks solutions that apply clean energy technologies to address health challenges exacerbated by climate change. Submissions may include solar-powered cold storage for vaccines and medicines in off-grid or disaster-affected areas, renewable energy systems ensuring continuous operation of health clinics during extreme weather events, clean energy innovations that reduce indoor air pollution and associated respiratory illnesses, and off-grid water purification systems powered by renewables to ensure safe drinking water during floods and droughts.<br>
-                    </p>
-                </div>
-                <div class="text-block">
-                    <h3>3. Climate-Adaptive Technologies for Vulnerable Populations</h3>
-                    <p>
-                      This theme focuses on tangible technologies and materials designed to protect those most at risk from climate-related health threats. Relevant innovations include wearable or portable cooling devices for outdoor workers and the elderly, low-cost temperature regulation materials for housing and public spaces, personal hygiene, and sanitation technologies for use during floods or displacement, and innovative protective gear for coping with extreme weather events such as typhoons, cold waves, and mudslides.<br>
-                    </p>
-                </div>
-                <div class="text-block">
-                    <h3>4. Infectious Disease Control and Environmental Health Innovation</h3>
-                    <p>
-                      This theme invites novel approaches to preventing and managing climate-sensitive diseases, with an emphasis on scalability and affordability. Potential solutions include smart mosquito and vector control systems powered by AI, drone-based larvicide dispersal, low-cost rapid diagnostic tools for under-resourced settings, innovative rodent control and sanitation technologies for marginalized communities, and nature-based solutions that simultaneously improve environmental health and reduce disease transmission.<br>
-                    </p>
-                </div>
-                <div class="text-block note">
-                    <p>
-                      <b>Cross-Cutting Priority:</b><br> All projects should articulate how their innovation directly or indirectly improves human health outcomes, whether through reducing exposure, enhancing adaptive capacity, or strengthening health systems in the face of climate change.
-                    </p>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>
@@ -531,36 +539,38 @@ button {
 
 <!-- TIMELINE -->
 <div class="section">
-    <h2>Timeline</h2>
-    <div class="timeline">
-        <div class="item">
-            <h3>Registration</h3>
-            <p>May 20</p>
-        </div>
-        <div class="item">
-            <h3>Submission</h3>
-            <p>June 30</p>
-        </div>
-        <div class="item">
-            <h3>Final Event</h3>
-            <p>August 15</p>
+    <div class="container">
+        <h2>Timeline</h2>
+        <div class="timeline">
+            <div class="item">
+                <h3>Registration</h3>
+                <p>May 20</p>
+            </div>
+            <div class="item">
+                <h3>Submission</h3>
+                <p>June 30</p>
+            </div>
+            <div class="item">
+                <h3>Final Event</h3>
+                <p>August 15</p>
+            </div>
         </div>
     </div>
 </div>
 
 <!-- SPEAKER -->
 <div class="section">
-    <h2>Welcoming Remarks</h2>
-    <div class="speaker">
-        <img src="https://via.placeholder.com/200">
-        <div>
-            <h3>Peng Gong</h3>
-            <p>Vice President, The University of Hong Kong</p>
-            <p class="quote">“Transformative thinking and collaboration are key to climate innovation.”</p>
+    <div class="container">
+        <h2>Welcoming Remarks</h2>
+        <div class="speaker">
+            <img src="https://via.placeholder.com/200">
+            <div>
+                <h3>Peng Gong</h3>
+                <p>Vice President, The University of Hong Kong</p>
+                <p class="quote">“Transformative thinking and collaboration are key to climate innovation.”</p>
+            </div>
         </div>
     </div>
-
-
 </div>
 
 </body>
