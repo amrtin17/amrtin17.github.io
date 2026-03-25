@@ -445,7 +445,64 @@ body {
   font-size: 14px;
 }
 
+/* ===== 评分参考 ===== */
+.judging {
+  background: #ffffff;
+  padding: 80px 20px;
+}
 
+.judging-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 50px;
+}
+
+.criteria-item {
+  margin-bottom: 35px;
+}
+
+.criteria-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.criteria-bar {
+  width: 100%;
+  height: 10px;
+  background: #e5e7eb; /* 浅灰底 */
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #a78bfa); /* 紫色渐变 */
+  border-radius: 6px;
+}
+
+.criteria-item p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.note {
+  margin-top: 40px;
+  font-size: 13px;
+  color: #666;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+    
     
     
 
@@ -837,7 +894,7 @@ body {
           The exact submission deadline will be determined by each invited university, 
           <span class="highlight">expected in early August</span>.
         </p>
-        <p class="note">
+        <p>
           Late submissions will <strong>not</strong> be accepted.
         </p>
         <p>
@@ -862,7 +919,7 @@ body {
           To avoid email size limitations, it is recommended to share files via 
           cloud platforms such as Dropbox or Baidu Cloud.
         </p>
-        <p class="note">
+        <p>
           If you are unsure about your university’s submission email or have questions, 
           please check the official website or contact 
           <span class="highlight">healthclimate@tsinghua.edu.cn</span>.
@@ -874,6 +931,63 @@ body {
 </section>
 
 
+<section class="judging">
+  <div class="judging-container">
+    <h2 class="section-title">Judging Criteria</h2>
+    <div class="criteria-list">
+      <div class="criteria-item">
+        <div class="criteria-header">
+          <span>Technical Innovation</span>
+          <span>30%</span>
+        </div>
+        <div class="criteria-bar">
+          <div class="bar-fill" style="width: 30%"></div>
+        </div>
+        <p>Assesses the originality and breakthrough nature of the solution, with emphasis on innovative thinking and technical advancement.</p>
+      </div>
+
+      <div class="criteria-item">
+        <div class="criteria-header">
+          <span>Health Impact Metrics</span>
+          <span>20%</span>
+        </div>
+        <div class="criteria-bar">
+          <div class="bar-fill" style="width: 20%"></div>
+        </div>
+        <p>Evaluates how effectively the solution addresses a health-related challenge, including measurable impact or projected outcomes.</p>
+      </div>
+
+      <div class="criteria-item">
+        <div class="criteria-header">
+          <span>Scalability Potential</span>
+          <span>30%</span>
+        </div>
+        <div class="criteria-bar">
+          <div class="bar-fill" style="width: 30%"></div>
+        </div>
+        <p>Assesses the feasibility of scaling the solution and its potential to generate long-term, widespread impact.</p>
+      </div>
+
+      <div class="criteria-item">
+        <div class="criteria-header">
+          <span>Commercial Viability</span>
+          <span>20%</span>
+        </div>
+        <div class="criteria-bar">
+          <div class="bar-fill" style="width: 20%"></div>
+        </div>
+        <p>Evaluates the business potential, sustainability, and likelihood of market success.</p>
+      </div>
+
+    </div>
+    <div class="note">
+      <strong>Note:</strong> Commercial entities (if applicable) must be registered after 1 January 2019. 
+      Projects must demonstrate clear ownership rights with no active intellectual property disputes.
+    </div>
+  </div>
+</section>
+
+    
 
     
     
