@@ -85,7 +85,6 @@ body {
     background: #f3f4f6;   /* 灰底 */
     padding: 60px 80px;
 }
-
 .welcome-inner {
     display: flex;
     gap: 40px;
@@ -93,18 +92,15 @@ body {
     max-width: 70%;   /* 控制整体宽度 */
     margin: 0 auto;      /* 居中 */
 }
-
 .welcome-img img {
     width: 220px;
     border-radius: 12px;
 }
-
 .welcome-text {
     max-width: 700px;
     color: #444;
     line-height: 1.6;
 }
-
 .welcome-text a {
     display: inline-block;
     margin-top: 20px;
@@ -112,22 +108,66 @@ body {
     font-weight: bold;
     text-decoration: none;
 }
-
 .person-info {
     margin-top: 12px;
 }
-
 .name {
     font-weight: 600;
     font-size: 16px;
     color: #111;
     margin: 0;
 }
-
 .title {
     font-size: 13px;
     color: #666;
     margin: 4px 0 0;
+}
+
+/* --VIDEO-- */
+.video-hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* 视频背景 */
+.video-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+}
+
+/* 蒙层 */
+.video-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+}
+
+/* 内容层 */
+.video-overlay {
+  position: relative;
+  z-index: 2;
+  color: white;
+  padding: 0 80px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #6C3BFF;
+  color: white;
+  cursor: pointer;
 }
 
 /* ABOUT CARDS */
@@ -135,15 +175,12 @@ body {
     max-width: 90%;   /* ✅ 控制整体宽度 */
     margin: 0 auto;     /* ✅ 居中 */
 }
-    
 .cards {
     display: flex;
     gap: 20px;
     margin-bottom: 20px;
     width: 100%;   /* ✅ 关键 */
 }
-
-
 .card {
     flex: 1;
     background: #F1F5F9;
@@ -189,8 +226,6 @@ body {
     color: #334155;
     margin: 0 auto 24px;       /* 段落间距+居中 合并写 */
 }
-
-
 /* goals 分两列 */
 .goals {
     display: grid;
@@ -216,7 +251,7 @@ body {
 }
 
 
-    
+
 /* TIMELINE */
 .timeline {
     display: flex;
@@ -245,15 +280,41 @@ body {
 }
 
 /* VIDEO */
-.video {
-    margin-top: 40px;
-    background: #000;
-    height: 300px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+}
+
+/* 蒙层（让文字更清晰） */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+}
+
+.overlay {
+  position: relative;
+  z-index: 2;
+  color: white;
+  padding: 0 80px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #6C3BFF;
+  color: white;
+  cursor: pointer;
 }
 
 /* RESPONSIVE */
@@ -265,6 +326,8 @@ body {
 </style>
 
 </head>
+
+
 
 <body>
 
@@ -337,6 +400,19 @@ body {
         </div>
     </div>
 </div>
+
+<!-- VIDEO -->
+<section class="video-hero">
+    <video id="bgVideo" class="video-bg" preload="metadata">
+        <source src="https://v.cic.tsinghua.edu.cn/vod/video/4/a/732007.mp4" type="video/mp4">
+    </video>
+    
+    <div class="video-overlay">
+        <h1>Berlinale 2026</h1>
+        <p>Relive highlights of the festival.</p>
+        <button id="playBtn">▶ Play</button>
+    </div>
+</section>
 
 <!-- ABOUT -->
 <div class="section">
@@ -484,26 +560,33 @@ body {
         </div>
     </div>
 
-    <!-- VIDEO -->
-    <div class="video">
-        ▶ Watch Previous Hackathon
-    </div>
+
 </div>
 
 </body>
 
 <script>
+// ===== tab 切换 =====
 function showTab(index) {
     const cards = document.querySelectorAll('.card');
     const contents = document.querySelectorAll('.content');
 
-    // 移除所有 active
     cards.forEach(card => card.classList.remove('active'));
     contents.forEach(c => c.classList.remove('active'));
 
-    // 激活当前
     cards[index].classList.add('active');
     contents[index].classList.add('active');
+}
+
+// ===== 视频播放 =====
+const video = document.getElementById("bgVideo");
+const btn = document.getElementById("playBtn");
+
+if (video && btn) {
+  btn.addEventListener("click", () => {
+    video.play();
+    btn.style.display = "none";
+  });
 }
 </script>
 
