@@ -315,19 +315,22 @@ body {
 }
 
 
-/* SPEAKER */
-.speaker {
-    display: flex;
-    gap: 40px;
+/* 整体容器（可选优化） */
+.organizer-logos {
+  display: flex;
+  align-items: center;
+  gap: 32px;           /* logo之间间距 */
+  flex-wrap: wrap;     /* 小屏自动换行 */
 }
-.speaker img {
-    width: 200px;
-    border-radius: 12px;
+
+/* 核心：统一 logo 高度 */
+.organizer-logos img {
+  height: 60px;        /* ← 你可以改成 50 / 70 看视觉 */
+  width: auto;         /* 保持比例 */
+  object-fit: contain; /* 防止被拉伸 */
+  display: block;
 }
-.quote {
-    font-size: 20px;
-    color: #334155;
-}
+
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
