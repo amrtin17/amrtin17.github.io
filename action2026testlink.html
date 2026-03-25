@@ -56,6 +56,27 @@ body {
     padding: 0 80px;
     color: white;
 }
+
+/* 遮罩层 */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to right,
+        rgba(0,0,0,0.55),
+        rgba(0,0,0,0.25),
+        rgba(0,0,0,0)
+    );
+    z-index: 0;
+}
+
+/* 内容层（包一层） */
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
 .hero h1 {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 64px;
@@ -733,12 +754,14 @@ body {
 -->
 
 <!-- HERO -->
-<div class="hero">
-    <p>CLIMATE × TECHNOLOGY × ASIA</p>
-    <h2>Asian Climate-SDG Technology Innovation</h2><br>
-    <h1>HackathOn for Next-generation (ACTION)</h1>
-    <a href="#submission" class="hero-btn">Submit Now</a>
-</div>
+<section class="hero">
+  <div class="hero-content">
+    <h2>CLIMATE × TECHNOLOGY × ASIA</h2>
+    <h1>Asian Climate-SDG Technology Innovation</h1>
+    <h1>Hackathon for Next-generation (ACTION)</h1>
+    <button>Submit Now</button>
+  </div>
+</section>
 
 <div class="welcome">
     <div class="welcome-inner">
