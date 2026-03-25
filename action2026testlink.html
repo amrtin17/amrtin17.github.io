@@ -129,7 +129,8 @@ body {
     margin: 4px 0 0;
 }
 
-/* --VIDEO-- */
+/* VIDEO */
+/* ===== 视频容器 ===== */
 .video-hero {
   position: relative;
   width: 100%;
@@ -137,7 +138,7 @@ body {
   overflow: hidden;
 }
 
-/* 视频背景 */
+/* ===== 视频本体 ===== */
 .video-bg {
   position: absolute;
   top: 50%;
@@ -146,20 +147,25 @@ body {
   height: 100%;
   object-fit: cover;
   transform: translate(-50%, -50%);
+  cursor: pointer;
 }
 
-
-/* 内容层 */
+/* ===== 按钮层 ===== */
 .video-overlay {
-  position: relative;
+  position: absolute;   /* ⚠️ 改成 absolute（你之前是 relative，问题之一） */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 2;
-  color: white;
-  padding: 0 80px;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
-/* 播放按钮容器 */
+/* ===== 通用隐藏 ===== */
+.hide {
+  display: none;
+}
+
+/* ===== 播放按钮 ===== */
 .play-btn {
   position: absolute;
   top: 50%;
@@ -178,22 +184,37 @@ body {
 
   transition: all 0.2s ease;
 }
-/* hover 动效 */
+
+/* hover */
 .play-btn:hover {
   transform: translate(-50%, -50%) scale(1.1);
   background: white;
 }
-/* 三角形 */
+
+/* ▶ 三角形 */
 .play-btn::before {
   content: "";
-  display: block;
   margin-left: 4px;
 
-  width: 0;
-  height: 0;
-  border-left: 18px solid #6C3BFF;   /* 三角形颜色 */
+  border-left: 18px solid #6C3BFF;
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
+}
+
+/* ⏸ 暂停状态 */
+.play-btn.pause::before {
+  content: none;
+}
+
+.play-btn.pause::after {
+  content: '';
+  width: 16px;
+  height: 20px;
+  background:
+    linear-gradient(#6C3BFF, #6C3BFF) left,
+    linear-gradient(#6C3BFF, #6C3BFF) right;
+  background-size: 5px 100%;
+  background-repeat: no-repeat;
 }
 
 /* ABOUT CARDS */
@@ -305,36 +326,6 @@ body {
     color: #334155;
 }
 
-/* VIDEO */
-.hero-video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: translate(-50%, -50%);
-}
-
-.overlay {
-  position: relative;
-  z-index: 2;
-  color: white;
-  padding: 0 80px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-button {
-  margin-top: 20px;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 8px;
-  background: #6C3BFF;
-  color: white;
-  cursor: pointer;
-}
-
 /* RESPONSIVE */
 @media (max-width: 768px) {
     .cards, .timeline, .speaker {
@@ -426,8 +417,6 @@ button {
     </video>
     
     <div class="video-overlay">
-        <h1>Hackathon 2025</h1>
-        <!-- <p>Relive highlights of the festival.</p>-->
         <div class="play-btn" id="playBtn"></div>
     </div>
 </section>
@@ -600,16 +589,33 @@ function showTab(index) {
 }
 
 // ===== 视频播放 =====
+
 function initVideo() {
     const video = document.getElementById("bgVideo");
     const btn = document.getElementById("playBtn");
 
-    if (video && btn) {
-        btn.addEventListener("click", () => {
+    if (!video || !btn) return;
+
+    // ▶ 点击按钮 → 播放
+    btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        video.play();
+        btn.classList.add("hide");
+        btn.classList.remove("pause");
+    });
+
+    // 🎬 点击视频 → 播放 / 暂停切换
+    video.addEventListener("click", () => {
+        if (video.paused) {
             video.play();
             btn.classList.add("hide");
-        });
-    }
+            btn.classList.remove("pause");
+        } else {
+            video.pause();
+            btn.classList.remove("hide");
+            btn.classList.add("pause");
+        }
+    });
 }
 
 initVideo();
