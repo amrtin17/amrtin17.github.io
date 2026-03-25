@@ -555,28 +555,14 @@ body {
 <!-- TIMELINE -->
 <div class="section">
     <div class="container">
-        <h2>Timeline</h2>
-        <div class="timeline">
-            <div class="item">
-                <h3>Registration</h3>
-                <p>May 20</p>
-            </div>
-            <div class="item">
-                <h3>Submission</h3>
-                <p>June 30</p>
-            </div>
-            <div class="item">
-                <h3>Final Event</h3>
-                <p>August 15</p>
-            </div>
-        </div>
+        <img src="assets/img/Action2025Timeline.png" alt="Timeline" class="timeline-img">
     </div>
 </div>
 
-<!-- SPEAKER -->
+<!-- Organizers -->
 <div class="section">
     <div class="container">
-        <h2>Welcoming Remarks</h2>
+        <h2>Organizers</h2>
         <div class="speaker">
             <img src="https://via.placeholder.com/200">
             <div>
@@ -616,7 +602,7 @@ function initVideo() {
         video.play();
     });
 
-    // 🎬 视频点击 → 切换
+    // 视频点击 → 切换
     video.addEventListener("click", () => {
         if (video.paused) {
             video.play();
@@ -625,7 +611,7 @@ function initVideo() {
         }
     });
 
-    // 🎯 用 video 状态统一控制按钮（关键！）
+    // 用 video 状态统一控制按钮（关键！）
     video.addEventListener("play", () => {
         btn.classList.add("hide");
         btn.classList.remove("pause");
