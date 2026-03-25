@@ -446,60 +446,77 @@ body {
 }
 
 /* ===== 评分参考 ===== */
-.judging {
-  background: #ffffff;
-  padding: 80px 20px;
+.judging-new {
+  background: #faf7fb;
+  padding: 100px 20px;
 }
 
-.judging-container {
-  max-width: 900px;
+.judging-wrapper {
+  max-width: 1100px;
   margin: 0 auto;
 }
 
 .section-title {
   text-align: center;
-  font-size: 32px;
-  margin-bottom: 50px;
+  font-size: 34px;
+  margin-bottom: 70px;
 }
 
-.criteria-item {
-  margin-bottom: 35px;
+/* grid结构 */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 2fr;
+  gap: 40px 30px;
+  align-items: center;
 }
 
-.criteria-header {
+/* 百分比块 */
+.percent {
   display: flex;
-  justify-content: space-between;
-  font-weight: 600;
-  margin-bottom: 10px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 1px;
 }
 
-.criteria-bar {
-  width: 100%;
-  height: 10px;
-  background: #e5e7eb; /* 浅灰底 */
-  border-radius: 6px;
-  overflow: hidden;
-  margin-bottom: 10px;
+/* 30%（最深） */
+.percent.big {
+  height: 85px;
+  font-size: 28px;
+  background: #812e8f;
 }
 
-.bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #6366f1, #a78bfa); /* 紫色渐变 */
-  border-radius: 6px;
+/* 20%（浅一档） */
+.percent.small {
+  height: 65px;
+  font-size: 22px;
+  background: #b76ac4;
 }
 
-.criteria-item p {
+/* 描述 */
+.desc h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  color: #1f1f1f;
+}
+
+.desc p {
+  margin: 0;
   font-size: 14px;
   color: #555;
   line-height: 1.6;
+  max-width: 320px;
 }
 
+/* Note */
 .note {
-  margin-top: 40px;
+  margin-top: 60px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e5e5;
   font-size: 13px;
   color: #666;
-  border-top: 1px solid #eee;
-  padding-top: 20px;
 }
 
     
@@ -587,7 +604,7 @@ body {
     <p>CLIMATE × TECHNOLOGY × ASIA</p>
     <h2>Asian Climate-SDG Technology Innovation</h2><br>
     <h1>HackathOn for Next-generation (ACTION)</h1>
-    <button>Apply Now</button>
+    <button>Submit Now</button>
 </div>
 
 <div class="welcome">
@@ -759,7 +776,7 @@ body {
     color: #812e8f;
     line-height: 1.2;
 ">
-    Know Before You Apply...
+    Know Before You Submit...
 </div>
 
 <!-- TIMELINE -->
@@ -931,59 +948,47 @@ body {
 </section>
 
 
-<section class="judging">
-  <div class="judging-container">
+/* ===== 评分参考 ===== */
+<section class="judging-new">
+  <div class="judging-wrapper">
+
     <h2 class="section-title">Judging Criteria</h2>
-    <div class="criteria-list">
-      <div class="criteria-item">
-        <div class="criteria-header">
-          <span>Technical Innovation</span>
-          <span>30%</span>
-        </div>
-        <div class="criteria-bar">
-          <div class="bar-fill" style="width: 30%"></div>
-        </div>
-        <p>Assesses the originality and breakthrough nature of the solution, with emphasis on innovative thinking and technical advancement.</p>
+
+    <div class="grid">
+
+      <!-- Row 1 -->
+      <div class="percent big">30%</div>
+      <div class="desc">
+        <h3>Scalability Potential</h3>
+        <p>Assesses the practicality and potential for the solution to be adapted and/or expanded, and if the solution could create lasting impact</p>
       </div>
 
-      <div class="criteria-item">
-        <div class="criteria-header">
-          <span>Health Impact Metrics</span>
-          <span>20%</span>
-        </div>
-        <div class="criteria-bar">
-          <div class="bar-fill" style="width: 20%"></div>
-        </div>
-        <p>Evaluates how effectively the solution addresses a health-related challenge, including measurable impact or projected outcomes.</p>
+      <div class="percent big">30%</div>
+      <div class="desc">
+        <h3>Commercial Viability</h3>
+        <p>Evaluates the business potential and long-term feasibility and success in the market</p>
       </div>
 
-      <div class="criteria-item">
-        <div class="criteria-header">
-          <span>Scalability Potential</span>
-          <span>30%</span>
-        </div>
-        <div class="criteria-bar">
-          <div class="bar-fill" style="width: 30%"></div>
-        </div>
-        <p>Assesses the feasibility of scaling the solution and its potential to generate long-term, widespread impact.</p>
+      <!-- Row 2 -->
+      <div class="desc">
+        <h3>Technical Innovation</h3>
+        <p>Emphasizes breakthrough thinking and originality and assesses the novelty of the solution</p>
       </div>
+      <div class="percent small">20%</div>
 
-      <div class="criteria-item">
-        <div class="criteria-header">
-          <span>Commercial Viability</span>
-          <span>20%</span>
-        </div>
-        <div class="criteria-bar">
-          <div class="bar-fill" style="width: 20%"></div>
-        </div>
-        <p>Evaluates the business potential, sustainability, and likelihood of market success.</p>
+      <div class="desc">
+        <h3>Health Impact Metrics</h3>
+        <p>Evaluates how effectively the solution addresses a health-related challenge, and includes measurable benefits or projected outcomes</p>
       </div>
+      <div class="percent small">20%</div>
 
     </div>
+
     <div class="note">
       <strong>Note:</strong> Commercial entities (if applicable) must be registered after 1 January 2019. 
-      Projects must demonstrate clear ownership rights with no active intellectual property disputes.
+      The project must demonstrable ownership rights with zero active IP disputes.
     </div>
+
   </div>
 </section>
 
