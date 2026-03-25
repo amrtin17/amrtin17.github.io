@@ -202,13 +202,8 @@ body {
     align-items: center;
     justify-content: center;
 
-    opacity: 0;                /* ❗默认隐藏 */
-    transition: all 0.25s ease;
-}
-
-/* 👉 hover 才出现 */
-.video-hero:hover .play-btn {
     opacity: 1;
+    transition: opacity 0.25s ease, transform 0.2s ease;
 }
 
 /* 👉 播放时彻底隐藏 */
@@ -814,8 +809,7 @@ body {
     <video 
         id="bgVideo" 
         class="video-bg" 
-        preload="metadata" 
-        muted 
+        preload="metadata"
         playsinline 
         poster="assets/img/projects/ACTION2026/ACTIONvideo-cover.png"
     >
@@ -1290,9 +1284,11 @@ function initVideo() {
     const btn = document.getElementById("playBtn");
     const overlay = document.querySelector(".video-overlay");
 
+    let hideTimer = null;
+
     if (!video || !btn || !overlay) return;
 
-    // 👉 整个区域点击 = 播放 / 暂停
+    // 👉 播放 / 暂停
     overlay.addEventListener("click", () => {
         if (video.paused) {
             video.play();
@@ -1301,23 +1297,38 @@ function initVideo() {
         }
     });
 
-    // 👉 按钮点击（只播放，不触发 overlay）
-    btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        video.play();
-    });
-
     // 👉 播放时
     video.addEventListener("play", () => {
-        btn.classList.add("hide");      // 隐藏按钮
+        btn.classList.add("hide");
         btn.classList.remove("pause");
+
+        startAutoHide();
     });
 
     // 👉 暂停时
     video.addEventListener("pause", () => {
-        btn.classList.remove("hide");   // 显示按钮
-        btn.classList.add("pause");     // 显示暂停图标
+        btn.classList.remove("hide");
+        btn.classList.add("pause");
+
+        clearTimeout(hideTimer);
     });
+
+    // 👉 鼠标移动（桌面）
+    overlay.addEventListener("mousemove", () => {
+        if (!video.paused) {
+            btn.classList.remove("hide");
+            startAutoHide();
+        }
+    });
+
+    function startAutoHide() {
+        clearTimeout(hideTimer);
+        hideTimer = setTimeout(() => {
+            if (!video.paused) {
+                btn.classList.add("hide");
+            }
+        }, 2000);
+    }
 }
 
 document.addEventListener("DOMContentLoaded", initVideo);
