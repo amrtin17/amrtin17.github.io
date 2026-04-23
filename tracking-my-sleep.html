@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ENG">
 <head>
     <meta charset="UTF-8">
     <title>Sleep Pattern Density</title>
@@ -18,10 +18,10 @@
         .legend { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; font-size: 14px; }
         .legend-item { display: flex; align-items: center; gap: 8px; }
         .dot { width: 12px; height: 12px; border-radius: 3px; }
-        .dot.home { background: #bde0fe; }
-        .dot.travel { background: #ffafcc; }
+        /* 更新了图例颜色，体现半透明质感 */
+        .dot.home { background: rgba(189, 224, 254, 0.75); }
+        .dot.travel { background: rgba(255, 175, 204, 0.75); }
 
-        /* 两张图并排布局 */
         .charts-container {
             display: flex;
             flex-wrap: wrap;
@@ -59,8 +59,8 @@
     <div class="header">
         <h1>🌙 Sleep & Wake Density (Polar View)</h1>
         <div class="legend">
-            <div class="legend-item"><div class="dot home"></div><span>Home (Inner Ring)</span></div>
-            <div class="legend-item"><div class="dot travel"></div><span>Travel (Outer Ring)</span></div>
+            <div class="legend-item"><div class="dot home"></div><span>Home</span></div>
+            <div class="legend-item"><div class="dot travel"></div><span>Travel</span></div>
         </div>
     </div>
 
@@ -76,8 +76,8 @@
     </div>
 
     <script>
-        // 原始数据
         var rawData = [
+            // (此处保持你原来的 rawData 数据不变，为了代码整洁我直接折叠，请把你的原始数据贴在这里)
             ['2026-01-10', '1:26', '8:58', 452, 0, 0, 41, 493, 'fair', 'normal', ''],
             ['2026-01-11', '23:50', '7:52', 482, 0, 0, 0, 482, 'fair', 'normal', ''],
             ['2026-01-12', '1:05', '8:40', 455, 0, 0, 0, 455, 'fair', 'normal', ''],
@@ -125,7 +125,7 @@
             ['2026-02-23', '22:53', '7:16', 502, 1, 1, 502, 502, 'fair', 'normal', ''],
             ['2026-02-25', '23:02', '7:09', 430, 1, 57, 456, 456, 'fair', 'normal', ''],
             ['2026-02-26', '2:34', '7:26', 292, 0, 0, 292, 292, 'poor', 'normal', ''],
-            ['2026-02-27', '5:37', '7:43', 126, 0, 0, 297, 297, 'poor', 'travel', '熬夜赶作业'],
+            ['2026-02-27', '5:37', '7:43', 126, 0, 0, 297, 297, 'poor', 'travel', '熬夜赶作业+直接去都柏林'],
             ['2026-02-28', '23:11', '7:53', 522, 0, 0, 645, 645, 'fair', 'normal', ''],
             ['2026-03-01', '0:59', '7:09', 370, 0, 0, 370, 370, 'fair', 'normal', ''],
             ['2026-03-02', '23:43', '7:47', 484, 0, 0, 484, 484, 'fair', 'normal', ''],
@@ -143,7 +143,7 @@
             ['2026-03-14', '1:13', '6:50', 337, 0, 0, 440, 440, 'fair', 'normal', ''],
             ['2026-03-15', '1:00', '10:59', 598, 1, 1, 598, 598, 'fair', 'normal', ''],
             ['2026-03-16', '2:18', '9:13', 415, 0, 0, 415, 415, 'fair', 'normal', ''],
-            ['2026-03-17', '2:47', '8:09', 322, 0, 0, 322, 322, 'fair', 'normal', "St Patrick"],
+            ['2026-03-17', '2:47', '8:09', 322, 0, 0, 322, 322, 'fair', 'normal', "St Patrick's Day"],
             ['2026-03-18', '0:41', '3:31', 170, 0, 0, 275, 275, 'poor', 'travel', '去办美签'],
             ['2026-03-19', '1:12', '9:56', 524, 0, 0, 524, 524, 'fair', 'normal', ''],
             ['2026-03-20', '1:10', '10:47', 577, 0, 0, 577, 577, 'fair', 'normal', ''],
@@ -180,11 +180,8 @@
             ['2026-04-20', '23:23', '8:40', 557, 0, 0, 595, 595, 'fair', 'normal', '']
         ];
 
-        /* --- 核心：离散分桶算法 (Binning) --- */
-        // 每 15 分钟作为一个“桶” (格子)，保留刺的尖锐感
         var stepMins = 15; 
 
-        // 辅助函数：生成时间刻度标签（比如 18:00, 18:15）
         function generateCategories(startH, endH) {
             let labels = [];
             let bins = [];
@@ -193,35 +190,29 @@
                     let displayH = h >= 24 ? h - 24 : h;
                     let label = String(displayH).padStart(2, '0') + ':' + String(m).padStart(2, '0');
                     labels.push(label);
-                    bins.push(h + m/60); // 存十进制用于比对
+                    bins.push(h + m/60); 
                 }
             }
             return { labels, bins };
         }
 
-        // 把原始时间分配到最近的桶里
         function processDensityData(dataIndex, startH, endH) {
             let catData = generateCategories(startH, endH);
-            // 初始化计数器数组（与标签长度一致）
             let homeCounts = new Array(catData.labels.length).fill(0);
             let travelCounts = new Array(catData.labels.length).fill(0);
 
             rawData.forEach(item => {
-                let timeStr = item[dataIndex]; // 1是入睡，2是醒来
+                let timeStr = item[dataIndex]; 
                 let isTravel = item[9] === 'travel';
-                
                 let parts = timeStr.split(':');
                 let h = parseInt(parts[0]);
                 let m = parseInt(parts[1]);
                 let decimalTime = h + m/60;
 
-                // 跨天逻辑处理
                 if (dataIndex === 1 && decimalTime < 12) {
-                    decimalTime += 24; // 入睡时间：凌晨 0-6 点 -> 24-30
+                    decimalTime += 24; 
                 } 
-                // 注意：醒来时间 3-15 点本身就在连续区间内，不需要加24
 
-                // 找到最近的“桶”的索引
                 let minDiff = Infinity;
                 let closestIdx = -1;
                 for(let i=0; i<catData.bins.length; i++) {
@@ -245,34 +236,31 @@
             };
         }
 
-        /* --- 1. 准备入睡时间数据 (18:00 到 06:00 即 18 到 30) --- */
         let sleepData = processDensityData(1, 18, 30);
-        
-        /* --- 2. 准备醒来时间数据 (03:00 到 15:00) --- */
         let wakeData = processDensityData(2, 3, 15);
 
-        /* --- 通用配置图表函数 --- */
-        function initPolarChart(domId, dataObj, colorHome, colorTravel) {
+        // ★ 新增了 startAngleDeg 参数控制起点角度
+        function initPolarChart(domId, dataObj, colorHome, colorTravel, startAngleDeg) {
             var chart = echarts.init(document.getElementById(domId));
             
             var option = {
                 polar: {
-                    radius: ['15%', '85%'] // 中间留空，像钟表
+                    radius: ['15%', '85%']
                 },
                 angleAxis: {
                     type: 'category',
                     data: dataObj.labels,
-                    startAngle: 90, // 从 12 点钟方向开始
+                    startAngle: startAngleDeg, // ★ 控制钟表起点
                     clockwise: true,
                     axisLabel: {
-                        interval: 3, // 每隔 1 小时显示一次标签 (4个15分钟)
+                        interval: 3, 
                         color: '#9a8c98'
                     },
                     splitLine: { show: true, lineStyle: { color: '#eee', type: 'dashed' } }
                 },
                 radiusAxis: {
                     type: 'value',
-                    show: false // 隐藏雷达网同心圆数字，让视觉更干净
+                    show: false 
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -291,18 +279,18 @@
                         name: 'Home',
                         type: 'bar',
                         coordinateSystem: 'polar',
-                        stack: 'total', // ★ 核心：开启堆叠
+                        // ★ 删除了 stack: 'total'
                         data: dataObj.home,
-                        itemStyle: { color: colorHome, borderRadius: [0, 0, 0, 0] },
-                        barCategoryGap: '20%' // 控制刺的粗细
+                        itemStyle: { color: colorHome, borderRadius: [2, 2, 0, 0] }
                     },
                     {
                         name: 'Travel',
                         type: 'bar',
                         coordinateSystem: 'polar',
-                        stack: 'total', // ★ 同名堆叠，Travel 会被顶到外圈
+                        // ★ 删除了 stack: 'total'
+                        barGap: '-100%', // ★ 让两根柱子100%重叠，从同一个圆心出发
                         data: dataObj.travel,
-                        itemStyle: { color: colorTravel, borderRadius: [5, 5, 0, 0] } // 尖端圆角
+                        itemStyle: { color: colorTravel, borderRadius: [2, 2, 0, 0] } 
                     }
                 ]
             };
@@ -310,11 +298,15 @@
             return chart;
         }
 
-        // 初始化两张图
-        var sleepChart = initPolarChart('sleepChart', sleepData, '#bde0fe', '#ffafcc');
-        var wakeChart = initPolarChart('wakeChart', wakeData, '#bde0fe', '#ffafcc');
+        // ★ 核心修改点：
+        // 1. 设置带透明度(rgba)的颜色，这样重叠时会有好看的混色透视效果
+        // 2. 传入起点的角度 (-90 让 18点在正下方，0 让 3点在正右方)
+        var colorHome = 'rgba(189, 224, 254, 0.75)';
+        var colorTravel = 'rgba(255, 175, 204, 0.75)';
 
-        // 窗口缩放自适应
+        var sleepChart = initPolarChart('sleepChart', sleepData, colorHome, colorTravel, -90);
+        var wakeChart = initPolarChart('wakeChart', wakeData, colorHome, colorTravel, 0);
+
         window.addEventListener('resize', function() {
             sleepChart.resize();
             wakeChart.resize();
