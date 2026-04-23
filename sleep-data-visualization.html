@@ -14,7 +14,7 @@
 <body>
     <div class="header">
         <h1>🌙 Tracking My Sleep</h1>
-        <p>悬浮查看详细数据 | 鼠标滚轮可缩放时间轴 | 如果看不到数据，请尝试刷新或按 Ctrl+F5</p>
+        <!--<p>悬浮查看详细数据 | 鼠标滚轮可缩放时间轴 | 如果看不到数据，请尝试刷新或按 Ctrl+F5</p>-->
     </div>
     <div id="mainChart"></div>
 
@@ -193,8 +193,8 @@
             },
             tooltip: {
                 formatter: function (params) {
-                    return params.name + '<br/>入睡: ' + new Date(params.value[1]).getHours() + ':' + new Date(params.value[1]).getMinutes() +
-                           '<br/>醒来: ' + new Date(params.value[2]).getHours() + ':' + new Date(params.value[2]).getMinutes();
+                    return params.name + '<br/>fall to sleep: ' + new Date(params.value[1]).getHours() + ':' + new Date(params.value[1]).getMinutes() +
+                           '<br/>wake up: ' + new Date(params.value[2]).getHours() + ':' + new Date(params.value[2]).getMinutes();
                 }
             },
             series: [{
