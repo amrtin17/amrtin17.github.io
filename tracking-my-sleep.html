@@ -290,24 +290,26 @@
                         data: dataObj.home,
                         itemStyle: { 
                             color: colorHome, 
-                            borderRadius: [2, 2, 0, 0],
-                            // --- 新增描边设置 ---
+                            borderRadius: [1, 1, 0, 0], // 调小圆角，让描边更精致
+                            // --- 修改这里 ---
                             borderColor: '#7cb1e6', // 蓝色的对应深色
-                            borderWidth: 1.5         // 描边宽度
+                            borderWidth: 1.5,       // 线条宽度
+                            borderSide: ['top']     // ★ 核心：只描绘顶部，不描绘侧边和底部
                         }
                     },
                     {
                         name: 'Travel',
                         type: 'bar',
                         coordinateSystem: 'polar',
-                        barGap: '-100%', 
+                        barGap: '-100%', // 保持完全重叠
                         data: dataObj.travel,
                         itemStyle: { 
                             color: colorTravel, 
-                            borderRadius: [2, 2, 0, 0],
-                            // --- 新增描边设置 ---
+                            borderRadius: [1, 1, 0, 0],
+                            // --- 修改这里 ---
                             borderColor: '#f08ba0', // 粉色的对应深色
-                            borderWidth: 1.5         // 描边宽度
+                            borderWidth: 1.5,
+                            borderSide: ['top']     // ★ 核心：只描绘顶部
                         } 
                     }
                 ]
