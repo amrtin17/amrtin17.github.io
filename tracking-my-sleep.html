@@ -37,7 +37,7 @@
             background: #fff;
             border-radius: 20px;
             box-shadow: 0 10px 40px rgba(154, 140, 152, 0.1);
-            padding: 80px 20px 20px 20px;  /* ★ 关键改这里 */
+            padding: 20px;
             position: relative;
         }
 
@@ -283,58 +283,32 @@
                     }
                 },
                 series: [
-                    // --- Home 组 ---
                     {
                         name: 'Home',
                         type: 'bar',
                         coordinateSystem: 'polar',
                         data: dataObj.home,
                         itemStyle: { 
-                            color: colorHome, // 只有填充色
-                            borderRadius: [2, 2, 0, 0] 
-                        },
-                        silent: true, // 让柱子不响应鼠标，减少视觉干扰
-                        barGap: '-100%', // 确保两组数据在圆心对齐
-                    },
-                    {
-                        name: 'Home',
-                        type: 'line', // 用折线来实现“顶部描边”
-                        coordinateSystem: 'polar',
-                        data: dataObj.home,
-                        symbol: 'none', // 不显示折点的小圆圈
-                        connectNulls: true,
-                        smooth: 0.3, // ★ 关键：让线条稍微平滑一点，非常高级
-                        lineStyle: { 
-                            color: '#7cb1e6', // 深蓝色描边
-                            width: 2 
+                            color: colorHome, 
+                            borderRadius: [2, 2, 0, 0],
+                            // --- 新增描边设置 ---
+                            borderColor: '#7cb1e6', // 蓝色的对应深色
+                            borderWidth: 1.5         // 描边宽度
                         }
                     },
-                
-                    // --- Travel 组 ---
                     {
                         name: 'Travel',
                         type: 'bar',
                         coordinateSystem: 'polar',
+                        barGap: '-100%', 
                         data: dataObj.travel,
                         itemStyle: { 
-                            color: colorTravel, // 只有填充色
-                            borderRadius: [2, 2, 0, 0] 
-                        },
-                        silent: true,
-                        barGap: '-100%',
-                    },
-                    {
-                        name: 'Travel',
-                        type: 'line',
-                        coordinateSystem: 'polar',
-                        data: dataObj.travel,
-                        symbol: 'none',
-                        connectNulls: true,
-                        smooth: 0.3, // ★ 让粉色线条也平滑
-                        lineStyle: { 
-                            color: '#f08ba0', // 深粉色描边
-                            width: 2 
-                        }
+                            color: colorTravel, 
+                            borderRadius: [2, 2, 0, 0],
+                            // --- 新增描边设置 ---
+                            borderColor: '#f08ba0', // 粉色的对应深色
+                            borderWidth: 1.5         // 描边宽度
+                        } 
                     }
                 ]
             };
