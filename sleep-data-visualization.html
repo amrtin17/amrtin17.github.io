@@ -246,8 +246,28 @@
                         style: api.style()
                     };
                 },
+            
+                // typical night background
+                markArea: {
+                    silent: true,
+                    itemStyle: {
+                        color: 'rgba(150, 150, 150, 0.08)'
+                    },
+                    data: [[
+                        {
+                            name: 'Night',
+                            xAxis: parseTime('23:00', false),
+                            label: { show: false }
+                        },
+                        {
+                            xAxis: parseTime('07:00', true)
+                        }
+                    ]]
+                },
+            
                 data: seriesData
             }]
+            
         };
 
         myChart.setOption(option);
