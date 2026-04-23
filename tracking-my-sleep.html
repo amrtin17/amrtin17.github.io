@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="En">
 <head>
     <meta charset="UTF-8">
-    <title>My Sleep Dashboard</title>
+    <title>Tracking My Sleep</title>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 
     <style>
@@ -41,6 +41,14 @@
             padding: 20px;
             box-sizing: border-box;
             margin-bottom: 50px;
+        }
+        
+        .chart-note {
+            position: absolute;
+            bottom: -25px; /* 放到图表下面 */
+            width: 100%;
+            text-align: center;
+            color: #888;
         }
 
         /* --- 两个图表之间的文字区域 --- */
@@ -99,10 +107,12 @@
             <div class="legend-item"><div class="dot travel"></div><span>Travel / Irregular</span></div>
             <div class="legend-item"><div class="dot night"></div><span>Target Sleep Window (23:00 - 07:00)</span></div>
         </div>
-        <p>Hover to see details</p>
+        
     </div>
 
-    <div id="mainChart"></div>
+    <div id="mainChart">
+        <p class="chart-note">Hover to see details</p>
+    </div>
 
     <div class="text-spacer">
         <h2>📊 数据阶段性分析</h2>
