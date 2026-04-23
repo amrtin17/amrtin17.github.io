@@ -304,8 +304,12 @@
             return chart;
         }
 
-        var colorHome = 'rgba(189, 224, 254, 0.75)';
-        var colorTravel = 'rgba(255, 175, 204, 0.75)';
+        var colorHome = 'rgba(189, 224, 254, 0.4)';
+        var colorTravel = 'rgba(255, 175, 204, 0.4)';
+
+        // 定义更深一点的描边颜色
+        var borderHome = '#7cb1e6';  // 蓝色的深色版本
+        var borderTravel = '#f08ba0'; // 粉色的深色版本
 
         // 初始化图表
         var sleepChart = initPolarChart('sleepChart', sleepData, colorHome, colorTravel, -90);
