@@ -62,10 +62,20 @@
     </style>
 </head>
 <body>
+
     <div class="header">
         <h1>🌙 Tracking My Sleep</h1>
-        <!--<p>悬浮查看详细数据 | 鼠标滚轮可缩放时间轴 | 如果看不到数据，请尝试刷新或按 Ctrl+F5</p>-->
-    </div>
+        
+        <div class="legend-container">
+            <div class="legend-item">
+                <div class="dot home"></div>
+                <span>Normal(Home)</span>
+            </div>
+            <div class="legend-item">
+                <div class="dot travel"></div>
+                <span>Irregular(Travel)</span>
+            </div>
+        </div>
     <div id="mainChart"></div>
 
     <script>
