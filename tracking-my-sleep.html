@@ -1,33 +1,67 @@
 <!DOCTYPE html>
-<html lang="EN">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>Sleep Pattern Density (Percentage View)</title>
+    <title>My Sleep Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+
     <style>
         body { 
             background-color: #f8f4f9; 
             font-family: 'Inter', -apple-system, sans-serif; 
             margin: 0; 
-            padding: 40px; 
+            padding: 40px 20px; 
             color: #4a4e69;
         }
-        .header { text-align: center; margin-bottom: 30px; }
-        h1 { color: #cdb4db; font-size: 2rem; margin-bottom: 10px; }
+
+        .container { max-width: 1200px; margin: 0 auto; }
         
-        .legend { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; font-size: 14px; }
+        /* 标题和公共样式 */
+        .header { text-align: center; margin-bottom: 20px; }
+        h1 { color: #cdb4db; font-size: 2.5rem; margin-bottom: 10px; }
+        p { opacity: 0.7; font-size: 14px; text-align: center; }
+
+        /* 图例样式 */
+        .legend { display: flex; justify-content: center; gap: 25px; margin-bottom: 20px; font-size: 14px; flex-wrap: wrap; }
         .legend-item { display: flex; align-items: center; gap: 8px; }
         .dot { width: 12px; height: 12px; border-radius: 3px; }
-        .dot.home { background: rgba(189, 224, 254, 0.75); }
-        .dot.travel { background: rgba(255, 175, 204, 0.75); }
+        
+        /* 颜色对应 */
+        .dot.home { background: #bde0fe; }      /* 蓝色 */
+        .dot.travel { background: #ffafcc; }    /* 粉色 */
+        .dot.night { background: rgba(200, 200, 200, 0.15); border: 1px dashed #ccc; }
 
+        /* 图表容器 */
+        #mainChart { 
+            width: 100%; 
+            height: 900px; 
+            background: #fff; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 40px rgba(154, 140, 152, 0.1); 
+            padding: 20px;
+            box-sizing: border-box;
+            margin-bottom: 50px;
+        }
+
+        /* --- 两个图表之间的文字区域 --- */
+        .text-spacer {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.5);
+            border-left: 5px solid #cdb4db;
+            border-radius: 10px;
+            line-height: 1.6;
+        }
+        .text-spacer h2 { color: #9a8c98; margin-top: 0; }
+
+        /* 密度图容器 */
         .charts-container {
             display: flex;
             flex-wrap: wrap;
             gap: 30px;
             justify-content: center;
-            max-width: 1400px;
-            margin: 0 auto;
+            margin-top: 30px;
         }
 
         .chart-box {
@@ -37,8 +71,9 @@
             background: #fff;
             border-radius: 20px;
             box-shadow: 0 10px 40px rgba(154, 140, 152, 0.1);
-            padding: 80px 20px 20px 20px; /* 离标题远一点 */
+            padding: 80px 20px 20px 20px;
             position: relative;
+            box-sizing: border-box;
         }
 
         .chart-title {
@@ -55,11 +90,34 @@
 </head>
 <body>
 
+<div class="container">
+    
     <div class="header">
-        <h1>🌙 Sleep & Wake Density (Normalized %)</h1>
+        <h1>🌙 Tracking My Sleep</h1>
         <div class="legend">
-            <div class="legend-item"><div class="dot home"></div><span>Home Mode (Relative %)</span></div>
-            <div class="legend-item"><div class="dot travel"></div><span>Travel Mode (Relative %)</span></div>
+            <div class="legend-item"><div class="dot home"></div><span>Home Routine</span></div>
+            <div class="legend-item"><div class="dot travel"></div><span>Travel / Irregular</span></div>
+            <div class="legend-item"><div class="dot night"></div><span>Target Sleep Window (23:00 - 07:00)</span></div>
+        </div>
+        <p>Hover to see details</p>
+    </div>
+
+    <div id="mainChart"></div>
+
+    <div class="text-spacer">
+        <h2>📊 数据阶段性分析</h2>
+        <p>
+            在这里输入你的文字描述。例如：从上图可以看出，我在旅行期间（粉色标记）的入睡时间明显变得更加碎片化。
+            而在主场模式下，我的睡眠节奏相对稳定在凌晨1点左右。
+        </p>
+        <p>接下来的极坐标图展示了我在不同模式下的入睡与醒来时间密度分布：</p>
+    </div>
+
+    <div class="header">
+        <h1>📈 Sleep & Wake Density</h1>
+        <div class="legend">
+            <div class="legend-item"><div class="dot home" style="background: rgba(189, 224, 254, 0.75);"></div><span>Home Mode (Relative %)</span></div>
+            <div class="legend-item"><div class="dot travel" style="background: rgba(255, 175, 204, 0.75);"></div><span>Travel Mode (Relative %)</span></div>
         </div>
     </div>
 
@@ -74,259 +132,264 @@
         </div>
     </div>
 
-    <script>
-        var rawData = [
-            // (此处保持你原来的 rawData 数据不变)
-            ['2026-01-10', '1:26', '8:58', 452, 0, 0, 41, 493, 'fair', 'normal', ''],
-            ['2026-01-11', '23:50', '7:52', 482, 0, 0, 0, 482, 'fair', 'normal', ''],
-            ['2026-01-12', '1:05', '8:40', 455, 0, 0, 0, 455, 'fair', 'normal', ''],
-            ['2026-01-13', '0:17', '8:39', 502, 0, 0, 0, 502, 'fair', 'normal', ''],
-            ['2026-01-14', '2:24', '8:00', 336, 0, 0, 0, 336, 'poor', 'normal', ''],
-            ['2026-01-15', '0:43', '6:52', 369, 0, 0, 60, 429, 'fair', 'normal', ''],
-            ['2026-01-16', '0:34', '11:25', 573, 2, 78, 0, 573, 'fair', 'normal', ''],
-            ['2026-01-17', '0:40', '7:42', 422, 0, 0, 170, 592, 'good', 'normal', ''],
-            ['2026-01-18', '0:02', '8:53', 531, 0, 0, 29, 560, 'fair', 'normal', ''],
-            ['2026-01-19', '1:01', '9:44', 521, 1, 2, 0, 521, 'fair', 'normal', ''],
-            ['2026-01-20', '1:07', '9:02', 475, 0, 0, 33, 508, 'fair', 'normal', ''],
-            ['2026-01-21', '0:38', '10:01', 563, 0, 0, 0, 563, 'fair', 'normal', ''],
-            ['2026-01-22', '0:26', '9:16', 530, 0, 0, 0, 530, 'good', 'normal', ''],
-            ['2026-01-23', '23:50', '8:03', 493, 0, 0, 0, 493, 'fair', 'normal', ''],
-            ['2026-01-24', '1:18', '7:29', 371, 0, 0, 70, 441, 'fair', 'normal', ''],
-            ['2026-01-25', '1:11', '4:45', 148, 3, 66, 82, 230, 'poor', 'travel', '睡机场了'],
-            ['2026-01-26', '1:13', '6:35', 321, 1, 1, 0, 321, 'fair', 'travel', ''],
-            ['2026-01-27', '1:49', '7:11', 322, 0, 0, 25, 347, 'fair', 'travel', ''],
-            ['2026-01-28', '1:40', '4:15', 116, 2, 39, 139, 255, 'poor', 'travel', '夜巴'],
-            ['2026-01-29', '0:02', '7:26', 444, 0, 0, 0, 444, 'fair', 'travel', ''],
-            ['2026-01-30', '1:12', '7:20', 368, 0, 0, 0, 368, 'fair', 'travel', ''],
-            ['2026-01-31', '0:18', '9:10', 532, 0, 0, 90, 622, 'fair', 'travel', ''],
-            ['2026-02-01', '1:35', '3:15', 100, 0, 0, 117, 217, 'poor', 'travel', '又睡机场了'],
-            ['2026-02-02', '23:17', '9:54', 593, 2, 44, 298, 891, 'poor', 'normal', '生病补觉'],
-            ['2026-02-03', '1:11', '9:13', 482, 0, 0, 482, 482, 'fair', 'normal', ''],
-            ['2026-02-04', '1:15', '8:12', 416, 1, 1, 572, 572, 'fair', 'normal', ''],
-            ['2026-02-05', '1:39', '8:05', 386, 0, 0, 386, 386, 'fair', 'normal', ''],
-            ['2026-02-06', '1:47', '6:41', 294, 0, 0, 294, 294, 'fair', 'travel', '飞巴黎'],
-            ['2026-02-07', '23:16', '8:24', 548, 0, 0, 548, 548, 'fair', 'travel', '蒙马特'],
-            ['2026-02-08', '0:06', '7:33', 447, 0, 0, 447, 447, 'fair', 'travel', '凡尔赛'],
-            ['2026-02-09', '23:10', '7:39', 507, 2, 2, 531, 531, 'fair', 'travel', '卢浮宫'],
-            ['2026-02-10', '0:36', '7:29', 413, 0, 0, 413, 413, 'fair', 'travel', '奥塞'],
-            ['2026-02-11', '0:11', '6:15', 364, 0, 0, 364, 364, 'fair', 'travel', '迪士尼'],
-            ['2026-02-12', '0:30', '3:37', 187, 0, 0, 275, 275, 'poor', 'travel', '夜巴去德国'],
-            ['2026-02-13', '23:42', '7:08', 446, 0, 0, 446, 446, 'fair', 'travel', '卢森堡'],
-            ['2026-02-14', '0:01', '10:14', 597, 1, 16, 597, 597, 'good', 'travel', '晚上飞机'],
-            ['2026-02-15', '3:01', '5:14', 133, 0, 0, 350, 350, 'poor', 'travel', '又睡机场了'],
-            ['2026-02-16', '20:36', '5:43', 547, 0, 0, 547, 547, 'fair', 'normal', ''],
-            ['2026-02-17', '23:54', '6:43', 409, 0, 0, 409, 409, 'fair', 'normal', ''],
-            ['2026-02-18', '0:36', '6:43', 367, 0, 0, 480, 480, 'fair', 'normal', ''],
-            ['2026-02-19', '23:40', '7:29', 469, 0, 0, 469, 469, 'fair', 'normal', ''],
-            ['2026-02-20', '1:34', '6:26', 292, 0, 0, 292, 292, 'poor', 'normal', '去galway了'],
-            ['2026-02-21', '0:37', '6:43', 366, 0, 0, 366, 366, 'fair', 'normal', ''],
-            ['2026-02-22', '23:44', '7:14', 450, 0, 0, 450, 450, 'fair', 'normal', ''],
-            ['2026-02-23', '22:53', '7:16', 502, 1, 1, 502, 502, 'fair', 'normal', ''],
-            ['2026-02-25', '23:02', '7:09', 430, 1, 57, 456, 456, 'fair', 'normal', ''],
-            ['2026-02-26', '2:34', '7:26', 292, 0, 0, 292, 292, 'poor', 'normal', ''],
-            ['2026-02-27', '5:37', '7:43', 126, 0, 0, 297, 297, 'poor', 'travel', '熬夜赶作业+直接去都柏林'],
-            ['2026-02-28', '23:11', '7:53', 522, 0, 0, 645, 645, 'fair', 'normal', ''],
-            ['2026-03-01', '0:59', '7:09', 370, 0, 0, 370, 370, 'fair', 'normal', ''],
-            ['2026-03-02', '23:43', '7:47', 484, 0, 0, 484, 484, 'fair', 'normal', ''],
-            ['2026-03-03', '1:03', '7:51', 408, 0, 0, 604, 604, 'fair', 'normal', ''],
-            ['2026-03-04', '0:34', '7:52', 438, 0, 0, 438, 438, 'fair', 'normal', ''],
-            ['2026-03-05', '0:18', '8:18', 480, 0, 0, 679, 679, 'fair', 'normal', ''],
-            ['2026-03-06', '1:49', '8:31', 402, 0, 0, 402, 402, 'fair', 'normal', ''],
-            ['2026-03-07', '0:26', '6:36', 370, 0, 0, 370, 370, 'fair', 'normal', ''],
-            ['2026-03-08', '3:27', '11:19', 472, 0, 0, 472, 472, 'fair', 'normal', ''],
-            ['2026-03-09', '0:48', '9:25', 507, 1, 10, 507, 507, 'fair', 'normal', ''],
-            ['2026-03-10', '1:11', '10:01', 530, 0, 0, 530, 530, 'fair', 'normal', ''],
-            ['2026-03-11', '0:50', '8:10', 439, 1, 1, 439, 439, 'fair', 'normal', ''],
-            ['2026-03-12', '0:17', '9:09', 532, 0, 0, 636, 636, 'fair', 'normal', ''],
-            ['2026-03-13', '0:38', '11:04', 591, 2, 35, 591, 591, 'fair', 'normal', ''],
-            ['2026-03-14', '1:13', '6:50', 337, 0, 0, 440, 440, 'fair', 'normal', ''],
-            ['2026-03-15', '1:00', '10:59', 598, 1, 1, 598, 598, 'fair', 'normal', ''],
-            ['2026-03-16', '2:18', '9:13', 415, 0, 0, 415, 415, 'fair', 'normal', ''],
-            ['2026-03-17', '2:47', '8:09', 322, 0, 0, 322, 322, 'fair', 'normal', "St Patrick's Day"],
-            ['2026-03-18', '0:41', '3:31', 170, 0, 0, 275, 275, 'poor', 'travel', '去办美签'],
-            ['2026-03-19', '1:12', '9:56', 524, 0, 0, 524, 524, 'fair', 'normal', ''],
-            ['2026-03-20', '1:10', '10:47', 577, 0, 0, 577, 577, 'fair', 'normal', ''],
-            ['2026-03-21', '1:12', '7:58', 406, 0, 0, 644, 644, 'fair', 'normal', ''],
-            ['2026-03-22', '1:10', '5:50', 279, 1, 1, 279, 279, 'fair', 'normal', ''],
-            ['2026-03-23', '1:07', '7:57', 409, 1, 1, 409, 409, 'fair', 'normal', ''],
-            ['2026-03-24', '23:42', '6:08', 386, 0, 0, 519, 519, 'fair', 'normal', ''],
-            ['2026-03-25', '3:12', '9:44', 392, 0, 0, 392, 392, 'fair', 'normal', ''],
-            ['2026-03-26', '1:09', '8:23', 434, 0, 0, 434, 434, 'fair', 'normal', ''],
-            ['2026-03-27', '1:36', '9:06', 450, 0, 0, 450, 450, 'fair', 'normal', ''],
-            ['2026-03-28', '1:22', '6:45', 323, 0, 0, 323, 323, 'fair', 'normal', ''],
-            ['2026-03-29', '2:48', '11:33', 525, 0, 0, 525, 525, 'fair', 'normal', ''],
-            ['2026-03-30', '3:32', '9:41', 369, 0, 0, 485, 485, 'fair', 'normal', ''],
-            ['2026-03-31', '3:44', '10:47', 423, 0, 0, 509, 509, 'fair', 'normal', ''],
-            ['2026-04-01', '21:20', '12:29', 839, 3, 70, 839, 839, 'poor', 'normal', ''],
-            ['2026-04-02', '2:59', '10:26', 447, 0, 0, 447, 447, 'fair', 'normal', ''],
-            ['2026-04-03', '3:41', '12:00', 499, 0, 0, 608, 608, 'fair', 'normal', ''],
-            ['2026-04-04', '2:38', '8:59', 381, 0, 0, 618, 618, 'fair', 'normal', ''],
-            ['2026-04-05', '2:36', '10:33', 476, 1, 1, 476, 476, 'fair', 'normal', ''],
-            ['2026-04-06', '4:30', '11:01', 391, 0, 0, 391, 391, 'fair', 'normal', ''],
-            ['2026-04-07', '3:05', '11:52', 527, 0, 0, 625, 625, 'fair', 'normal', ''],
-            ['2026-04-08', '2:50', '11:13', 484, 1, 19, 484, 484, 'fair', 'normal', ''],
-            ['2026-04-09', '3:49', '11:37', 468, 0, 0, 468, 468, 'fair', 'normal', ''],
-            ['2026-04-10', '3:48', '11:05', 436, 1, 1, 436, 436, 'fair', 'normal', ''],
-            ['2026-04-11', '2:48', '8:36', 348, 0, 0, 348, 348, 'fair', 'normal', ''],
-            ['2026-04-12', '1:55', '8:06', 371, 0, 0, 543, 543, 'fair', 'normal', ''],
-            ['2026-04-13', '2:15', '4:42', 147, 0, 0, 293, 293, 'poor', 'travel', '飞巴塞罗那'],
-            ['2026-04-14', '1:25', '9:56', 510, 1, 1, 510, 510, 'fair', 'travel', ''],
-            ['2026-04-15', '0:57', '5:40', 283, 0, 0, 283, 283, 'fair', 'travel', '看日出'],
-            ['2026-04-16', '1:09', '8:15', 426, 0, 0, 426, 426, 'good', 'travel', ''],
-            ['2026-04-17', '1:34', '8:12', 397, 1, 1, 397, 397, 'fair', 'travel', ''],
-            ['2026-04-18', '1:18', '7:40', 382, 0, 0, 473, 473, 'fair', 'travel', ''],
-            ['2026-04-19', '19:14', '7:08', 683, 3, 31, 683, 683, 'fair', 'normal', ''],
-            ['2026-04-20', '23:23', '8:40', 557, 0, 0, 595, 595, 'fair', 'normal', '']
-        ];
+</div>
 
-        var stepMins = 15; 
+<script>
+    // 1. 统一原始数据
+    var rawData = [
+        ['2026-01-10', '1:26', '8:58', 452, 0, 0, 41, 493, 'fair', 'normal', ''],
+        ['2026-01-11', '23:50', '7:52', 482, 0, 0, 0, 482, 'fair', 'normal', ''],
+        ['2026-01-12', '1:05', '8:40', 455, 0, 0, 0, 455, 'fair', 'normal', ''],
+        ['2026-01-13', '0:17', '8:39', 502, 0, 0, 0, 502, 'fair', 'normal', ''],
+        ['2026-01-14', '2:24', '8:00', 336, 0, 0, 0, 336, 'poor', 'normal', ''],
+        ['2026-01-15', '0:43', '6:52', 369, 0, 0, 60, 429, 'fair', 'normal', ''],
+        ['2026-01-16', '0:34', '11:25', 573, 2, 78, 0, 573, 'fair', 'normal', ''],
+        ['2026-01-17', '0:40', '7:42', 422, 0, 0, 170, 592, 'good', 'normal', ''],
+        ['2026-01-18', '0:02', '8:53', 531, 0, 0, 29, 560, 'fair', 'normal', ''],
+        ['2026-01-19', '1:01', '9:44', 521, 1, 2, 0, 521, 'fair', 'normal', ''],
+        ['2026-01-20', '1:07', '9:02', 475, 0, 0, 33, 508, 'fair', 'normal', ''],
+        ['2026-01-21', '0:38', '10:01', 563, 0, 0, 0, 563, 'fair', 'normal', ''],
+        ['2026-01-22', '0:26', '9:16', 530, 0, 0, 0, 530, 'good', 'normal', ''],
+        ['2026-01-23', '23:50', '8:03', 493, 0, 0, 0, 493, 'fair', 'normal', ''],
+        ['2026-01-24', '1:18', '7:29', 371, 0, 0, 70, 441, 'fair', 'normal', ''],
+        ['2026-01-25', '1:11', '4:45', 148, 3, 66, 82, 230, 'poor', 'travel', '睡机场了'],
+        ['2026-01-26', '1:13', '6:35', 321, 1, 1, 0, 321, 'fair', 'travel', ''],
+        ['2026-01-27', '1:49', '7:11', 322, 0, 0, 25, 347, 'fair', 'travel', ''],
+        ['2026-01-28', '1:40', '4:15', 116, 2, 39, 139, 255, 'poor', 'travel', '夜巴'],
+        ['2026-01-29', '0:02', '7:26', 444, 0, 0, 0, 444, 'fair', 'travel', ''],
+        ['2026-01-30', '1:12', '7:20', 368, 0, 0, 0, 368, 'fair', 'travel', ''],
+        ['2026-01-31', '0:18', '9:10', 532, 0, 0, 90, 622, 'fair', 'travel', ''],
+        ['2026-02-01', '1:35', '3:15', 100, 0, 0, 117, 217, 'poor', 'travel', '又睡机场了'],
+        ['2026-02-02', '23:17', '9:54', 593, 2, 44, 298, 891, 'poor', 'normal', '生病补觉'],
+        ['2026-02-03', '1:11', '9:13', 482, 0, 0, 482, 482, 'fair', 'normal', ''],
+        ['2026-02-04', '1:15', '8:12', 416, 1, 1, 572, 572, 'fair', 'normal', ''],
+        ['2026-02-05', '1:39', '8:05', 386, 0, 0, 386, 386, 'fair', 'normal', ''],
+        ['2026-02-06', '1:47', '6:41', 294, 0, 0, 294, 294, 'fair', 'travel', '飞巴黎'],
+        ['2026-02-07', '23:16', '8:24', 548, 0, 0, 548, 548, 'fair', 'travel', '蒙马特'],
+        ['2026-02-08', '0:06', '7:33', 447, 0, 0, 447, 447, 'fair', 'travel', '凡尔赛'],
+        ['2026-02-09', '23:10', '7:39', 507, 2, 2, 531, 531, 'fair', 'travel', '卢浮宫'],
+        ['2026-02-10', '0:36', '7:29', 413, 0, 0, 413, 413, 'fair', 'travel', '奥塞'],
+        ['2026-02-11', '0:11', '6:15', 364, 0, 0, 364, 364, 'fair', 'travel', '迪士尼'],
+        ['2026-02-12', '0:30', '3:37', 187, 0, 0, 275, 275, 'poor', 'travel', '夜巴去德国'],
+        ['2026-02-13', '23:42', '7:08', 446, 0, 0, 446, 446, 'fair', 'travel', '卢森堡'],
+        ['2026-02-14', '0:01', '10:14', 597, 1, 16, 597, 597, 'good', 'travel', '晚上飞机'],
+        ['2026-02-15', '3:01', '5:14', 133, 0, 0, 350, 350, 'poor', 'travel', '又睡机场了'],
+        ['2026-02-16', '20:36', '5:43', 547, 0, 0, 547, 547, 'fair', 'normal', ''],
+        ['2026-02-17', '23:54', '6:43', 409, 0, 0, 409, 409, 'fair', 'normal', ''],
+        ['2026-02-18', '0:36', '6:43', 367, 0, 0, 480, 480, 'fair', 'normal', ''],
+        ['2026-02-19', '23:40', '7:29', 469, 0, 0, 469, 469, 'fair', 'normal', ''],
+        ['2026-02-20', '1:34', '6:26', 292, 0, 0, 292, 292, 'poor', 'normal', '去galway了'],
+        ['2026-02-21', '0:37', '6:43', 366, 0, 0, 366, 366, 'fair', 'normal', ''],
+        ['2026-02-22', '23:44', '7:14', 450, 0, 0, 450, 450, 'fair', 'normal', ''],
+        ['2026-02-23', '22:53', '7:16', 502, 1, 1, 502, 502, 'fair', 'normal', ''],
+        ['2026-02-25', '23:02', '7:09', 430, 1, 57, 456, 456, 'fair', 'normal', ''],
+        ['2026-02-26', '2:34', '7:26', 292, 0, 0, 292, 292, 'poor', 'normal', ''],
+        ['2026-02-27', '5:37', '7:43', 126, 0, 0, 297, 297, 'poor', 'travel', '熬夜赶作业+直接去都柏林'],
+        ['2026-02-28', '23:11', '7:53', 522, 0, 0, 645, 645, 'fair', 'normal', ''],
+        ['2026-03-01', '0:59', '7:09', 370, 0, 0, 370, 370, 'fair', 'normal', ''],
+        ['2026-03-02', '23:43', '7:47', 484, 0, 0, 484, 484, 'fair', 'normal', ''],
+        ['2026-03-03', '1:03', '7:51', 408, 0, 0, 604, 604, 'fair', 'normal', ''],
+        ['2026-03-04', '0:34', '7:52', 438, 0, 0, 438, 438, 'fair', 'normal', ''],
+        ['2026-03-05', '0:18', '8:18', 480, 0, 0, 679, 679, 'fair', 'normal', ''],
+        ['2026-03-06', '1:49', '8:31', 402, 0, 0, 402, 402, 'fair', 'normal', ''],
+        ['2026-03-07', '0:26', '6:36', 370, 0, 0, 370, 370, 'fair', 'normal', ''],
+        ['2026-03-08', '3:27', '11:19', 472, 0, 0, 472, 472, 'fair', 'normal', ''],
+        ['2026-03-09', '0:48', '9:25', 507, 1, 10, 507, 507, 'fair', 'normal', ''],
+        ['2026-03-10', '1:11', '10:01', 530, 0, 0, 530, 530, 'fair', 'normal', ''],
+        ['2026-03-11', '0:50', '8:10', 439, 1, 1, 439, 439, 'fair', 'normal', ''],
+        ['2026-03-12', '0:17', '9:09', 532, 0, 0, 636, 636, 'fair', 'normal', ''],
+        ['2026-03-13', '0:38', '11:04', 591, 2, 35, 591, 591, 'fair', 'normal', ''],
+        ['2026-03-14', '1:13', '6:50', 337, 0, 0, 440, 440, 'fair', 'normal', ''],
+        ['2026-03-15', '1:00', '10:59', 598, 1, 1, 598, 598, 'fair', 'normal', ''],
+        ['2026-03-16', '2:18', '9:13', 415, 0, 0, 415, 415, 'fair', 'normal', ''],
+        ['2026-03-17', '2:47', '8:09', 322, 0, 0, 322, 322, 'fair', 'normal', "St Patrick's Day"],
+        ['2026-03-18', '0:41', '3:31', 170, 0, 0, 275, 275, 'poor', 'travel', '去办美签'],
+        ['2026-03-19', '1:12', '9:56', 524, 0, 0, 524, 524, 'fair', 'normal', ''],
+        ['2026-03-20', '1:10', '10:47', 577, 0, 0, 577, 577, 'fair', 'normal', ''],
+        ['2026-03-21', '1:12', '7:58', 406, 0, 0, 644, 644, 'fair', 'normal', ''],
+        ['2026-03-22', '1:10', '5:50', 279, 1, 1, 279, 279, 'fair', 'normal', ''],
+        ['2026-03-23', '1:07', '7:57', 409, 1, 1, 409, 409, 'fair', 'normal', ''],
+        ['2026-03-24', '23:42', '6:08', 386, 0, 0, 519, 519, 'fair', 'normal', ''],
+        ['2026-03-25', '3:12', '9:44', 392, 0, 0, 392, 392, 'fair', 'normal', ''],
+        ['2026-03-26', '1:09', '8:23', 434, 0, 0, 434, 434, 'fair', 'normal', ''],
+        ['2026-03-27', '1:36', '9:06', 450, 0, 0, 450, 450, 'fair', 'normal', ''],
+        ['2026-03-28', '1:22', '6:45', 323, 0, 0, 323, 323, 'fair', 'normal', ''],
+        ['2026-03-29', '2:48', '11:33', 525, 0, 0, 525, 525, 'fair', 'normal', ''],
+        ['2026-03-30', '3:32', '9:41', 369, 0, 0, 485, 485, 'fair', 'normal', ''],
+        ['2026-03-31', '3:44', '10:47', 423, 0, 0, 509, 509, 'fair', 'normal', ''],
+        ['2026-04-01', '21:20', '12:29', 839, 3, 70, 839, 839, 'poor', 'normal', ''],
+        ['2026-04-02', '2:59', '10:26', 447, 0, 0, 447, 447, 'fair', 'normal', ''],
+        ['2026-04-03', '3:41', '12:00', 499, 0, 0, 608, 608, 'fair', 'normal', ''],
+        ['2026-04-04', '2:38', '8:59', 381, 0, 0, 618, 618, 'fair', 'normal', ''],
+        ['2026-04-05', '2:36', '10:33', 476, 1, 1, 476, 476, 'fair', 'normal', ''],
+        ['2026-04-06', '4:30', '11:01', 391, 0, 0, 391, 391, 'fair', 'normal', ''],
+        ['2026-04-07', '3:05', '11:52', 527, 0, 0, 625, 625, 'fair', 'normal', ''],
+        ['2026-04-08', '2:50', '11:13', 484, 1, 19, 484, 484, 'fair', 'normal', ''],
+        ['2026-04-09', '3:49', '11:37', 468, 0, 0, 468, 468, 'fair', 'normal', ''],
+        ['2026-04-10', '3:48', '11:05', 436, 1, 1, 436, 436, 'fair', 'normal', ''],
+        ['2026-04-11', '2:48', '8:36', 348, 0, 0, 348, 348, 'fair', 'normal', ''],
+        ['2026-04-12', '1:55', '8:06', 371, 0, 0, 543, 543, 'fair', 'normal', ''],
+        ['2026-04-13', '2:15', '4:42', 147, 0, 0, 293, 293, 'poor', 'travel', '飞巴塞罗那'],
+        ['2026-04-14', '1:25', '9:56', 510, 1, 1, 510, 510, 'fair', 'travel', ''],
+        ['2026-04-15', '0:57', '5:40', 283, 0, 0, 283, 283, 'fair', 'travel', '看日出'],
+        ['2026-04-16', '1:09', '8:15', 426, 0, 0, 426, 426, 'good', 'travel', ''],
+        ['2026-04-17', '1:34', '8:12', 397, 1, 1, 397, 397, 'fair', 'travel', ''],
+        ['2026-04-18', '1:18', '7:40', 382, 0, 0, 473, 473, 'fair', 'travel', ''],
+        ['2026-04-19', '19:14', '7:08', 683, 3, 31, 683, 683, 'fair', 'normal', ''],
+        ['2026-04-20', '23:23', '8:40', 557, 0, 0, 595, 595, 'fair', 'normal', '']
+    ];
 
-        function generateCategories(startH, endH) {
-            let labels = [];
-            let bins = [];
-            for (let h = startH; h < endH; h++) {
-                for (let m = 0; m < 60; m += stepMins) {
-                    let displayH = h >= 24 ? h - 24 : h;
-                    let label = String(displayH).padStart(2, '0') + ':' + String(m).padStart(2, '0');
-                    labels.push(label);
-                    bins.push(h + m/60); 
-                }
-            }
-            return { labels, bins };
+    // --- 图表1：时间轴逻辑 ---
+    function parseTime(timeStr, isNextDay) {
+        var parts = timeStr.split(':');
+        var hours = parseInt(parts[0]);
+        var minutes = parseInt(parts[1]);
+        var date = new Date(2026, 0, 1, hours, minutes);
+        if (isNextDay) date.setDate(date.getDate() + 1);
+        return date.getTime();
+    }
+
+    var yData = [];
+    var seriesData = [];
+
+    rawData.forEach(function (item, index) {
+        var date = item[0];
+        var sleepStr = item[1];
+        var wakeStr = item[2];
+        yData.push(date);
+        var sleepH = parseInt(sleepStr.split(':')[0]);
+        var sleepTime, wakeTime;
+        if (sleepH >= 18) {
+            sleepTime = parseTime(sleepStr, false);
+            wakeTime = parseTime(wakeStr, true);
+        } else {
+            sleepTime = parseTime(sleepStr, true);
+            wakeTime = parseTime(wakeStr, true);
         }
-
-        function processDensityData(dataIndex, startH, endH) {
-            let catData = generateCategories(startH, endH);
-            let homeCounts = new Array(catData.labels.length).fill(0);
-            let travelCounts = new Array(catData.labels.length).fill(0);
-            
-            let totalHome = 0;
-            let totalTravel = 0;
-
-            rawData.forEach(item => {
-                let timeStr = item[dataIndex]; 
-                let isTravel = item[9] === 'travel';
-                let parts = timeStr.split(':');
-                let h = parseInt(parts[0]);
-                let m = parseInt(parts[1]);
-                let decimalTime = h + m/60;
-
-                if (dataIndex === 1 && decimalTime < 12) { decimalTime += 24; } 
-
-                let minDiff = Infinity;
-                let closestIdx = -1;
-                for(let i=0; i<catData.bins.length; i++) {
-                    let diff = Math.abs(catData.bins[i] - decimalTime);
-                    if(diff < minDiff) {
-                        minDiff = diff;
-                        closestIdx = i;
-                    }
-                }
-
-                if(closestIdx !== -1) {
-                    if(isTravel) { travelCounts[closestIdx]++; totalTravel++; }
-                    else { homeCounts[closestIdx]++; totalHome++; }
-                }
-            });
-
-            // ★ 计算百分比
-            let homePerc = homeCounts.map(count => totalHome > 0 ? (count / totalHome * 100).toFixed(2) : 0);
-            let travelPerc = travelCounts.map(count => totalTravel > 0 ? (count / totalTravel * 100).toFixed(2) : 0);
-
-            return {
-                labels: catData.labels,
-                home: homePerc,
-                travel: travelPerc,
-                homeCount: homeCounts,     // 保留原始数量用于Tooltip显示
-                travelCount: travelCounts
-            };
-        }
-
-        let sleepData = processDensityData(1, 18, 30);
-        let wakeData = processDensityData(2, 3, 15);
-
-        function initPolarChart(domId, dataObj, colorHome, colorTravel, startAngleDeg) {
-            var chart = echarts.init(document.getElementById(domId));
-            
-            var option = {
-                polar: {
-                    radius: ['15%', '85%']
-                },
-                angleAxis: {
-                    type: 'category',
-                    data: dataObj.labels,
-                    startAngle: startAngleDeg,
-                    clockwise: true,
-                    axisLabel: { interval: 3, color: '#9a8c98' },
-                    splitLine: { show: true, lineStyle: { color: '#eee', type: 'dashed' } }
-                },
-                radiusAxis: {
-                    type: 'value',
-                    min: 0,
-                    max: 'dataMax', // 或者设置为固定的较大百分比，如 50，方便两图对比
-                    // 强制两张图的比例尺一致，我们找到两张图中的最大百分比作为统一上限
-                    show: false 
-                },
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: { type: 'shadow' },
-                    formatter: function(params) {
-                        let idx = params[0].dataIndex;
-                        let time = params[0].name;
-                        let res = `<b>${time}</b><br/>`;
-                        params.forEach(p => {
-                            let val = p.value;
-                            let count = p.seriesName === 'Home' ? dataObj.homeCount[idx] : dataObj.travelCount[idx];
-                            if(val > 0) res += `${p.marker} ${p.seriesName}: <b>${val}%</b> (${count} days)<br/>`;
-                        });
-                        return res;
-                    }
-                },
-                series: [
-                    {
-                        name: 'Home',
-                        type: 'bar',
-                        coordinateSystem: 'polar',
-                        data: dataObj.home,
-                        itemStyle: { color: colorHome, borderRadius: [2, 2, 0, 0] }
-                    },
-                    {
-                        name: 'Travel',
-                        type: 'bar',
-                        coordinateSystem: 'polar',
-                        barGap: '-100%', 
-                        data: dataObj.travel,
-                        itemStyle: { color: colorTravel, borderRadius: [2, 2, 0, 0] } 
-                    }
-                ]
-            };
-            chart.setOption(option);
-            return chart;
-        }
-
-        var colorHome = 'rgba(189, 224, 254, 0.75)';
-        var colorTravel = 'rgba(255, 175, 204, 0.75)';
-
-        // 初始化图表
-        var sleepChart = initPolarChart('sleepChart', sleepData, colorHome, colorTravel, -90);
-        var wakeChart = initPolarChart('wakeChart', wakeData, colorHome, colorTravel, 0);
-
-        // ★ 确保两张图的半径比例尺（百分比长度）绝对一致
-        // 我们获取两张图中所有百分比的最大值，并同步给两个图表
-        let maxVal = Math.max(
-            ...sleepData.home, ...sleepData.travel, 
-            ...wakeData.home, ...wakeData.travel
-        );
-        // 向上取整到 5 的倍数
-        let uniformMax = Math.ceil(maxVal / 5) * 5;
-
-        sleepChart.setOption({ radiusAxis: { max: uniformMax } });
-        wakeChart.setOption({ radiusAxis: { max: uniformMax } });
-
-        window.addEventListener('resize', function() {
-            sleepChart.resize();
-            wakeChart.resize();
+        seriesData.push({
+            name: date,
+            value: [index, sleepTime, wakeTime, item[3], item[6], item[9], item[10]],
+            itemStyle: { color: item[9] === 'travel' ? '#ffafcc' : '#bde0fe' }
         });
-    </script>
+    });
+
+    var mainChart = echarts.init(document.getElementById('mainChart'));
+    mainChart.setOption({
+        xAxis: {
+            type: 'time', position: 'top',
+            axisLabel: { formatter: '{HH}:{mm}' },
+            min: parseTime('18:00', false), max: parseTime('14:00', true),
+            splitLine: { show: true }
+        },
+        yAxis: { type: 'category', data: yData, inverse: true },
+        tooltip: {
+            formatter: function (params) {
+                let dSleep = new Date(params.value[1]);
+                let dWake = new Date(params.value[2]);
+                return `<b>${params.name}</b><br/>Fall asleep: ${dSleep.getHours()}:${String(dSleep.getMinutes()).padStart(2,'0')}<br/>Wake up: ${dWake.getHours()}:${String(dWake.getMinutes()).padStart(2,'0')}`;
+            }
+        },
+        series: [{
+            type: 'custom',
+            renderItem: function (params, api) {
+                var categoryIndex = api.value(0);
+                var start = api.coord([api.value(1), categoryIndex]);
+                var end = api.coord([api.value(2), categoryIndex]);
+                var height = api.size([0, 1])[1] * 0.6;
+                return {
+                    type: 'rect',
+                    shape: { x: start[0], y: start[1] - height/2, width: end[0] - start[0], height: height },
+                    style: api.style()
+                };
+            },
+            markArea: {
+                silent: true, itemStyle: { color: 'rgba(150, 150, 150, 0.08)' },
+                data: [[{ xAxis: parseTime('23:00', false) }, { xAxis: parseTime('07:00', true) }]]
+            },
+            data: seriesData
+        }]
+    });
+
+    // --- 图表2：密度图逻辑 ---
+    var stepMins = 15; 
+    function generateCategories(startH, endH) {
+        let labels = [], bins = [];
+        for (let h = startH; h < endH; h++) {
+            for (let m = 0; m < 60; m += stepMins) {
+                let displayH = h >= 24 ? h - 24 : h;
+                labels.push(String(displayH).padStart(2, '0') + ':' + String(m).padStart(2, '0'));
+                bins.push(h + m/60); 
+            }
+        }
+        return { labels, bins };
+    }
+
+    function processDensityData(dataIndex, startH, endH) {
+        let catData = generateCategories(startH, endH);
+        let homeCounts = new Array(catData.labels.length).fill(0), travelCounts = new Array(catData.labels.length).fill(0);
+        let totalHome = 0, totalTravel = 0;
+
+        rawData.forEach(item => {
+            let parts = item[dataIndex].split(':'), h = parseInt(parts[0]), m = parseInt(parts[1]);
+            let decimalTime = h + m/60;
+            if (dataIndex === 1 && decimalTime < 12) decimalTime += 24; 
+            
+            let minDiff = Infinity, closestIdx = -1;
+            for(let i=0; i<catData.bins.length; i++) {
+                let diff = Math.abs(catData.bins[i] - decimalTime);
+                if(diff < minDiff) { minDiff = diff; closestIdx = i; }
+            }
+            if(closestIdx !== -1) {
+                if(item[9] === 'travel') { travelCounts[closestIdx]++; totalTravel++; }
+                else { homeCounts[closestIdx]++; totalHome++; }
+            }
+        });
+        return {
+            labels: catData.labels,
+            home: homeCounts.map(c => totalHome > 0 ? (c/totalHome*100).toFixed(2) : 0),
+            travel: travelCounts.map(c => totalTravel > 0 ? (c/totalTravel*100).toFixed(2) : 0),
+            homeCount: homeCounts, travelCount: travelCounts
+        };
+    }
+
+    function initPolarChart(domId, dataObj, colorHome, colorTravel, startAngleDeg) {
+        var chart = echarts.init(document.getElementById(domId));
+        chart.setOption({
+            polar: { radius: ['15%', '85%'] },
+            angleAxis: {
+                type: 'category', data: dataObj.labels, startAngle: startAngleDeg, clockwise: true,
+                axisLabel: { interval: 3, color: '#9a8c98' },
+                splitLine: { show: true, lineStyle: { color: '#eee', type: 'dashed' } }
+            },
+            radiusAxis: { type: 'value', show: false },
+            tooltip: {
+                trigger: 'axis', axisPointer: { type: 'shadow' },
+                formatter: function(params) {
+                    let idx = params[0].dataIndex, res = `<b>${params[0].name}</b><br/>`;
+                    params.forEach(p => {
+                        let count = p.seriesName === 'Home' ? dataObj.homeCount[idx] : dataObj.travelCount[idx];
+                        if(p.value > 0) res += `${p.marker} ${p.seriesName}: <b>${p.value}%</b> (${count} days)<br/>`;
+                    });
+                    return res;
+                }
+            },
+            series: [
+                { name: 'Home', type: 'bar', coordinateSystem: 'polar', data: dataObj.home, itemStyle: { color: colorHome, borderRadius: [2, 2, 0, 0] } },
+                { name: 'Travel', type: 'bar', coordinateSystem: 'polar', barGap: '-100%', data: dataObj.travel, itemStyle: { color: colorTravel, borderRadius: [2, 2, 0, 0] } }
+            ]
+        });
+    }
+
+    initPolarChart('sleepChart', processDensityData(1, 18, 30), 'rgba(189, 224, 254, 0.75)', 'rgba(255, 175, 204, 0.75)', 90);
+    initPolarChart('wakeChart', processDensityData(2, 3, 15), 'rgba(189, 224, 254, 0.75)', 'rgba(255, 175, 204, 0.75)', 90);
+
+    // 响应式支持
+    window.onresize = function() {
+        mainChart.resize();
+        echarts.getInstanceByDom(document.getElementById('sleepChart')).resize();
+        echarts.getInstanceByDom(document.getElementById('wakeChart')).resize();
+    };
+</script>
+
 </body>
 </html>
