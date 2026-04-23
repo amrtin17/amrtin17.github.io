@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Sleep Pattern Density</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <style>
+        body { 
+            background-color: #f8f4f9; 
+            font-family: 'Inter', -apple-system, sans-serif; 
+            margin: 0; 
+            padding: 40px; 
+            color: #4a4e69;
+        }
+        .header { text-align: center; margin-bottom: 30px; }
+        h1 { color: #cdb4db; font-size: 2rem; margin-bottom: 10px; }
+        
+        .legend { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; font-size: 14px; }
+        .legend-item { display: flex; align-items: center; gap: 8px; }
+        .dot { width: 12px; height: 12px; border-radius: 3px; }
+        .dot.home { background: #bde0fe; }
+        .dot.travel { background: #ffafcc; }
+
+        /* 两张图并排布局 */
+        .charts-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .chart-box {
+            flex: 1;
+            min-width: 500px;
+            height: 600px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(154, 140, 152, 0.1);
+            padding: 20px;
+            position: relative;
+        }
+
+        .chart-title {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #9a8c98;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>🌙 Sleep & Wake Density (Polar View)</h1>
+        <div class="legend">
+            <div class="legend-item"><div class="dot home"></div><span>Home (Inner Ring)</span></div>
+            <div class="legend-item"><div class="dot travel"></div><span>Travel (Outer Ring)</span></div>
+        </div>
+    </div>
+
+    <div class="charts-container">
+        <div class="chart-box">
+            <div class="chart-title">Fall Asleep Time (18:00 - 06:00)</div>
+            <div id="sleepChart" style="width: 100%; height: 100%;"></div>
+        </div>
+        <div class="chart-box">
+            <div class="chart-title">Wake Up Time (03:00 - 15:00)</div>
+            <div id="wakeChart" style="width: 100%; height: 100%;"></div>
+        </div>
+    </div>
+
+    <script>
+        // 原始数据
+        var rawData = [
+            ['2026-01-10', '1:26', '8:58', 452, 0, 0, 41, 493, 'fair', 'normal', ''],
+            ['2026-01-11', '23:50', '7:52', 482, 0, 0, 0, 482, 'fair', 'normal', ''],
+            ['2026-01-12', '1:05', '8:40', 455, 0, 0, 0, 455, 'fair', 'normal', ''],
+            ['2026-01-13', '0:17', '8:39', 502, 0, 0, 0, 502, 'fair', 'normal', ''],
+            ['2026-01-14', '2:24', '8:00', 336, 0, 0, 0, 336, 'poor', 'normal', ''],
+            ['2026-01-15', '0:43', '6:52', 369, 0, 0, 60, 429, 'fair', 'normal', ''],
+            ['2026-01-16', '0:34', '11:25', 573, 2, 78, 0, 573, 'fair', 'normal', ''],
+            ['2026-01-17', '0:40', '7:42', 422, 0, 0, 170, 592, 'good', 'normal', ''],
+            ['2026-01-18', '0:02', '8:53', 531, 0, 0, 29, 560, 'fair', 'normal', ''],
+            ['2026-01-19', '1:01', '9:44', 521, 1, 2, 0, 521, 'fair', 'normal', ''],
+            ['2026-01-20', '1:07', '9:02', 475, 0, 0, 33, 508, 'fair', 'normal', ''],
+            ['2026-01-21', '0:38', '10:01', 563, 0, 0, 0, 563, 'fair', 'normal', ''],
+            ['2026-01-22', '0:26', '9:16', 530, 0, 0, 0, 530, 'good', 'normal', ''],
+            ['2026-01-23', '23:50', '8:03', 493, 0, 0, 0, 493, 'fair', 'normal', ''],
+            ['2026-01-24', '1:18', '7:29', 371, 0, 0, 70, 441, 'fair', 'normal', ''],
+            ['2026-01-25', '1:11', '4:45', 148, 3, 66, 82, 230, 'poor', 'travel', '睡机场了'],
+            ['2026-01-26', '1:13', '6:35', 321, 1, 1, 0, 321, 'fair', 'travel', ''],
+            ['2026-01-27', '1:49', '7:11', 322, 0, 0, 25, 347, 'fair', 'travel', ''],
+            ['2026-01-28', '1:40', '4:15', 116, 2, 39, 139, 255, 'poor', 'travel', '夜巴'],
+            ['2026-01-29', '0:02', '7:26', 444, 0, 0, 0, 444, 'fair', 'travel', ''],
+            ['2026-01-30', '1:12', '7:20', 368, 0, 0, 0, 368, 'fair', 'travel', ''],
+            ['2026-01-31', '0:18', '9:10', 532, 0, 0, 90, 622, 'fair', 'travel', ''],
+            ['2026-02-01', '1:35', '3:15', 100, 0, 0, 117, 217, 'poor', 'travel', '又睡机场了'],
+            ['2026-02-02', '23:17', '9:54', 593, 2, 44, 298, 891, 'poor', 'normal', '生病补觉'],
+            ['2026-02-03', '1:11', '9:13', 482, 0, 0, 482, 482, 'fair', 'normal', ''],
+            ['2026-02-04', '1:15', '8:12', 416, 1, 1, 572, 572, 'fair', 'normal', ''],
+            ['2026-02-05', '1:39', '8:05', 386, 0, 0, 386, 386, 'fair', 'normal', ''],
+            ['2026-02-06', '1:47', '6:41', 294, 0, 0, 294, 294, 'fair', 'travel', '飞巴黎'],
+            ['2026-02-07', '23:16', '8:24', 548, 0, 0, 548, 548, 'fair', 'travel', '蒙马特'],
+            ['2026-02-08', '0:06', '7:33', 447, 0, 0, 447, 447, 'fair', 'travel', '凡尔赛'],
+            ['2026-02-09', '23:10', '7:39', 507, 2, 2, 531, 531, 'fair', 'travel', '卢浮宫'],
+            ['2026-02-10', '0:36', '7:29', 413, 0, 0, 413, 413, 'fair', 'travel', '奥塞'],
+            ['2026-02-11', '0:11', '6:15', 364, 0, 0, 364, 364, 'fair', 'travel', '迪士尼'],
+            ['2026-02-12', '0:30', '3:37', 187, 0, 0, 275, 275, 'poor', 'travel', '夜巴去德国'],
+            ['2026-02-13', '23:42', '7:08', 446, 0, 0, 446, 446, 'fair', 'travel', '卢森堡'],
+            ['2026-02-14', '0:01', '10:14', 597, 1, 16, 597, 597, 'good', 'travel', '晚上飞机'],
+            ['2026-02-15', '3:01', '5:14', 133, 0, 0, 350, 350, 'poor', 'travel', '又睡机场了'],
+            ['2026-02-16', '20:36', '5:43', 547, 0, 0, 547, 547, 'fair', 'normal', ''],
+            ['2026-02-17', '23:54', '6:43', 409, 0, 0, 409, 409, 'fair', 'normal', ''],
+            ['2026-02-18', '0:36', '6:43', 367, 0, 0, 480, 480, 'fair', 'normal', ''],
+            ['2026-02-19', '23:40', '7:29', 469, 0, 0, 469, 469, 'fair', 'normal', ''],
+            ['2026-02-20', '1:34', '6:26', 292, 0, 0, 292, 292, 'poor', 'normal', '去galway了'],
+            ['2026-02-21', '0:37', '6:43', 366, 0, 0, 366, 366, 'fair', 'normal', ''],
+            ['2026-02-22', '23:44', '7:14', 450, 0, 0, 450, 450, 'fair', 'normal', ''],
+            ['2026-02-23', '22:53', '7:16', 502, 1, 1, 502, 502, 'fair', 'normal', ''],
+            ['2026-02-25', '23:02', '7:09', 430, 1, 57, 456, 456, 'fair', 'normal', ''],
+            ['2026-02-26', '2:34', '7:26', 292, 0, 0, 292, 292, 'poor', 'normal', ''],
+            ['2026-02-27', '5:37', '7:43', 126, 0, 0, 297, 297, 'poor', 'travel', '熬夜赶作业'],
+            ['2026-02-28', '23:11', '7:53', 522, 0, 0, 645, 645, 'fair', 'normal', ''],
+            ['2026-03-01', '0:59', '7:09', 370, 0, 0, 370, 370, 'fair', 'normal', ''],
+            ['2026-03-02', '23:43', '7:47', 484, 0, 0, 484, 484, 'fair', 'normal', ''],
+            ['2026-03-03', '1:03', '7:51', 408, 0, 0, 604, 604, 'fair', 'normal', ''],
+            ['2026-03-04', '0:34', '7:52', 438, 0, 0, 438, 438, 'fair', 'normal', ''],
+            ['2026-03-05', '0:18', '8:18', 480, 0, 0, 679, 679, 'fair', 'normal', ''],
+            ['2026-03-06', '1:49', '8:31', 402, 0, 0, 402, 402, 'fair', 'normal', ''],
+            ['2026-03-07', '0:26', '6:36', 370, 0, 0, 370, 370, 'fair', 'normal', ''],
+            ['2026-03-08', '3:27', '11:19', 472, 0, 0, 472, 472, 'fair', 'normal', ''],
+            ['2026-03-09', '0:48', '9:25', 507, 1, 10, 507, 507, 'fair', 'normal', ''],
+            ['2026-03-10', '1:11', '10:01', 530, 0, 0, 530, 530, 'fair', 'normal', ''],
+            ['2026-03-11', '0:50', '8:10', 439, 1, 1, 439, 439, 'fair', 'normal', ''],
+            ['2026-03-12', '0:17', '9:09', 532, 0, 0, 636, 636, 'fair', 'normal', ''],
+            ['2026-03-13', '0:38', '11:04', 591, 2, 35, 591, 591, 'fair', 'normal', ''],
+            ['2026-03-14', '1:13', '6:50', 337, 0, 0, 440, 440, 'fair', 'normal', ''],
+            ['2026-03-15', '1:00', '10:59', 598, 1, 1, 598, 598, 'fair', 'normal', ''],
+            ['2026-03-16', '2:18', '9:13', 415, 0, 0, 415, 415, 'fair', 'normal', ''],
+            ['2026-03-17', '2:47', '8:09', 322, 0, 0, 322, 322, 'fair', 'normal', "St Patrick"],
+            ['2026-03-18', '0:41', '3:31', 170, 0, 0, 275, 275, 'poor', 'travel', '去办美签'],
+            ['2026-03-19', '1:12', '9:56', 524, 0, 0, 524, 524, 'fair', 'normal', ''],
+            ['2026-03-20', '1:10', '10:47', 577, 0, 0, 577, 577, 'fair', 'normal', ''],
+            ['2026-03-21', '1:12', '7:58', 406, 0, 0, 644, 644, 'fair', 'normal', ''],
+            ['2026-03-22', '1:10', '5:50', 279, 1, 1, 279, 279, 'fair', 'normal', ''],
+            ['2026-03-23', '1:07', '7:57', 409, 1, 1, 409, 409, 'fair', 'normal', ''],
+            ['2026-03-24', '23:42', '6:08', 386, 0, 0, 519, 519, 'fair', 'normal', ''],
+            ['2026-03-25', '3:12', '9:44', 392, 0, 0, 392, 392, 'fair', 'normal', ''],
+            ['2026-03-26', '1:09', '8:23', 434, 0, 0, 434, 434, 'fair', 'normal', ''],
+            ['2026-03-27', '1:36', '9:06', 450, 0, 0, 450, 450, 'fair', 'normal', ''],
+            ['2026-03-28', '1:22', '6:45', 323, 0, 0, 323, 323, 'fair', 'normal', ''],
+            ['2026-03-29', '2:48', '11:33', 525, 0, 0, 525, 525, 'fair', 'normal', ''],
+            ['2026-03-30', '3:32', '9:41', 369, 0, 0, 485, 485, 'fair', 'normal', ''],
+            ['2026-03-31', '3:44', '10:47', 423, 0, 0, 509, 509, 'fair', 'normal', ''],
+            ['2026-04-01', '21:20', '12:29', 839, 3, 70, 839, 839, 'poor', 'normal', ''],
+            ['2026-04-02', '2:59', '10:26', 447, 0, 0, 447, 447, 'fair', 'normal', ''],
+            ['2026-04-03', '3:41', '12:00', 499, 0, 0, 608, 608, 'fair', 'normal', ''],
+            ['2026-04-04', '2:38', '8:59', 381, 0, 0, 618, 618, 'fair', 'normal', ''],
+            ['2026-04-05', '2:36', '10:33', 476, 1, 1, 476, 476, 'fair', 'normal', ''],
+            ['2026-04-06', '4:30', '11:01', 391, 0, 0, 391, 391, 'fair', 'normal', ''],
+            ['2026-04-07', '3:05', '11:52', 527, 0, 0, 625, 625, 'fair', 'normal', ''],
+            ['2026-04-08', '2:50', '11:13', 484, 1, 19, 484, 484, 'fair', 'normal', ''],
+            ['2026-04-09', '3:49', '11:37', 468, 0, 0, 468, 468, 'fair', 'normal', ''],
+            ['2026-04-10', '3:48', '11:05', 436, 1, 1, 436, 436, 'fair', 'normal', ''],
+            ['2026-04-11', '2:48', '8:36', 348, 0, 0, 348, 348, 'fair', 'normal', ''],
+            ['2026-04-12', '1:55', '8:06', 371, 0, 0, 543, 543, 'fair', 'normal', ''],
+            ['2026-04-13', '2:15', '4:42', 147, 0, 0, 293, 293, 'poor', 'travel', '飞巴塞罗那'],
+            ['2026-04-14', '1:25', '9:56', 510, 1, 1, 510, 510, 'fair', 'travel', ''],
+            ['2026-04-15', '0:57', '5:40', 283, 0, 0, 283, 283, 'fair', 'travel', '看日出'],
+            ['2026-04-16', '1:09', '8:15', 426, 0, 0, 426, 426, 'good', 'travel', ''],
+            ['2026-04-17', '1:34', '8:12', 397, 1, 1, 397, 397, 'fair', 'travel', ''],
+            ['2026-04-18', '1:18', '7:40', 382, 0, 0, 473, 473, 'fair', 'travel', ''],
+            ['2026-04-19', '19:14', '7:08', 683, 3, 31, 683, 683, 'fair', 'normal', ''],
+            ['2026-04-20', '23:23', '8:40', 557, 0, 0, 595, 595, 'fair', 'normal', '']
+        ];
+
+        /* --- 核心：离散分桶算法 (Binning) --- */
+        // 每 15 分钟作为一个“桶” (格子)，保留刺的尖锐感
+        var stepMins = 15; 
+
+        // 辅助函数：生成时间刻度标签（比如 18:00, 18:15）
+        function generateCategories(startH, endH) {
+            let labels = [];
+            let bins = [];
+            for (let h = startH; h < endH; h++) {
+                for (let m = 0; m < 60; m += stepMins) {
+                    let displayH = h >= 24 ? h - 24 : h;
+                    let label = String(displayH).padStart(2, '0') + ':' + String(m).padStart(2, '0');
+                    labels.push(label);
+                    bins.push(h + m/60); // 存十进制用于比对
+                }
+            }
+            return { labels, bins };
+        }
+
+        // 把原始时间分配到最近的桶里
+        function processDensityData(dataIndex, startH, endH) {
+            let catData = generateCategories(startH, endH);
+            // 初始化计数器数组（与标签长度一致）
+            let homeCounts = new Array(catData.labels.length).fill(0);
+            let travelCounts = new Array(catData.labels.length).fill(0);
+
+            rawData.forEach(item => {
+                let timeStr = item[dataIndex]; // 1是入睡，2是醒来
+                let isTravel = item[9] === 'travel';
+                
+                let parts = timeStr.split(':');
+                let h = parseInt(parts[0]);
+                let m = parseInt(parts[1]);
+                let decimalTime = h + m/60;
+
+                // 跨天逻辑处理
+                if (dataIndex === 1 && decimalTime < 12) {
+                    decimalTime += 24; // 入睡时间：凌晨 0-6 点 -> 24-30
+                } 
+                // 注意：醒来时间 3-15 点本身就在连续区间内，不需要加24
+
+                // 找到最近的“桶”的索引
+                let minDiff = Infinity;
+                let closestIdx = -1;
+                for(let i=0; i<catData.bins.length; i++) {
+                    let diff = Math.abs(catData.bins[i] - decimalTime);
+                    if(diff < minDiff) {
+                        minDiff = diff;
+                        closestIdx = i;
+                    }
+                }
+
+                if(closestIdx !== -1) {
+                    if(isTravel) travelCounts[closestIdx]++;
+                    else homeCounts[closestIdx]++;
+                }
+            });
+
+            return {
+                labels: catData.labels,
+                home: homeCounts,
+                travel: travelCounts
+            };
+        }
+
+        /* --- 1. 准备入睡时间数据 (18:00 到 06:00 即 18 到 30) --- */
+        let sleepData = processDensityData(1, 18, 30);
+        
+        /* --- 2. 准备醒来时间数据 (03:00 到 15:00) --- */
+        let wakeData = processDensityData(2, 3, 15);
+
+        /* --- 通用配置图表函数 --- */
+        function initPolarChart(domId, dataObj, colorHome, colorTravel) {
+            var chart = echarts.init(document.getElementById(domId));
+            
+            var option = {
+                polar: {
+                    radius: ['15%', '85%'] // 中间留空，像钟表
+                },
+                angleAxis: {
+                    type: 'category',
+                    data: dataObj.labels,
+                    startAngle: 90, // 从 12 点钟方向开始
+                    clockwise: true,
+                    axisLabel: {
+                        interval: 3, // 每隔 1 小时显示一次标签 (4个15分钟)
+                        color: '#9a8c98'
+                    },
+                    splitLine: { show: true, lineStyle: { color: '#eee', type: 'dashed' } }
+                },
+                radiusAxis: {
+                    type: 'value',
+                    show: false // 隐藏雷达网同心圆数字，让视觉更干净
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: { type: 'shadow' },
+                    formatter: function(params) {
+                        let time = params[0].name;
+                        let res = `<b>${time}</b><br/>`;
+                        params.forEach(p => {
+                            if(p.value > 0) res += `${p.marker} ${p.seriesName}: ${p.value} days<br/>`;
+                        });
+                        return res;
+                    }
+                },
+                series: [
+                    {
+                        name: 'Home',
+                        type: 'bar',
+                        coordinateSystem: 'polar',
+                        stack: 'total', // ★ 核心：开启堆叠
+                        data: dataObj.home,
+                        itemStyle: { color: colorHome, borderRadius: [0, 0, 0, 0] },
+                        barCategoryGap: '20%' // 控制刺的粗细
+                    },
+                    {
+                        name: 'Travel',
+                        type: 'bar',
+                        coordinateSystem: 'polar',
+                        stack: 'total', // ★ 同名堆叠，Travel 会被顶到外圈
+                        data: dataObj.travel,
+                        itemStyle: { color: colorTravel, borderRadius: [5, 5, 0, 0] } // 尖端圆角
+                    }
+                ]
+            };
+            chart.setOption(option);
+            return chart;
+        }
+
+        // 初始化两张图
+        var sleepChart = initPolarChart('sleepChart', sleepData, '#bde0fe', '#ffafcc');
+        var wakeChart = initPolarChart('wakeChart', wakeData, '#bde0fe', '#ffafcc');
+
+        // 窗口缩放自适应
+        window.addEventListener('resize', function() {
+            sleepChart.resize();
+            wakeChart.resize();
+        });
+    </script>
+</body>
+</html>
