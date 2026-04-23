@@ -2,65 +2,22 @@
 <html lang="ZH-CN">
 <head>
     <meta charset="UTF-8">
-    <title>Sleep Pattern Density (Percentage View)</title>
+    <title>Sleep Pattern - Staggered View</title>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
     <style>
-        body { 
-            background-color: #f8f4f9; 
-            font-family: 'Inter', -apple-system, sans-serif; 
-            margin: 0; 
-            padding: 40px; 
-            color: #4a4e69;
-        }
+        body { background-color: #f8f4f9; font-family: sans-serif; margin: 0; padding: 40px; color: #4a4e69; }
         .header { text-align: center; margin-bottom: 30px; }
-        h1 { color: #cdb4db; font-size: 2rem; margin-bottom: 10px; }
-        
-        .legend { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; font-size: 14px; }
-        .legend-item { display: flex; align-items: center; gap: 8px; }
-        .dot { width: 12px; height: 12px; border-radius: 3px; }
-        .dot.home { background: rgba(189, 224, 254, 0.75); }
-        .dot.travel { background: rgba(255, 175, 204, 0.75); }
-
-        .charts-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            justify-content: center;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .chart-box {
-            flex: 1;
-            min-width: 500px;
-            height: 600px;
-            background: #fff;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(154, 140, 152, 0.1);
-            padding: 20px;
-            position: relative;
-        }
-
-        .chart-title {
-            position: absolute;
-            top: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #9a8c98;
-            z-index: 10;
-        }
+        h1 { color: #cdb4db; }
+        .charts-container { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; }
+        .chart-box { flex: 1; min-width: 500px; height: 600px; background: #fff; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); padding: 20px; position: relative; }
+        .chart-title { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-weight: bold; color: #9a8c98; }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h1>🌙 Sleep & Wake Density (Normalized %)</h1>
-        <div class="legend">
-            <div class="legend-item"><div class="dot home"></div><span>Home Mode (Relative %)</span></div>
-            <div class="legend-item"><div class="dot travel"></div><span>Travel Mode (Relative %)</span></div>
-        </div>
+        <h1>🌙 Sleep & Wake Density (3° Staggered Overlay)</h1>
+        <p>百分比折算 + 3度物理错位对比</p>
     </div>
 
     <div class="charts-container">
@@ -75,8 +32,9 @@
     </div>
 
     <script>
+        // --- 数据处理部分 (保持不变，但强制输出为数字类型) ---
         var rawData = [
-            // (此处保持你原来的 rawData 数据不变)
+            // ... (此处贴入你的原始数据)
             ['2026-01-10', '1:26', '8:58', 452, 0, 0, 41, 493, 'fair', 'normal', ''],
             ['2026-01-11', '23:50', '7:52', 482, 0, 0, 0, 482, 'fair', 'normal', ''],
             ['2026-01-12', '1:05', '8:40', 455, 0, 0, 0, 455, 'fair', 'normal', ''],
@@ -179,7 +137,7 @@
             ['2026-04-20', '23:23', '8:40', 557, 0, 0, 595, 595, 'fair', 'normal', '']
         ];
 
-        var stepMins = 15; 
+        var stepMins = 15;
 
         function generateCategories(startH, endH) {
             let labels = [];
@@ -187,9 +145,8 @@
             for (let h = startH; h < endH; h++) {
                 for (let m = 0; m < 60; m += stepMins) {
                     let displayH = h >= 24 ? h - 24 : h;
-                    let label = String(displayH).padStart(2, '0') + ':' + String(m).padStart(2, '0');
-                    labels.push(label);
-                    bins.push(h + m/60); 
+                    labels.push(String(displayH).padStart(2, '0') + ':' + String(m).padStart(2, '0'));
+                    bins.push(h + m/60);
                 }
             }
             return { labels, bins };
@@ -199,29 +156,19 @@
             let catData = generateCategories(startH, endH);
             let homeCounts = new Array(catData.labels.length).fill(0);
             let travelCounts = new Array(catData.labels.length).fill(0);
-            
-            let totalHome = 0;
-            let totalTravel = 0;
+            let totalHome = 0, totalTravel = 0;
 
             rawData.forEach(item => {
-                let timeStr = item[dataIndex]; 
-                let isTravel = item[9] === 'travel';
-                let parts = timeStr.split(':');
-                let h = parseInt(parts[0]);
-                let m = parseInt(parts[1]);
+                let timeStr = item[dataIndex], isTravel = item[9] === 'travel';
+                let parts = timeStr.split(':'), h = parseInt(parts[0]), m = parseInt(parts[1]);
                 let decimalTime = h + m/60;
+                if (dataIndex === 1 && decimalTime < 12) decimalTime += 24;
 
-                if (dataIndex === 1 && decimalTime < 12) { decimalTime += 24; } 
-
-                let minDiff = Infinity;
-                let closestIdx = -1;
-                for(let i=0; i<catData.bins.length; i++) {
-                    let diff = Math.abs(catData.bins[i] - decimalTime);
-                    if(diff < minDiff) {
-                        minDiff = diff;
-                        closestIdx = i;
-                    }
-                }
+                let minDiff = Infinity, closestIdx = -1;
+                catData.bins.forEach((bin, i) => {
+                    let diff = Math.abs(bin - decimalTime);
+                    if(diff < minDiff) { minDiff = diff; closestIdx = i; }
+                });
 
                 if(closestIdx !== -1) {
                     if(isTravel) { travelCounts[closestIdx]++; totalTravel++; }
@@ -229,132 +176,74 @@
                 }
             });
 
-            // ★ 计算百分比
-            let homePerc = homeCounts.map(count => totalHome > 0 ? (count / totalHome * 100).toFixed(2) : 0);
-            let travelPerc = travelCounts.map(count => totalTravel > 0 ? (count / totalTravel * 100).toFixed(2) : 0);
-
+            // 强制转换为 Number，避免字符串参与 Math 计算导致 NaN
             return {
                 labels: catData.labels,
-                home: homePerc,
-                travel: travelPerc,
-                homeCount: homeCounts,     // 保留原始数量用于Tooltip显示
+                home: homeCounts.map(c => totalHome > 0 ? Number((c/totalHome*100).toFixed(2)) : 0),
+                travel: travelCounts.map(c => totalTravel > 0 ? Number((c/totalTravel*100).toFixed(2)) : 0),
+                homeCount: homeCounts,
                 travelCount: travelCounts
             };
         }
 
-        let sleepData = processDensityData(1, 18, 30);
-        let wakeData = processDensityData(2, 3, 15);
+        // --- 初始化配置 ---
+        var sleepData = processDensityData(1, 18, 30);
+        var wakeData = processDensityData(2, 3, 15);
 
-        function initPolarChart(domId, dataObj, colorHome, colorTravel, startAngleDeg) {
-            var chart = echarts.init(document.getElementById(domId));
-            
-            // 定义更深一点的描边颜色
-            var borderHome = '#7cb1e6';  // 蓝色的深色版本
-            var borderTravel = '#f08ba0'; // 粉色的深色版本
-            
-            // 降低填充色的透明度 (从 0.75 降到 0.4)
-            var fillHome = 'rgba(189, 224, 254, 0.4)';
-            var fillTravel = 'rgba(255, 175, 204, 0.4)';
-        
-            var option = {
-                polar: {
-                    radius: ['15%', '85%']
-                },
-                // 设置两个角度轴
+        // 计算统一百分比上限
+        var allValues = [...sleepData.home, ...sleepData.travel, ...wakeData.home, ...wakeData.travel];
+        var uniformMax = Math.ceil(Math.max(...allValues) / 2) * 2 + 2;
+
+        function createOption(dataObj, startAngle) {
+            return {
+                polar: { radius: ['15%', '85%'], center: ['50%', '50%'] },
+                // 双角度轴：轴0给Home，轴1给Travel(旋转3度)
                 angleAxis: [
-                    {
-                        type: 'category',
-                        data: dataObj.labels,
-                        startAngle: startAngleDeg, // 基准位置
-                        clockwise: true,
-                        axisLabel: { interval: 3, color: '#9a8c98' },
-                        splitLine: { show: true, lineStyle: { color: '#eee', type: 'dashed' } },
-                        axisLine: { show: true, lineStyle: { color: '#ddd' } }
+                    { 
+                        type: 'category', data: dataObj.labels, startAngle: startAngle, 
+                        clockwise: true, axisLabel: { interval: 3, color: '#9a8c98', fontSize: 10 },
+                        splitLine: { show: true, lineStyle: { color: '#f0f0f0' } }
                     },
-                    {
-                        type: 'category',
-                        data: dataObj.labels,
-                        startAngle: startAngleDeg - 3, // ★ 顺时针旋转 3 度
-                        clockwise: true,
-                        show: false // 第二个轴不显示文字和线，只负责定位
+                    { 
+                        type: 'category', data: dataObj.labels, startAngle: startAngle - 3, 
+                        clockwise: true, show: false 
                     }
                 ],
-                radiusAxis: {
-                    type: 'value',
-                    min: 0,
-                    show: false 
-                },
+                radiusAxis: { type: 'value', min: 0, max: uniformMax, show: false },
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: { type: 'shadow' },
-                    formatter: function(params) {
-                        let idx = params[0].dataIndex;
-                        let time = params[0].name;
-                        let res = `<b>${time}</b><br/>`;
+                    formatter: (params) => {
+                        let res = `<b>${params[0].name}</b><br/>`;
                         params.forEach(p => {
-                            let val = p.value;
-                            let count = p.seriesName === 'Home' ? dataObj.homeCount[idx] : dataObj.travelCount[idx];
-                            if(val > 0) res += `${p.marker} ${p.seriesName}: <b>${val}%</b> (${count} days)<br/>`;
+                            let count = p.seriesName === 'Home' ? dataObj.homeCount[p.dataIndex] : dataObj.travelCount[p.dataIndex];
+                            res += `${p.marker} ${p.seriesName}: <b>${p.value}%</b> (${count}d)<br/>`;
                         });
                         return res;
                     }
                 },
                 series: [
                     {
-                        name: 'Home',
-                        type: 'bar',
-                        coordinateSystem: 'polar',
-                        angleAxisIndex: 0, // 使用第一个角度轴
-                        data: dataObj.home,
-                        itemStyle: { 
-                            color: fillHome,
-                            borderColor: borderHome,
-                            borderWidth: 1.5,
-                            borderRadius: [1, 1, 0, 0] 
-                        },
-                        barWidth: '60%' // 稍微调窄一点，让错开的效果更精致
+                        name: 'Home', type: 'bar', coordinateSystem: 'polar', angleAxisIndex: 0,
+                        data: dataObj.home, 
+                        itemStyle: { color: 'rgba(189, 224, 254, 0.4)', borderColor: '#7cb1e6', borderWidth: 1 }
                     },
                     {
-                        name: 'Travel',
-                        type: 'bar',
-                        coordinateSystem: 'polar',
-                        angleAxisIndex: 1, // ★ 使用旋转了 3 度的第二个角度轴
+                        name: 'Travel', type: 'bar', coordinateSystem: 'polar', angleAxisIndex: 1,
                         data: dataObj.travel,
-                        itemStyle: { 
-                            color: fillTravel,
-                            borderColor: borderTravel,
-                            borderWidth: 1.5,
-                            borderRadius: [1, 1, 0, 0] 
-                        },
-                        barWidth: '60%'
+                        itemStyle: { color: 'rgba(255, 175, 204, 0.4)', borderColor: '#f08ba0', borderWidth: 1 }
                     }
                 ]
             };
-            chart.setOption(option);
-            return chart;
         }
 
+        var sleepChart = echarts.init(document.getElementById('sleepChart'));
+        var wakeChart = echarts.init(document.getElementById('wakeChart'));
 
-        // 初始化图表
-        var sleepChart = initPolarChart('sleepChart', sleepData, colorHome, colorTravel, -90);
-        var wakeChart = initPolarChart('wakeChart', wakeData, colorHome, colorTravel, 0);
+        sleepChart.setOption(createOption(sleepData, -90));
+        wakeChart.setOption(createOption(wakeData, 0));
 
-        // ★ 确保两张图的半径比例尺（百分比长度）绝对一致
-        // 获取两张图中所有百分比的最大值，并同步给两个图表
-        let maxVal = Math.max(
-            ...sleepData.home, ...sleepData.travel, 
-            ...wakeData.home, ...wakeData.travel
-        );
-        // 向上取整到 5 的倍数
-        let uniformMax = Math.ceil(maxVal / 5) * 5;
-
-        sleepChart.setOption({ radiusAxis: { max: uniformMax } });
-        wakeChart.setOption({ radiusAxis: { max: uniformMax } });
-
-        window.addEventListener('resize', function() {
-            sleepChart.resize();
-            wakeChart.resize();
-        });
+        window.onresize = () => { sleepChart.resize(); wakeChart.resize(); };
     </script>
 </body>
 </html>
