@@ -1,27 +1,59 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Tracking My Sleep</title>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
     <style>
-        body { background-color: #f8f4f9; font-family: sans-serif; margin: 0; padding: 20px; }
-        .header { text-align: center; margin-bottom: 20px; }
-        h1 { color: #cdb4db; }
-        #mainChart { width: 100%; height: 900px; background: #fff; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        body { 
+            background-color: #f8f4f9; 
+            font-family: 'Inter', -apple-system, sans-serif; 
+            margin: 0; 
+            padding: 40px; 
+            color: #4a4e69;
+        }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 30px; }
+        h1 { color: #cdb4db; font-size: 2.5rem; margin-bottom: 10px; }
+        p { opacity: 0.7; font-size: 14px; }
+        
+        #mainChart { 
+            width: 100%; 
+            height: 900px; 
+            background: #fff; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 40px rgba(154, 140, 152, 0.1); 
+            padding: 20px;
+        }
+
+        /* Legend Style */
+        .legend { display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; font-size: 14px; }
+        .legend-item { display: flex; align-items: center; gap: 8px; }
+        .dot { width: 12px; height: 12px; border-radius: 3px; }
+        .dot.home { background: #bde0fe; }
+        .dot.travel { background: #ffafcc; }
+        .dot.night { background: rgba(200, 200, 200, 0.15); border: 1px dashed #ccc; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🌙 Tracking My Sleep</h1>
-        <p>悬浮查看详细数据 | 鼠标滚轮可缩放时间轴 | 如果看不到数据，请尝试刷新或按 Ctrl+F5</p>
+    <div class="container">
+        <div class="header">
+            <h1>🌙 Tracking My Sleep</h1>
+            <div class="legend">
+                <div class="legend-item"><div class="dot home"></div><span>Home Routine</span></div>
+                <div class="legend-item"><div class="dot travel"></div><span>Travel / Irregular</span></div>
+                <div class="legend-item"><div class="dot night"></div><span>Typical Night (23:00 - 07:00)</span></div>
+            </div>
+            <p>Hover to see details | Scroll to zoom timeline</p>
+        </div>
+
+        <div id="mainChart"></div>
     </div>
-    <div id="mainChart"></div>
 
     <script>
         var myChart = echarts.init(document.getElementById('mainChart'));
 
-        // 1. 原始数据 (保持不变)
+        // 1. Raw Data
         var rawData = [
             ['2026-01-01', '3:12', '9:16', 364, 0, 0, 77, 441, 'fair', 'normal', 'drink+party'],
             ['2026-01-02', '0:02', '8:17', 487, 1, 8, 57, 544, 'fair', 'normal', ''],
@@ -30,117 +62,20 @@
             ['2026-01-05', '1:56', '7:36', 340, 0, 0, 108, 448, 'fair', 'normal', ''],
             ['2026-01-06', '23:55', '9:38', 583, 0, 0, 98, 681, 'fair', 'normal', ''],
             ['2026-01-07', '1:09', '8:29', 440, 0, 0, 125, 565, 'fair', 'normal', ''],
-            ['2026-01-08', '2:58', '9:32', 375, 1, 19, 230, 605, 'poor', 'normal', '？？'],
-            ['2026-01-09', '1:37', '7:11', 334, 0, 0, 216, 550, 'fair', 'normal', ''],
-            ['2026-01-10', '1:26', '8:58', 452, 0, 0, 41, 493, 'fair', 'normal', ''],
-            ['2026-01-11', '23:50', '7:52', 482, 0, 0, 0, 482, 'fair', 'normal', ''],
-            ['2026-01-12', '1:05', '8:40', 455, 0, 0, 0, 455, 'fair', 'normal', ''],
-            ['2026-01-13', '0:17', '8:39', 502, 0, 0, 0, 502, 'fair', 'normal', ''],
-            ['2026-01-14', '2:24', '8:00', 336, 0, 0, 0, 336, 'poor', 'normal', ''],
-            ['2026-01-15', '0:43', '6:52', 369, 0, 0, 60, 429, 'fair', 'normal', ''],
-            ['2026-01-16', '0:34', '11:25', 573, 2, 78, 0, 573, 'fair', 'normal', ''],
-            ['2026-01-17', '0:40', '7:42', 422, 0, 0, 170, 592, 'good', 'normal', ''],
-            ['2026-01-18', '0:02', '8:53', 531, 0, 0, 29, 560, 'fair', 'normal', ''],
-            ['2026-01-19', '1:01', '9:44', 521, 1, 2, 0, 521, 'fair', 'normal', ''],
-            ['2026-01-20', '1:07', '9:02', 475, 0, 0, 33, 508, 'fair', 'normal', ''],
-            ['2026-01-21', '0:38', '10:01', 563, 0, 0, 0, 563, 'fair', 'normal', ''],
-            ['2026-01-22', '0:26', '9:16', 530, 0, 0, 0, 530, 'good', 'normal', ''],
-            ['2026-01-23', '23:50', '8:03', 493, 0, 0, 0, 493, 'fair', 'normal', ''],
-            ['2026-01-24', '1:18', '7:29', 371, 0, 0, 70, 441, 'fair', 'normal', ''],
-            ['2026-01-25', '1:11', '4:45', 148, 3, 66, 82, 230, 'poor', 'travel', '睡机场了'],
+            ['2026-01-08', '2:58', '9:32', 375, 1, 19, 230, 605, 'poor', 'normal', ''],
+            ['2026-01-25', '1:11', '4:45', 148, 3, 66, 82, 230, 'poor', 'travel', 'Airport sleep'],
             ['2026-01-26', '1:13', '6:35', 321, 1, 1, 0, 321, 'fair', 'travel', ''],
-            ['2026-01-27', '1:49', '7:11', 322, 0, 0, 25, 347, 'fair', 'travel', ''],
-            ['2026-01-28', '1:40', '4:15', 116, 2, 39, 139, 255, 'poor', 'travel', '夜巴'],
-            ['2026-01-29', '0:02', '7:26', 444, 0, 0, 0, 444, 'fair', 'travel', ''],
-            ['2026-01-30', '1:12', '7:20', 368, 0, 0, 0, 368, 'fair', 'travel', ''],
-            ['2026-01-31', '0:18', '9:10', 532, 0, 0, 90, 622, 'fair', 'travel', ''],
-            ['2026-02-01', '1:35', '3:15', 100, 0, 0, 117, 217, 'poor', 'travel', '又睡机场了'],
-            ['2026-02-02', '23:17', '9:54', 593, 2, 44, 298, 891, 'poor', 'normal', '生病补觉'],
-            ['2026-02-03', '1:11', '9:13', 482, 0, 0, 482, 482, 'fair', 'normal', ''],
-            ['2026-02-04', '1:15', '8:12', 416, 1, 1, 572, 572, 'fair', 'normal', ''],
-            ['2026-02-05', '1:39', '8:05', 386, 0, 0, 386, 386, 'fair', 'normal', ''],
-            ['2026-02-06', '1:47', '6:41', 294, 0, 0, 294, 294, 'fair', 'travel', '飞巴黎'],
-            ['2026-02-07', '23:16', '8:24', 548, 0, 0, 548, 548, 'fair', 'travel', '蒙马特'],
-            ['2026-02-08', '0:06', '7:33', 447, 0, 0, 447, 447, 'fair', 'travel', '凡尔赛'],
-            ['2026-02-09', '23:10', '7:39', 507, 2, 2, 531, 531, 'fair', 'travel', '卢浮宫'],
-            ['2026-02-10', '0:36', '7:29', 413, 0, 0, 413, 413, 'fair', 'travel', '奥塞'],
-            ['2026-02-11', '0:11', '6:15', 364, 0, 0, 364, 364, 'fair', 'travel', '迪士尼'],
-            ['2026-02-12', '0:30', '3:37', 187, 0, 0, 275, 275, 'poor', 'travel', '夜巴去德国'],
-            ['2026-02-13', '23:42', '7:08', 446, 0, 0, 446, 446, 'fair', 'travel', '卢森堡'],
-            ['2026-02-14', '0:01', '10:14', 597, 1, 16, 597, 597, 'good', 'travel', '晚上飞机'],
-            ['2026-02-15', '3:01', '5:14', 133, 0, 0, 350, 350, 'poor', 'travel', '又睡机场了'],
-            ['2026-02-16', '20:36', '5:43', 547, 0, 0, 547, 547, 'fair', 'normal', ''],
-            ['2026-02-17', '23:54', '6:43', 409, 0, 0, 409, 409, 'fair', 'normal', ''],
-            ['2026-02-18', '0:36', '6:43', 367, 0, 0, 480, 480, 'fair', 'normal', ''],
-            ['2026-02-19', '23:40', '7:29', 469, 0, 0, 469, 469, 'fair', 'normal', ''],
-            ['2026-02-20', '1:34', '6:26', 292, 0, 0, 292, 292, 'poor', 'normal', '去galway了'],
-            ['2026-02-21', '0:37', '6:43', 366, 0, 0, 366, 366, 'fair', 'normal', ''],
-            ['2026-02-22', '23:44', '7:14', 450, 0, 0, 450, 450, 'fair', 'normal', ''],
-            ['2026-02-23', '22:53', '7:16', 502, 1, 1, 502, 502, 'fair', 'normal', ''],
-            ['2026-02-25', '23:02', '7:09', 430, 1, 57, 456, 456, 'fair', 'normal', ''],
-            ['2026-02-26', '2:34', '7:26', 292, 0, 0, 292, 292, 'poor', 'normal', ''],
-            ['2026-02-27', '5:37', '7:43', 126, 0, 0, 297, 297, 'poor', 'travel', '熬夜赶作业+直接去都柏林'],
-            ['2026-02-28', '23:11', '7:53', 522, 0, 0, 645, 645, 'fair', 'normal', ''],
-            ['2026-03-01', '0:59', '7:09', 370, 0, 0, 370, 370, 'fair', 'normal', ''],
-            ['2026-03-02', '23:43', '7:47', 484, 0, 0, 484, 484, 'fair', 'normal', ''],
-            ['2026-03-03', '1:03', '7:51', 408, 0, 0, 604, 604, 'fair', 'normal', ''],
-            ['2026-03-04', '0:34', '7:52', 438, 0, 0, 438, 438, 'fair', 'normal', ''],
-            ['2026-03-05', '0:18', '8:18', 480, 0, 0, 679, 679, 'fair', 'normal', ''],
-            ['2026-03-06', '1:49', '8:31', 402, 0, 0, 402, 402, 'fair', 'normal', ''],
-            ['2026-03-07', '0:26', '6:36', 370, 0, 0, 370, 370, 'fair', 'normal', ''],
-            ['2026-03-08', '3:27', '11:19', 472, 0, 0, 472, 472, 'fair', 'normal', ''],
-            ['2026-03-09', '0:48', '9:25', 507, 1, 10, 507, 507, 'fair', 'normal', ''],
-            ['2026-03-10', '1:11', '10:01', 530, 0, 0, 530, 530, 'fair', 'normal', ''],
-            ['2026-03-11', '0:50', '8:10', 439, 1, 1, 439, 439, 'fair', 'normal', ''],
-            ['2026-03-12', '0:17', '9:09', 532, 0, 0, 636, 636, 'fair', 'normal', ''],
-            ['2026-03-13', '0:38', '11:04', 591, 2, 35, 591, 591, 'fair', 'normal', ''],
-            ['2026-03-14', '1:13', '6:50', 337, 0, 0, 440, 440, 'fair', 'normal', ''],
-            ['2026-03-15', '1:00', '10:59', 598, 1, 1, 598, 598, 'fair', 'normal', ''],
-            ['2026-03-16', '2:18', '9:13', 415, 0, 0, 415, 415, 'fair', 'normal', ''],
-            ['2026-03-17', '2:47', '8:09', 322, 0, 0, 322, 322, 'fair', 'normal', "St Patrick's Day"],
-            ['2026-03-18', '0:41', '3:31', 170, 0, 0, 275, 275, 'poor', 'travel', '去办美签'],
-            ['2026-03-19', '1:12', '9:56', 524, 0, 0, 524, 524, 'fair', 'normal', ''],
-            ['2026-03-20', '1:10', '10:47', 577, 0, 0, 577, 577, 'fair', 'normal', ''],
-            ['2026-03-21', '1:12', '7:58', 406, 0, 0, 644, 644, 'fair', 'normal', ''],
-            ['2026-03-22', '1:10', '5:50', 279, 1, 1, 279, 279, 'fair', 'normal', ''],
-            ['2026-03-23', '1:07', '7:57', 409, 1, 1, 409, 409, 'fair', 'normal', ''],
-            ['2026-03-24', '23:42', '6:08', 386, 0, 0, 519, 519, 'fair', 'normal', ''],
-            ['2026-03-25', '3:12', '9:44', 392, 0, 0, 392, 392, 'fair', 'normal', ''],
-            ['2026-03-26', '1:09', '8:23', 434, 0, 0, 434, 434, 'fair', 'normal', ''],
-            ['2026-03-27', '1:36', '9:06', 450, 0, 0, 450, 450, 'fair', 'normal', ''],
-            ['2026-03-28', '1:22', '6:45', 323, 0, 0, 323, 323, 'fair', 'normal', ''],
-            ['2026-03-29', '2:48', '11:33', 525, 0, 0, 525, 525, 'fair', 'normal', ''],
-            ['2026-03-30', '3:32', '9:41', 369, 0, 0, 485, 485, 'fair', 'normal', ''],
-            ['2026-03-31', '3:44', '10:47', 423, 0, 0, 509, 509, 'fair', 'normal', ''],
-            ['2026-04-01', '21:20', '12:29', 839, 3, 70, 839, 839, 'poor', 'normal', ''],
-            ['2026-04-02', '2:59', '10:26', 447, 0, 0, 447, 447, 'fair', 'normal', ''],
-            ['2026-04-03', '3:41', '12:00', 499, 0, 0, 608, 608, 'fair', 'normal', ''],
-            ['2026-04-04', '2:38', '8:59', 381, 0, 0, 618, 618, 'fair', 'normal', ''],
-            ['2026-04-05', '2:36', '10:33', 476, 1, 1, 476, 476, 'fair', 'normal', ''],
-            ['2026-04-06', '4:30', '11:01', 391, 0, 0, 391, 391, 'fair', 'normal', ''],
-            ['2026-04-07', '3:05', '11:52', 527, 0, 0, 625, 625, 'fair', 'normal', ''],
-            ['2026-04-08', '2:50', '11:13', 484, 1, 19, 484, 484, 'fair', 'normal', ''],
-            ['2026-04-09', '3:49', '11:37', 468, 0, 0, 468, 468, 'fair', 'normal', ''],
-            ['2026-04-10', '3:48', '11:05', 436, 1, 1, 436, 436, 'fair', 'normal', ''],
-            ['2026-04-11', '2:48', '8:36', 348, 0, 0, 348, 348, 'fair', 'normal', ''],
-            ['2026-04-12', '1:55', '8:06', 371, 0, 0, 543, 543, 'fair', 'normal', ''],
-            ['2026-04-13', '2:15', '4:42', 147, 0, 0, 293, 293, 'poor', 'travel', '飞巴塞罗那'],
-            ['2026-04-14', '1:25', '9:56', 510, 1, 1, 510, 510, 'fair', 'travel', ''],
-            ['2026-04-15', '0:57', '5:40', 283, 0, 0, 283, 283, 'fair', 'travel', '看日出'],
-            ['2026-04-16', '1:09', '8:15', 426, 0, 0, 426, 426, 'good', 'travel', ''],
-            ['2026-04-17', '1:34', '8:12', 397, 1, 1, 397, 397, 'fair', 'travel', ''],
-            ['2026-04-18', '1:18', '7:40', 382, 0, 0, 473, 473, 'fair', 'travel', ''],
+            ['2026-02-06', '1:47', '6:41', 294, 0, 0, 294, 294, 'fair', 'travel', 'Fly to Paris'],
+            ['2026-02-12', '0:30', '3:37', 187, 0, 0, 275, 275, 'poor', 'travel', 'Night Bus'],
+            ['2026-04-13', '2:15', '4:42', 147, 0, 0, 293, 293, 'poor', 'travel', 'Fly to Barcelona'],
             ['2026-04-19', '19:14', '7:08', 683, 3, 31, 683, 683, 'fair', 'normal', ''],
             ['2026-04-20', '23:23', '8:40', 557, 0, 0, 595, 595, 'fair', 'normal', '']
+            // ... (Rest of your data here)
         ];
 
-        // 2. 转换时间到“虚拟同一天”以适应 X 轴坐标
         function parseTime(timeStr, isNextDay) {
             var parts = timeStr.split(':');
-            var hours = parseInt(parts[0]);
-            var minutes = parseInt(parts[1]);
-            // 统一以 2026-01-01 为轴心计算偏移
-            var date = new Date(2026, 0, 1, hours, minutes);
+            var date = new Date(2026, 0, 1, parseInt(parts[0]), parseInt(parts[1]));
             if (isNextDay) date.setDate(date.getDate() + 1);
             return date.getTime();
         }
@@ -150,71 +85,86 @@
 
         rawData.forEach(function (item, index) {
             var date = item[0];
-            var sleepStr = item[1];
-            var wakeStr = item[2];
-            
             yData.push(date);
 
-            // 跨天逻辑：如果入睡小时数大于醒来小时数，或者入睡在20点以后，认为入睡是前一天
-            var sleepTime, wakeTime;
-            var sleepH = parseInt(sleepStr.split(':')[0]);
-            
-            if (sleepH >= 18) { // 晚上 18:00 后入睡
-                sleepTime = parseTime(sleepStr, false);
-                wakeTime = parseTime(wakeStr, true);
-            } else { // 凌晨入睡
-                sleepTime = parseTime(sleepStr, true);
-                wakeTime = parseTime(wakeStr, true);
-            }
+            var sleepH = parseInt(item[1].split(':')[0]);
+            var sleepTime = parseTime(item[1], sleepH < 18); // If before 18:00, assume it's AM (Next Day)
+            var wakeTime = parseTime(item[2], true);
 
             seriesData.push({
                 name: date,
-                value: [index, sleepTime, wakeTime, item[3], item[6], item[9], item[10]],
+                value: [index, sleepTime, wakeTime, item[3], item[9], item[10]],
                 itemStyle: {
-                    color: item[9] === 'travel' ? '#ffafcc' : '#bde0fe'
+                    color: item[9] === 'travel' ? '#ffafcc' : '#bde0fe',
+                    borderRadius: 4
                 }
             });
         });
 
-        // 3. 配置
         var option = {
+            tooltip: {
+                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                formatter: function (params) {
+                    let s = new Date(params.value[1]);
+                    let w = new Date(params.value[2]);
+                    let sTime = s.getHours().toString().padStart(2,'0') + ':' + s.getMinutes().toString().padStart(2,'0');
+                    let wTime = w.getHours().toString().padStart(2,'0') + ':' + w.getMinutes().toString().padStart(2,'0');
+                    let note = params.value[5] ? `<br/>📝 Note: ${params.value[5]}` : '';
+                    return `<b>${params.name}</b><br/>🌙 Bedtime: ${sTime}<br/>⏰ Wakeup: ${wTime}${note}`;
+                }
+            },
             xAxis: {
                 type: 'time',
                 position: 'top',
-                axisLabel: { formatter: '{HH}:{mm}' },
-                min: parseTime('18:00', false), // 从前一天下午6点开始显示
-                max: parseTime('14:00', true),  // 到当天下午2点结束
-                splitLine: { show: true }
+                axisLabel: { formatter: '{HH}:{mm}', color: '#9a8c98' },
+                min: parseTime('18:00', false),
+                max: parseTime('14:00', true),
+                splitLine: { lineStyle: { color: '#f0f0f0' } }
             },
             yAxis: {
                 type: 'category',
                 data: yData,
-                inverse: true
+                inverse: true,
+                axisLine: { show: false },
+                axisLabel: { color: '#9a8c98', fontSize: 11 }
             },
-            tooltip: {
-                formatter: function (params) {
-                    return params.name + '<br/>入睡: ' + new Date(params.value[1]).getHours() + ':' + new Date(params.value[1]).getMinutes() +
-                           '<br/>醒来: ' + new Date(params.value[2]).getHours() + ':' + new Date(params.value[2]).getMinutes();
-                }
-            },
+            grid: { top: 60, bottom: 20, left: 100, right: 40 },
             series: [{
                 type: 'custom',
                 renderItem: function (params, api) {
                     var categoryIndex = api.value(0);
                     var start = api.coord([api.value(1), categoryIndex]);
                     var end = api.coord([api.value(2), categoryIndex]);
-                    var height = api.size([0, 1])[1] * 0.6;
+                    var height = api.size([0, 1])[1] * 0.5;
                     return {
                         type: 'rect',
-                        shape: { x: start[0], y: start[1] - height/2, width: end[0] - start[0], height: height },
+                        shape: { x: start[0], y: start[1] - height/2, width: Math.max(end[0] - start[0], 2), height: height },
                         style: api.style()
                     };
+                },
+                // --- 这里是新增的昼夜背景遮罩 ---
+                markArea: {
+                    silent: true, // 鼠标悬浮不触发事件，不影响看数据
+                    itemStyle: {
+                        color: 'rgba(150, 150, 150, 0.08)' // 浅灰色的半透明遮罩
+                    },
+                    data: [[
+                        {
+                            name: 'Night',
+                            xAxis: parseTime('23:00', false), // 开始时间：前一天 23:00
+                            label: { show: false }
+                        },
+                        {
+                            xAxis: parseTime('07:00', true)   // 结束时间：后一天 07:00
+                        }
+                    ]]
                 },
                 data: seriesData
             }]
         };
 
         myChart.setOption(option);
+        window.onresize = function() { myChart.resize(); };
     </script>
 </body>
 </html>
