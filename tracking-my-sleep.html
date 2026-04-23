@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ENG">
+<html lang="EN">
 <head>
     <meta charset="UTF-8">
     <title>Sleep Pattern Density (Percentage View)</title>
@@ -288,13 +288,7 @@
                         type: 'bar',
                         coordinateSystem: 'polar',
                         data: dataObj.home,
-                        itemStyle: { 
-                            color: colorHome, 
-                            borderRadius: [2, 2, 0, 0],
-                            // --- 新增描边设置 ---
-                            borderColor: '#7cb1e6', // 蓝色的对应深色
-                            borderWidth: 1.5         // 描边宽度
-                        }
+                        itemStyle: { color: colorHome, borderRadius: [2, 2, 0, 0] }
                     },
                     {
                         name: 'Travel',
@@ -302,13 +296,7 @@
                         coordinateSystem: 'polar',
                         barGap: '-100%', 
                         data: dataObj.travel,
-                        itemStyle: { 
-                            color: colorTravel, 
-                            borderRadius: [2, 2, 0, 0],
-                            // --- 新增描边设置 ---
-                            borderColor: '#f08ba0', // 粉色的对应深色
-                            borderWidth: 1.5         // 描边宽度
-                        } 
+                        itemStyle: { color: colorTravel, borderRadius: [2, 2, 0, 0] } 
                     }
                 ]
             };
