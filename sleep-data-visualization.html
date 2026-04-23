@@ -2,53 +2,26 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>我的睡眠追踪数据图</title>
+    <title>我的睡眠追踪</title>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
     <style>
-        /* 梦幻浅色背景 */
-        body {
-            background-color: #f8f4f9; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
-            color: #4a4e69; /* 深色文本 */
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        h1 {
-            color: #cdb4db; /* 梦幻紫强调色 */
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-        }
-        /* 图表容器 */
-        #mainChart {
-            width: 100%;
-            height: 900px; /* 因为数据多，高度稍微调大了些，保证纵轴不拥挤 */
-            background-color: #ffffff;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(205, 180, 219, 0.2);
-            padding: 20px;
-            box-sizing: border-box;
-        }
+        body { background-color: #f8f4f9; font-family: sans-serif; margin: 0; padding: 20px; }
+        .header { text-align: center; margin-bottom: 20px; }
+        h1 { color: #cdb4db; }
+        #mainChart { width: 100%; height: 900px; background: #fff; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
-
     <div class="header">
         <h1>🌙 睡眠节律追踪视图</h1>
-        <p>悬浮查看详细数据 | 鼠标滚轮可缩放时间轴</p>
+        <p>如果看不到数据，请尝试刷新或按 Ctrl+F5</p>
     </div>
-
     <div id="mainChart"></div>
 
     <script>
-        // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('mainChart'));
 
-        // ==========================================
-        // 1. 你的完整数据源 (已转为 JS 数组格式)
-        // ==========================================
+        // 1. 原始数据 (保持不变)
         var rawData = [
             ['2026-01-01', '3:12', '9:16', 364, 0, 0, 77, 441, 'fair', 'normal', 'drink+party'],
             ['2026-01-02', '0:02', '8:17', 487, 1, 8, 57, 544, 'fair', 'normal', ''],
@@ -161,174 +134,87 @@
             ['2026-04-20', '23:23', '8:40', 557, 0, 0, 595, 595, 'fair', 'normal', '']
         ];
 
-        // 梦幻配色板
-        var colors = {
-            purple: '#cdb4db',
-            pinkDark: '#ffc8dd',
-            pinkLight: '#ffafcc',
-            blueLight: '#bde0fe',
-            blueDark: '#a2d2ff',
-            textEmphasis: '#5c4d7d'
-        };
+        // 2. 转换时间到“虚拟同一天”以适应 X 轴坐标
+        function parseTime(timeStr, isNextDay) {
+            var parts = timeStr.split(':');
+            var hours = parseInt(parts[0]);
+            var minutes = parseInt(parts[1]);
+            // 统一以 2026-01-01 为轴心计算偏移
+            var date = new Date(2026, 0, 1, hours, minutes);
+            if (isNextDay) date.setDate(date.getDate() + 1);
+            return date.getTime();
+        }
 
-        // ==========================================
-        // 2. 数据处理引擎
-        // ==========================================
-        var chartData = [];
-        var yAxisCategories = [];
+        var yData = [];
+        var seriesData = [];
 
-        rawData.forEach(function (item) {
-            var wakeDateStr = item[0];
-            var sleepTimeStr = item[1];
-            var wakeTimeStr = item[2];
-            var nightSleep = item[3];
-            var dayNap = item[6]; 
-            var total = item[7];
-            var type = item[9];
-            var note = item[10];
-
-            yAxisCategories.push(wakeDateStr);
-
-            var wakeDateTime = new Date(wakeDateStr + 'T' + wakeTimeStr + ':00');
-            var sleepDateTime = new Date(wakeDateStr + 'T' + sleepTimeStr + ':00');
+        rawData.forEach(function (item, index) {
+            var date = item[0];
+            var sleepStr = item[1];
+            var wakeStr = item[2];
             
-            // 处理跨天
-            if (sleepTimeStr > wakeTimeStr) {
-                sleepDateTime.setDate(sleepDateTime.getDate() - 1);
+            yData.push(date);
+
+            // 跨天逻辑：如果入睡小时数大于醒来小时数，或者入睡在20点以后，认为入睡是前一天
+            var sleepTime, wakeTime;
+            var sleepH = parseInt(sleepStr.split(':')[0]);
+            
+            if (sleepH >= 18) { // 晚上 18:00 后入睡
+                sleepTime = parseTime(sleepStr, false);
+                wakeTime = parseTime(wakeStr, true);
+            } else { // 凌晨入睡
+                sleepTime = parseTime(sleepStr, true);
+                wakeTime = parseTime(wakeStr, true);
             }
 
-            // 根据是否旅行改变颜色
-            var barColor = (type === 'travel') ? colors.pinkLight : colors.blueLight;
-            var borderColor = (type === 'travel') ? colors.pinkDark : colors.blueDark;
-
-            chartData.push({
-                name: wakeDateStr,
-                value: [
-                    yAxisCategories.length - 1, 
-                    sleepDateTime.getTime(),    
-                    wakeDateTime.getTime(),     
-                    nightSleep, dayNap, total, type, note 
-                ],
+            seriesData.push({
+                name: date,
+                value: [index, sleepTime, wakeTime, item[3], item[6], item[9], item[10]],
                 itemStyle: {
-                    color: barColor,
-                    borderColor: borderColor,
-                    borderWidth: 1.5,
-                    borderRadius: [4, 4, 4, 4]
+                    color: item[9] === 'travel' ? '#ffafcc' : '#bde0fe'
                 }
             });
         });
 
-        // ==========================================
-        // 3. ECharts 配置项
-        // ==========================================
+        // 3. 配置
         var option = {
-            tooltip: {
-                trigger: 'item',
-                backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                borderColor: colors.purple,
-                textStyle: { color: colors.textEmphasis },
-                formatter: function (params) {
-                    var sleepTime = new Date(params.value[1]);
-                    var wakeTime = new Date(params.value[2]);
-                    
-                    var sTime = sleepTime.getHours().toString().padStart(2, '0') + ':' + sleepTime.getMinutes().toString().padStart(2, '0');
-                    var wTime = wakeTime.getHours().toString().padStart(2, '0') + ':' + wakeTime.getMinutes().toString().padStart(2, '0');
-                    
-                    var nightMins = params.value[3];
-                    var napMins = params.value[4];
-                    var type = params.value[6];
-                    var note = params.value[7];
-
-                    var typeStr = type === 'travel' ? '✈️ 旅行中' : '🏠 正常';
-                    var noteHtml = note ? `<br/><span style="color:#d9534f; font-size:12px;">📝 备注: ${note}</span>` : '';
-                    var napHtml = napMins > 0 ? `<br/>☀️ 午睡: ${Math.floor(napMins/60)}小时${napMins%60}分钟` : '';
-
-                    return `
-                        <div style="font-weight:bold; border-bottom: 1px solid #eee; margin-bottom: 5px; padding-bottom: 5px;">
-                            📅 ${params.name} | ${typeStr}
-                        </div>
-                        🛌 入睡：${sTime}<br/>
-                        ⏰ 醒来：${wTime}<br/>
-                        🌙 夜间：${Math.floor(nightMins/60)}小时${nightMins%60}分钟
-                        ${napHtml}
-                        ${noteHtml}
-                    `;
-                }
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '10%',
-                containLabel: true
-            },
             xAxis: {
                 type: 'time',
                 position: 'top',
-                splitLine: {
-                    lineStyle: { type: 'dashed', color: '#e9ecef' }
-                },
-                axisLabel: {
-                    formatter: '{HH}:{mm}',
-                    color: colors.textEmphasis
-                }
+                axisLabel: { formatter: '{HH}:{mm}' },
+                min: parseTime('18:00', false), // 从前一天下午6点开始显示
+                max: parseTime('14:00', true),  // 到当天下午2点结束
+                splitLine: { show: true }
             },
             yAxis: {
                 type: 'category',
-                data: yAxisCategories,
-                inverse: true,
-                axisLine: { lineStyle: { color: colors.purple } },
-                axisLabel: { color: colors.textEmphasis, fontWeight: 'bold' }
+                data: yData,
+                inverse: true
             },
-            dataZoom: [
-                {
-                    type: 'inside', // 鼠标滚轮缩放
-                    xAxisIndex: 0,
-                    filterMode: 'weakFilter'
+            tooltip: {
+                formatter: function (params) {
+                    return params.name + '<br/>入睡: ' + new Date(params.value[1]).getHours() + ':' + new Date(params.value[1]).getMinutes() +
+                           '<br/>醒来: ' + new Date(params.value[2]).getHours() + ':' + new Date(params.value[2]).getMinutes();
                 }
-            ],
-            series: [
-                {
-                    type: 'custom',
-                    name: '睡眠区间',
-                    renderItem: function (params, api) {
-                        var categoryIndex = api.value(0);
-                        var start = api.coord([api.value(1), categoryIndex]);
-                        var end = api.coord([api.value(2), categoryIndex]);
-                        var height = api.size([0, 1])[1] * 0.5;
-
-                        return {
-                            type: 'rect',
-                            shape: {
-                                x: start[0],
-                                y: start[1] - height / 2,
-                                width: end[0] - start[0],
-                                height: height
-                            },
-                            style: api.style()
-                        };
-                    },
-                    data: chartData,
-                    emphasis: {
-                        focus: 'data',
-                        blurScope: 'coordinateSystem',
-                        itemStyle: {
-                            color: colors.pinkDark,
-                            borderColor: colors.purple,
-                            shadowBlur: 10,
-                            shadowColor: 'rgba(205, 180, 219, 0.5)'
-                        }
-                    }
-                }
-            ]
+            },
+            series: [{
+                type: 'custom',
+                renderItem: function (params, api) {
+                    var categoryIndex = api.value(0);
+                    var start = api.coord([api.value(1), categoryIndex]);
+                    var end = api.coord([api.value(2), categoryIndex]);
+                    var height = api.size([0, 1])[1] * 0.6;
+                    return {
+                        type: 'rect',
+                        shape: { x: start[0], y: start[1] - height/2, width: end[0] - start[0], height: height },
+                        style: api.style()
+                    };
+                },
+                data: seriesData
+            }]
         };
 
-        // 渲染图表
         myChart.setOption(option);
-
-        // 窗口缩放自适应
-        window.addEventListener('resize', function() {
-            myChart.resize();
-        });
     </script>
 </body>
 </html>
