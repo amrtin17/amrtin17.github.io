@@ -248,23 +248,40 @@
         function initPolarChart(domId, dataObj, colorHome, colorTravel, startAngleDeg) {
             var chart = echarts.init(document.getElementById(domId));
             
+            // 定义更深一点的描边颜色
+            var borderHome = '#7cb1e6';  // 蓝色的深色版本
+            var borderTravel = '#f08ba0'; // 粉色的深色版本
+            
+            // 降低填充色的透明度 (从 0.75 降到 0.4)
+            var fillHome = 'rgba(189, 224, 254, 0.4)';
+            var fillTravel = 'rgba(255, 175, 204, 0.4)';
+        
             var option = {
                 polar: {
                     radius: ['15%', '85%']
                 },
-                angleAxis: {
-                    type: 'category',
-                    data: dataObj.labels,
-                    startAngle: startAngleDeg,
-                    clockwise: true,
-                    axisLabel: { interval: 3, color: '#9a8c98' },
-                    splitLine: { show: true, lineStyle: { color: '#eee', type: 'dashed' } }
-                },
+                // 设置两个角度轴
+                angleAxis: [
+                    {
+                        type: 'category',
+                        data: dataObj.labels,
+                        startAngle: startAngleDeg, // 基准位置
+                        clockwise: true,
+                        axisLabel: { interval: 3, color: '#9a8c98' },
+                        splitLine: { show: true, lineStyle: { color: '#eee', type: 'dashed' } },
+                        axisLine: { show: true, lineStyle: { color: '#ddd' } }
+                    },
+                    {
+                        type: 'category',
+                        data: dataObj.labels,
+                        startAngle: startAngleDeg - 3, // ★ 顺时针旋转 3 度
+                        clockwise: true,
+                        show: false // 第二个轴不显示文字和线，只负责定位
+                    }
+                ],
                 radiusAxis: {
                     type: 'value',
                     min: 0,
-                    max: 'dataMax', // 或者设置为固定的较大百分比，如 50，方便两图对比
-                    // 强制两张图的比例尺一致，我们找到两张图中的最大百分比作为统一上限
                     show: false 
                 },
                 tooltip: {
@@ -287,16 +304,29 @@
                         name: 'Home',
                         type: 'bar',
                         coordinateSystem: 'polar',
+                        angleAxisIndex: 0, // 使用第一个角度轴
                         data: dataObj.home,
-                        itemStyle: { color: colorHome, borderRadius: [2, 2, 0, 0] }
+                        itemStyle: { 
+                            color: fillHome,
+                            borderColor: borderHome,
+                            borderWidth: 1.5,
+                            borderRadius: [1, 1, 0, 0] 
+                        },
+                        barWidth: '60%' // 稍微调窄一点，让错开的效果更精致
                     },
                     {
                         name: 'Travel',
                         type: 'bar',
                         coordinateSystem: 'polar',
-                        barGap: '-100%', 
+                        angleAxisIndex: 1, // ★ 使用旋转了 3 度的第二个角度轴
                         data: dataObj.travel,
-                        itemStyle: { color: colorTravel, borderRadius: [2, 2, 0, 0] } 
+                        itemStyle: { 
+                            color: fillTravel,
+                            borderColor: borderTravel,
+                            borderWidth: 1.5,
+                            borderRadius: [1, 1, 0, 0] 
+                        },
+                        barWidth: '60%'
                     }
                 ]
             };
@@ -304,19 +334,13 @@
             return chart;
         }
 
-        var colorHome = 'rgba(189, 224, 254, 0.4)';
-        var colorTravel = 'rgba(255, 175, 204, 0.4)';
-
-        // 定义更深一点的描边颜色
-        var borderHome = '#7cb1e6';  // 蓝色的深色版本
-        var borderTravel = '#f08ba0'; // 粉色的深色版本
 
         // 初始化图表
         var sleepChart = initPolarChart('sleepChart', sleepData, colorHome, colorTravel, -90);
         var wakeChart = initPolarChart('wakeChart', wakeData, colorHome, colorTravel, 0);
 
         // ★ 确保两张图的半径比例尺（百分比长度）绝对一致
-        // 我们获取两张图中所有百分比的最大值，并同步给两个图表
+        // 获取两张图中所有百分比的最大值，并同步给两个图表
         let maxVal = Math.max(
             ...sleepData.home, ...sleepData.travel, 
             ...wakeData.home, ...wakeData.travel
