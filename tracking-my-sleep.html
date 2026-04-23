@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="ENG">
+<html lang="ZH-CN">
 <head>
     <meta charset="UTF-8">
-    <title>Sleep Pattern Density</title>
+    <title>Sleep Pattern Density (Percentage View)</title>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
     <style>
         body { 
@@ -18,7 +18,6 @@
         .legend { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; font-size: 14px; }
         .legend-item { display: flex; align-items: center; gap: 8px; }
         .dot { width: 12px; height: 12px; border-radius: 3px; }
-        /* 更新了图例颜色，体现半透明质感 */
         .dot.home { background: rgba(189, 224, 254, 0.75); }
         .dot.travel { background: rgba(255, 175, 204, 0.75); }
 
@@ -57,10 +56,10 @@
 <body>
 
     <div class="header">
-        <h1>🌙 Sleep & Wake Density (Polar View)</h1>
+        <h1>🌙 Sleep & Wake Density (Normalized %)</h1>
         <div class="legend">
-            <div class="legend-item"><div class="dot home"></div><span>Home</span></div>
-            <div class="legend-item"><div class="dot travel"></div><span>Travel</span></div>
+            <div class="legend-item"><div class="dot home"></div><span>Home Mode (Relative %)</span></div>
+            <div class="legend-item"><div class="dot travel"></div><span>Travel Mode (Relative %)</span></div>
         </div>
     </div>
 
@@ -77,7 +76,7 @@
 
     <script>
         var rawData = [
-            // (此处保持你原来的 rawData 数据不变，为了代码整洁我直接折叠，请把你的原始数据贴在这里)
+            // (此处保持你原来的 rawData 数据不变)
             ['2026-01-10', '1:26', '8:58', 452, 0, 0, 41, 493, 'fair', 'normal', ''],
             ['2026-01-11', '23:50', '7:52', 482, 0, 0, 0, 482, 'fair', 'normal', ''],
             ['2026-01-12', '1:05', '8:40', 455, 0, 0, 0, 455, 'fair', 'normal', ''],
@@ -200,6 +199,9 @@
             let catData = generateCategories(startH, endH);
             let homeCounts = new Array(catData.labels.length).fill(0);
             let travelCounts = new Array(catData.labels.length).fill(0);
+            
+            let totalHome = 0;
+            let totalTravel = 0;
 
             rawData.forEach(item => {
                 let timeStr = item[dataIndex]; 
@@ -209,9 +211,7 @@
                 let m = parseInt(parts[1]);
                 let decimalTime = h + m/60;
 
-                if (dataIndex === 1 && decimalTime < 12) {
-                    decimalTime += 24; 
-                } 
+                if (dataIndex === 1 && decimalTime < 12) { decimalTime += 24; } 
 
                 let minDiff = Infinity;
                 let closestIdx = -1;
@@ -224,22 +224,27 @@
                 }
 
                 if(closestIdx !== -1) {
-                    if(isTravel) travelCounts[closestIdx]++;
-                    else homeCounts[closestIdx]++;
+                    if(isTravel) { travelCounts[closestIdx]++; totalTravel++; }
+                    else { homeCounts[closestIdx]++; totalHome++; }
                 }
             });
 
+            // ★ 计算百分比
+            let homePerc = homeCounts.map(count => totalHome > 0 ? (count / totalHome * 100).toFixed(2) : 0);
+            let travelPerc = travelCounts.map(count => totalTravel > 0 ? (count / totalTravel * 100).toFixed(2) : 0);
+
             return {
                 labels: catData.labels,
-                home: homeCounts,
-                travel: travelCounts
+                home: homePerc,
+                travel: travelPerc,
+                homeCount: homeCounts,     // 保留原始数量用于Tooltip显示
+                travelCount: travelCounts
             };
         }
 
         let sleepData = processDensityData(1, 18, 30);
         let wakeData = processDensityData(2, 3, 15);
 
-        // ★ 新增了 startAngleDeg 参数控制起点角度
         function initPolarChart(domId, dataObj, colorHome, colorTravel, startAngleDeg) {
             var chart = echarts.init(document.getElementById(domId));
             
@@ -250,26 +255,29 @@
                 angleAxis: {
                     type: 'category',
                     data: dataObj.labels,
-                    startAngle: startAngleDeg, // ★ 控制钟表起点
+                    startAngle: startAngleDeg,
                     clockwise: true,
-                    axisLabel: {
-                        interval: 3, 
-                        color: '#9a8c98'
-                    },
+                    axisLabel: { interval: 3, color: '#9a8c98' },
                     splitLine: { show: true, lineStyle: { color: '#eee', type: 'dashed' } }
                 },
                 radiusAxis: {
                     type: 'value',
+                    min: 0,
+                    max: 'dataMax', // 或者设置为固定的较大百分比，如 50，方便两图对比
+                    // 强制两张图的比例尺一致，我们找到两张图中的最大百分比作为统一上限
                     show: false 
                 },
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: { type: 'shadow' },
                     formatter: function(params) {
+                        let idx = params[0].dataIndex;
                         let time = params[0].name;
                         let res = `<b>${time}</b><br/>`;
                         params.forEach(p => {
-                            if(p.value > 0) res += `${p.marker} ${p.seriesName}: ${p.value} days<br/>`;
+                            let val = p.value;
+                            let count = p.seriesName === 'Home' ? dataObj.homeCount[idx] : dataObj.travelCount[idx];
+                            if(val > 0) res += `${p.marker} ${p.seriesName}: <b>${val}%</b> (${count} days)<br/>`;
                         });
                         return res;
                     }
@@ -279,7 +287,6 @@
                         name: 'Home',
                         type: 'bar',
                         coordinateSystem: 'polar',
-                        // ★ 删除了 stack: 'total'
                         data: dataObj.home,
                         itemStyle: { color: colorHome, borderRadius: [2, 2, 0, 0] }
                     },
@@ -287,8 +294,7 @@
                         name: 'Travel',
                         type: 'bar',
                         coordinateSystem: 'polar',
-                        // ★ 删除了 stack: 'total'
-                        barGap: '-100%', // ★ 让两根柱子100%重叠，从同一个圆心出发
+                        barGap: '-100%', 
                         data: dataObj.travel,
                         itemStyle: { color: colorTravel, borderRadius: [2, 2, 0, 0] } 
                     }
@@ -298,14 +304,24 @@
             return chart;
         }
 
-        // ★ 核心修改点：
-        // 1. 设置带透明度(rgba)的颜色，这样重叠时会有好看的混色透视效果
-        // 2. 传入起点的角度 (-90 让 18点在正下方，0 让 3点在正右方)
         var colorHome = 'rgba(189, 224, 254, 0.75)';
         var colorTravel = 'rgba(255, 175, 204, 0.75)';
 
+        // 初始化图表
         var sleepChart = initPolarChart('sleepChart', sleepData, colorHome, colorTravel, -90);
         var wakeChart = initPolarChart('wakeChart', wakeData, colorHome, colorTravel, 0);
+
+        // ★ 确保两张图的半径比例尺（百分比长度）绝对一致
+        // 我们获取两张图中所有百分比的最大值，并同步给两个图表
+        let maxVal = Math.max(
+            ...sleepData.home, ...sleepData.travel, 
+            ...wakeData.home, ...wakeData.travel
+        );
+        // 向上取整到 5 的倍数
+        let uniformMax = Math.ceil(maxVal / 5) * 5;
+
+        sleepChart.setOption({ radiusAxis: { max: uniformMax } });
+        wakeChart.setOption({ radiusAxis: { max: uniformMax } });
 
         window.addEventListener('resize', function() {
             sleepChart.resize();
