@@ -435,26 +435,103 @@
             </div>
         </div>
 
-        <section class="data-collection">
-
-            <h2>Data Collection</h2>
-
-            <div class="data-block">
-                <p>
-                    The dataset was collected using a wearable device alongside a small amount of manual recording. 
-                    Each entry corresponds to one day and includes variables such as sleep time, wake-up time, 
-                    total sleep duration, interruptions, and contextual labels (e.g., “home” or “travel”).
-                </p>
-
-                <figure>
-                    <img src="assets/img/wearing device.jpg" alt="Wearable device" />
-                    <figcaption>Wearable device used for sleep tracking</figcaption>
-                </figure>
-            </div>
-
-            </div>
-
-        </section>
+        <div class="essay-more-text">
+            <h3 class="subsection-title">Temporal Distribution: Visualising Regularity</h3>
+        
+            <p>
+                To further examine regularity, I constructed circular “clock-like” visualisations alongside binned bar charts 
+                to represent the distribution of sleep and wake-up times under different conditions. Rather than plotting each 
+                exact timestamp, I grouped time into 15-minute intervals (i.e., four segments per hour). This aggregation reduces 
+                visual fragmentation while still preserving temporal resolution.
+            </p>
+        
+            <p>
+                Each day contributes equally as one observation, but after grouping, the frequency within each interval varies. 
+                To ensure comparability between “home” and “travel” periods—given their unequal number of days—all values were 
+                normalised into percentages, so that bar length reflects proportional distribution rather than raw counts.
+            </p>
+        
+            <p>
+                Focusing first on sleep onset time, the contrast between the two conditions is immediately visible. Under the 
+                “home” condition, sleep times are highly dispersed, spanning roughly from midnight to 4:00 AM, with no strong 
+                clustering. This wide spread suggests a lack of consistent routine, with substantial day-to-day variability.
+            </p>
+        
+            <p>
+                In contrast, during travel, sleep times become noticeably more concentrated, primarily between 12:00 AM and 
+                2:00 AM. Although still relatively late, this narrower range indicates a more regularised pattern. One notable 
+                feature is that in both conditions, the most frequent sleep onset occurs around 1:15 AM, accounting for 
+                approximately 15% of days at home and nearly 20% during travel.
+            </p>
+        
+            <p>
+                This consistency suggests a behavioural threshold: around 1:00 AM, I tend to recognise that it is “late enough” 
+                to initiate sleep. Based on long-term observation, there is typically a delay of around 10–15 minutes between 
+                the decision to sleep and the moment when the wearable device records sleep onset. While this recorded time does 
+                not necessarily correspond to deep sleep, it marks the point at which conscious awareness fades, aligning 
+                reasonably well with subjective experience.
+            </p>
+        
+            <p>
+                Despite the overall regularity during travel, several outliers appear as extremely late sleep times. Revisiting 
+                the raw data shows that these instances are linked to specific situational constraints, particularly late-night 
+                transport. For example, arrivals at Dublin Airport around 1:00 AM often required staying overnight before 
+                continuing to Cork, delaying actual rest until 2:30–4:00 AM.
+            </p>
+        
+            <p>
+                In another case, a recorded sleep time of 5:30 AM appears to result from fragmented or shallow sleep that was 
+                not fully captured by the wearable device. These anomalies highlight both the influence of context and the 
+                limitations of device-based tracking, and can also be interpreted as instances of measurement bias.
+            </p>
+        
+            <p>
+                In contrast, irregularity at home is not driven by external constraints but by internal variability. In addition 
+                to frequent late nights, there are occasional instances of unusually early sleep (e.g., 8:00–9:00 PM), typically 
+                following accumulated fatigue or illness. These extremes further widen the overall distribution.
+            </p>
+        
+            <p>
+                Turning to wake-up times, the difference between the two conditions becomes even more pronounced. At home, 
+                wake-up times range widely from approximately 7:00 AM to 12:00 PM, with the highest density around 8:00–9:00 AM. 
+                While some earlier wake-ups are shaped by external commitments, these constraints are inconsistent, resulting in 
+                a generally flexible and often delayed pattern.
+            </p>
+        
+            <p>
+                By contrast, during travel, wake-up times are both earlier and more tightly clustered. The most frequent 
+                intervals fall between 7:00 and 8:00 AM, accounting for roughly one-third of all travel days. This reflects a 
+                clear behavioural shift, where structured schedules and the motivation to maximise daytime activities act as 
+                strong external anchors.
+            </p>
+        
+            <p>
+                An additional asymmetry appears at the lower bound. Under the home condition, there are no recorded wake-ups 
+                before 6:30 AM, with the earliest at 6:45 AM. During travel, however, approximately one-third of days involve 
+                waking before 7:00 AM, often associated with shortened or disrupted sleep due to transport schedules.
+            </p>
+        
+            <p>
+                In fact, a subset of travel days shows sleep durations concentrated between approximately 3:00 AM and 7:00 AM, 
+                indicating severely restricted rest. This suggests that while travel introduces structure, it also pushes 
+                behaviour toward extremes, especially around periods of transit.
+            </p>
+        
+            <p>
+                The consequences of this trade-off are tangible. Following an intensive travel period, I experienced acute 
+                physical fatigue and illness, including fever and prolonged recovery sleep of up to 14 hours. This indicates 
+                that accumulated sleep debt and disruption can have immediate physiological effects.
+            </p>
+        
+            <p>
+                Overall, the temporal distribution reveals that the difference between “home” and “travel” is not simply a 
+                matter of earlier or later timing, but a shift in the structure of daily life. Home is characterised by 
+                flexibility without constraint, resulting in irregularity and drift. Travel, by contrast, imposes external 
+                rhythms that promote consistency, while also introducing episodic instability at its margins.
+            </p>
+        
+        </div>
+        
     </article>
 </div>
 
