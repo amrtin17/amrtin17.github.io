@@ -8,9 +8,9 @@
     
     <style>
         :root {
-            --bg: #fdfcfb;       /* 柔和的纸张色 */
-            --fg: #2c2c2c;       /* 炭灰色，比纯黑柔和 */
-            --accent: #556b2f;   /* 暗橄榄绿，代表学术与人文 */
+            --bg: #fdfcfb;       /* 蒙肯纸色 */
+            --fg: #2c2c2c;       /* 炭灰 */
+            --accent: #556b2f;   /* 橄榄绿 */
             --dot-color: #d1d1d1;
             --card-bg: rgba(255, 255, 255, 0.7);
             --transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
@@ -23,13 +23,12 @@
             color: var(--fg);
             font-family: 'Inter', sans-serif;
             margin: 0;
-            /* 灵魂点状网格背景 */
             background-image: radial-gradient(var(--dot-color) 1px, transparent 0);
             background-size: 30px 30px;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 顶部进度条 - 改为绿色，更自然 */
+        /* 顶部进度条 */
         .progress-bar {
             position: fixed; top: 0; left: 0; height: 3px;
             background: var(--accent); width: 0%; z-index: 2000;
@@ -37,7 +36,7 @@
 
         .page-shell { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
 
-        /* Header - 增加磨砂玻璃感 */
+        /* Header */
         .site-header {
             display: flex; justify-content: space-between; align-items: center;
             padding: 30px 0;
@@ -48,34 +47,49 @@
             z-index: 1000;
         }
 
-        .brand-copy strong { font-family: 'EB Garamond', serif; font-size: 24px; letter-spacing: 0; }
+        .brand { 
+            text-decoration: none; 
+            color: inherit; 
+        }
+
+        .logo {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            color: var(--fg);
+        }
+
         .site-nav a {
             text-decoration: none; color: var(--fg); margin-left: 35px;
             font-size: 13px; letter-spacing: 1px; font-weight: 500;
+            transition: color 0.3s ease;
         }
+        .site-nav a:hover { color: var(--accent); }
 
-        /* Hero - 人文与数字的对冲 */
+        /* Hero */
         .hero { padding: 120px 0 80px 0; }
         .hero-title {
-            font-family: 'EB Garamond', serif; /* 标题改用衬线体 */
+            font-family: 'EB Garamond', serif;
             font-size: clamp(45px, 7vw, 90px);
             font-weight: 400; line-height: 1.1; margin: 0;
         }
-        .hero-title i { font-style: italic; opacity: 0.8; } /* 强调人文气质 */
+        .hero-title i { font-style: italic; opacity: 0.8; }
         .hero-lead {
             font-size: 19px; max-width: 550px; margin-top: 25px;
             color: #666; font-weight: 300; line-height: 1.6;
         }
 
-        /* 区块标题 */
+        /* Section Styling */
         .section-heading { margin: 80px 0 40px 0; border-left: 4px solid var(--accent); padding-left: 20px; }
-        .kicker { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 5px; }
-        .section-heading h2 { font-family: 'EB Garamond', serif; font-size: 32px; margin: 0; }
+        .kicker { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 5px; font-weight: 700; }
+        .section-heading h2 { font-family: 'EB Garamond', serif; font-size: 32px; margin: 0; font-weight: 400; }
 
-        /* 文章列表 - 扁平化但有悬浮色块 */
+        /* Essays List */
         .log-item {
             display: grid; grid-template-columns: 80px 1fr auto;
-            padding: 30px; margin-bottom: 10px;
+            padding: 25px 30px; margin-bottom: 10px;
             background: transparent; border-radius: 12px;
             text-decoration: none; color: inherit; transition: var(--transition);
         }
@@ -86,44 +100,48 @@
         }
         .log-index { font-family: 'EB Garamond', serif; font-style: italic; font-size: 20px; color: var(--accent); }
         .log-content h3 { margin: 0; font-size: 20px; font-weight: 500; }
-        .log-tags { font-size: 12px; color: #888; margin-top: 5px; }
+        .log-tags { font-size: 12px; color: #888; margin-top: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* 作品集网格 - 真正的悬浮卡片感 */
+        /* Projects Grid */
         .works-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
         }
         .work-panel {
+            display: block;
+            text-decoration: none; color: inherit;
             background: var(--card-bg);
-            border-radius: 20px; /* 柔和的圆角 */
-            padding: 25px;
+            border-radius: 16px;
+            padding: 20px;
             border: 1px solid rgba(255,255,255,0.8);
             transition: var(--transition);
             box-shadow: 0 4px 6px rgba(0,0,0,0.02);
             backdrop-filter: blur(5px);
+            cursor: pointer;
         }
         .work-panel:hover {
             transform: translateY(-12px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.08); /* 深邃但浅淡的阴影 */
+            box-shadow: 0 30px 60px rgba(0,0,0,0.08);
             background: #fff;
         }
         .work-image {
-            aspect-ratio: 16/10; border-radius: 12px; overflow: hidden; margin-bottom: 20px;
-            background: #eee;
+            aspect-ratio: 16/10; border-radius: 10px; overflow: hidden; margin-bottom: 20px;
+            background: #eee; border: 1px solid rgba(0,0,0,0.05);
         }
-        .work-image img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: var(--transition);
-        }
-        .work-panel h3 { font-family: 'EB Garamond', serif; font-size: 24px; margin: 0 0 10px 0; }
+        .work-image img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+        .work-panel h3 { font-family: 'EB Garamond', serif; font-size: 24px; margin: 0 0 8px 0; font-weight: 400; }
+        .work-desc { font-size: 14px; color: #666; margin-bottom: 15px; line-height: 1.5; }
 
-        .site-footer { padding: 100px 0 50px 0; text-align: center; font-size: 12px; opacity: 0.4; }
+        .site-footer { padding: 100px 0 50px 0; text-align: center; font-size: 11px; opacity: 0.5; letter-spacing: 2px; }
 
+        /* Reveal Animation */
         .reveal { opacity: 0; transform: translateY(20px); transition: var(--transition); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         @media (max-width: 768px) {
             .works-grid { grid-template-columns: 1fr; }
             .page-shell { padding: 0 20px; }
+            .log-item { grid-template-columns: 40px 1fr; }
+            .log-arrow { display: none; }
         }
     </style>
 </head>
@@ -133,14 +151,13 @@
 
     <div class="page-shell">
         <header class="site-header">
-            <a href="#" class="brand">
-                <div class="brand-copy">
-                    <strong>Shiqi Ge</strong>
-                </div>
+            <a href="index.html" class="brand">
+                <div class="logo">Shiqi Ge</div>
             </a>
             <nav class="site-nav">
                 <a href="#essays">Essays</a>
                 <a href="#projects">Practice</a>
+                <a href="about.html">About</a>
                 <a href="mailto:17amrtin@gmail.com">Contact</a>
             </nav>
         </header>
@@ -150,8 +167,8 @@
                 <h1 class="hero-title reveal">
                     Bridging <i>Digital</i> Artifacts <br>& <i>Human</i> Narratives
                 </h1>
-                <p class="hero-lead reveal" style="transition-delay: 0.2s;">
-                    Exploring the intersection of data, communication, and culture through visual storytelling and computational methods.
+                <p class="hero-lead reveal" style="transition-delay: 0.15s;">
+                    Posters, Python graphics, and digital humanities projects – combining visual storytelling with code.
                 </p>
             </section>
 
@@ -160,23 +177,44 @@
                     <p class="kicker">Archives / 01</p>
                     <h2>Selected Essays</h2>
                 </div>
-                <div class="log-grid">
+                <div class="log-grid" id="essay-list">
+                    
                     <a href="tracking-my-sleep.html" class="log-item reveal">
                         <span class="log-index">01.</span>
                         <div class="log-content">
                             <h3>Sleep Data Visualization</h3>
-                            <div class="log-tags">Digital Humanities / Quantified Self</div>
+                            <div class="log-tags">DH / Data Viz</div>
                         </div>
                         <span class="log-arrow">↗</span>
                     </a>
-                    <a href="essay-crowdsourcing.html" class="log-item reveal">
+
+                    <a href="essay-crowdsourcing.html" class="log-item reveal" style="transition-delay: 0.1s;">
                         <span class="log-index">02.</span>
                         <div class="log-content">
-                            <h3>Crowdsourcing & Knowledge</h3>
-                            <div class="log-tags">Communication Theory / Research Design</div>
+                            <h3>Crowdsourcing, Classification, and Research Design</h3>
+                            <div class="log-tags">Essay / Crowdsourcing / Research Methods</div>
                         </div>
                         <span class="log-arrow">↗</span>
                     </a>
+
+                    <a href="essay-ai-systems.html" class="log-item reveal" style="transition-delay: 0.2s;">
+                        <span class="log-index">03.</span>
+                        <div class="log-content">
+                            <h3>Digital Systems, Invisible Labour, and the Politics of Knowledge</h3>
+                            <div class="log-tags">Essay / Digital Culture</div>
+                        </div>
+                        <span class="log-arrow">↗</span>
+                    </a>
+
+                    <a href="essay-open-glam.html" class="log-item reveal" style="transition-delay: 0.3s;">
+                        <span class="log-index">04.</span>
+                        <div class="log-content">
+                            <h3>Digitisation as Cultural Power: Open GLAM, AI, and Cultural Memory</h3>
+                            <div class="log-tags">Essay / Open GLAM</div>
+                        </div>
+                        <span class="log-arrow">↗</span>
+                    </a>
+
                 </div>
             </section>
 
@@ -185,27 +223,50 @@
                     <p class="kicker">Artifacts / 02</p>
                     <h2>Featured Projects</h2>
                 </div>
-                <div class="works-grid">
-                    <div class="work-panel reveal">
+                <div class="works-grid" id="project-list">
+                    
+                    <a href="dead-poets-poster.html" class="work-panel reveal">
                         <div class="work-image">
-                            <img src="assets/img/DEAD POETS SOCIETY.jpg" alt="Project">
+                            <img src="assets/img/DEAD POETS SOCIETY.jpg" alt="Dead Poets Society poster preview">
                         </div>
-                        <h3>Dead Poets Society</h3>
-                        <p class="log-tags">Generative Design / Python-Fu</p>
-                    </div>
-                    <div class="work-panel reveal">
+                        <h3>Dead Poets Society Poster</h3>
+                        <p class="work-desc">A film poster designed in GIMP plus a Python-Fu plug-in that auto-generates the same layout from user images.</p>
+                        <p class="log-tags">Poster / Python / GIMP</p>
+                    </a>
+
+                    <a href="turtle-fractals.html" class="work-panel reveal" style="transition-delay: 0.1s;">
                         <div class="work-image">
-                            <img src="assets/img/turtle-fractals.png" alt="Project">
+                            <img src="assets/img/turtle-fractals.png" alt="Turtle fractals preview">
                         </div>
-                        <h3>Fractal Geometries</h3>
-                        <p class="log-tags">Visual Coding / Turtle Graphics</p>
-                    </div>
+                        <h3>Turtle Fractals Collection</h3>
+                        <p class="work-desc">A small library of Python Turtle fractals, including trees and ferns used in class projects and experiments.</p>
+                        <p class="log-tags">Python / Turtle / Fractals</p>
+                    </a>
+
+                    <a href="dh-project.html" class="work-panel reveal">
+                        <div class="work-image">
+                            <img src="assets/img/Re-visualizing a city.jpg" alt="Digital humanities project preview">
+                        </div>
+                        <h3>Digital Humanities Project</h3>
+                        <p class="work-desc">Final thesis project in UCC’s DAH programme, making an artefact to re-visualize city promotional videos for cultural analysis.</p>
+                        <p class="log-tags">DH / Data Viz</p>
+                    </a>
+
+                    <a href="action2026testlink.html" class="work-panel reveal" style="transition-delay: 0.1s;">
+                        <div class="work-image">
+                            <img src="assets/img/Action2026-cardcover.png" alt="ACTION English Website">
+                        </div>
+                        <h3>ACTION English Website</h3>
+                        <p class="work-desc">Asian Climate-SDG Technology Innovation Hackathon for Next-Generation</p>
+                        <p class="log-tags">UN COP / Asian / SDG</p>
+                    </a>
+
                 </div>
             </section>
         </main>
 
         <footer class="site-footer">
-            <p>© <span id="year"></span> SHIQI GE · CORK, IRELAND</p>
+            <p>© <span id="year"></span> SHIQI GE · DIGITAL ARTS & HUMANITIES</p>
         </footer>
     </div>
 
