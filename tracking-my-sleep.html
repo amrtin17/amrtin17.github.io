@@ -529,7 +529,7 @@
 
 
 
-        
+        <!-- ### 图表3 ### -->
         <div style="margin-top:40px;">
           <h3>Sortable Sleep Timeline</h3>
         
@@ -547,7 +547,6 @@
               <option value="desc">Descending</option>
             </select>
         
-            <button onclick="applySort2()">Apply</button>
           </div>
         
           <div id="chart2" style="width:100%; height:600px;"></div>
@@ -970,10 +969,15 @@
     // 初始化新图表
     var chart2 //全局
     document.addEventListener('DOMContentLoaded', function () {
-        // 初始化
+    
         chart2 = echarts.init(document.getElementById('chart2'));
-        // 渲染
+    
+        // 初始渲染
         renderChart2(rawData);
+    
+        // ✅ 关键：绑定下拉框
+        document.getElementById('sortKey2').addEventListener('change', updateChart2);
+        document.getElementById('sortOrder2').addEventListener('change', updateChart2);
     });
 
     // 渲染函数
@@ -1025,6 +1029,15 @@
                 data: processed.seriesData
             }]
         });
+    }
+
+    function updateChart2() {
+        var key = document.getElementById('sortKey2').value;
+        var order = document.getElementById('sortOrder2').value;
+    
+        var sorted = sortData2(rawData, key, order);
+    
+        renderChart2(sorted);
     }
     
     // 响应式支持
