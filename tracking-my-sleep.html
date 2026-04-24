@@ -231,12 +231,7 @@
                 <h2 id="subtitle">Introduction</h2>
 
                 <p>
-                    I’ve always been keeping track of my personal data, such as location, sleep time, steps, device screen time, 
-                    film watching records, and diaries if I’m more available. The idea of the “quantified self” suggests that 
-                    by systematically tracking personal data, individuals can gain insight into their daily behaviours and 
-                    underlying patterns. In this project, I focus on my own sleep habits over a period of 100 days. Rather than 
-                    simply measuring sleep duration, I aim to explore how my sleep schedule varies across different contexts and 
-                    how it reflects the tension between my intended routines and actual behaviour.
+                    I’ve always been keeping track of my personal data, such as location, sleep time, steps, device screen time, film watching records, and diaries when time permits. The idea of the “quantified self” suggests that by systematically tracking personal data, individuals can gain insight into their daily behaviours and underlying patterns. In this project, I focus on my own sleep habits over a period of 100 days. Rather than simply measuring sleep duration, I aim to explore how my sleep schedule varies across different contexts and how it reflects the tension between my intended routines and actual behaviour.
                 </p>
 
                 <div class="intro-questions">
@@ -247,7 +242,7 @@
                     <ul>
                         <li>What kind of pattern does my sleep habit show?</li>
                         <li>How do different living contexts (home vs travel) affect my sleep patterns?</li>
-                        <li>How does my actual behaviour compare to my internalised “ideal” sleep schedule?</li>
+                        <li>What aspects influence sleep quality the most?</li>
                     </ul>
                 </div>
             </div>
@@ -275,7 +270,9 @@
                 <p>
                     The dataset was collected using a wearable device alongside a small amount of manual recording. 
                     Each entry corresponds to one day and includes variables such as sleep time, wake-up time, 
-                    total sleep duration, interruptions, and contextual labels (e.g., “home” or “travel”).
+                    total sleep duration, interruptions, and contextual labels (e.g., “home” or “travel”). 
+                    The data spans over 100 days, from 10 January to 20 April 2026, providing a longitudinal 
+                    view of my sleep behaviour. 
                 </p>
 
                 <figure class="essay-figure">
@@ -284,24 +281,9 @@
                 </figure>
             </div>
 
-            <div class="data-block">
-                <p>
-                    The data spans over 100 days, from 10 January to 20 April 2026, providing a longitudinal 
-                    view of my sleep behaviour. However, the dataset is not without limitations.
-                </p>
-            </div>
-
             <div class="data-limitations">
                 <p>
-                    There is one instance of missing data due to not wearing the device overnight, which was removed 
-                    from the dataset. Additionally, the sensor occasionally produced inaccurate readings, for 
-                    example detecting sleep during periods of inactivity while I was still awake.
-                </p>
-
-                <p>
-                    These inconsistencies were manually reviewed and corrected by cross-checking personal diaries 
-                    and phone records. While the device is not perfectly accurate, it has proven to be reasonably 
-                    reliable based on long-term usage.
+                    However, the dataset is not without limitations. There is one instance of missing data due to not wearing the device overnight. It serves no purpose to retain the empty data in this project, so I simply excluded this entry.
                 </p>
 
                 <figure>
@@ -316,10 +298,6 @@
                     seem weird and cannot be explained. So, I checked my diaries and phone albums to make sure nothing 
                     special happened that night to cause the irregularity, and fixed them to what I reckon as reasonable 
                     data. These issues are important to acknowledge, as they affect the reliability of the analysis.
-                </p>
-
-                <p>
-                    The device is not 100% accurate to be honest, but mostly reliable after two years of wearing experience.
                 </p>
             </div>
 
@@ -349,16 +327,11 @@
             <h2>📊 General Result</h2>
     
             <p>
-                The first visualisation presents the dataset as a timeline, where each day is represented as a horizontal bar 
-                indicating sleep duration across a fixed time axis (from evening to the following midday). This format preserves 
-                the most complete dataset itself, making it possible to observe patterns across days at a glance.
+                The first visualisation presents the dataset as a timeline. This format preserves the granular integrity of the data, allowing for direct observation of daily shifts.
             </p>
     
             <p>
-                The most obvious feature of my sleeping habit is the late bedtime and general irregularity. I usually go to sleep after 1am 
-                and often it can be after 3 am. This is far from a stable habit. The data honestly captures my "floating" schedule 
-                where sleep onset is frequently delayed until the 2:00 AM to 4:00 AM window, effectively shifting my entire 
-                circadian peak into the late-night hours.
+                The most obvious feature of my sleeping habit is the late bedtime and general irregularity. I usually go to sleep after 1am and often it can be after 3 am, which is far from a stable habit. The data honestly captures my "floating" schedule where sleep onset is frequently delayed until the 2:00 AM to 4:00 AM window, effectively shifting my entire circadian sleep phase into the late-night hours.
             </p>
         </div>
 
@@ -443,91 +416,44 @@
             <h3 class="subsection-title">Temporal Distribution: Visualising Regularity</h3>
         
             <p>
-                To further examine regularity, I constructed circular “clock-like” visualisations alongside binned bar charts 
-                to represent the distribution of sleep and wake-up times under different conditions. Rather than plotting each 
-                exact timestamp, I grouped time into 15-minute intervals (i.e., four segments per hour). This aggregation reduces 
-                visual fragmentation while still preserving temporal resolution.
+                To further examine regularity, I constructed circular “clock-like” visualisations alongside binned bar charts to represent the distribution of sleep and wake-up times under different conditions. Rather than plotting each exact timestamp, I grouped time into 15-minute intervals (i.e., four segments per hour). This aggregation reduces visual fragmentation while still preserving temporal resolution.
             </p>
         
             <p>
-                Each day contributes equally as one observation, but after grouping, the frequency within each interval varies. 
-                To ensure comparability between “home” and “travel” periods—given their unequal number of days—all values were 
-                normalised into percentages, so that bar length reflects proportional distribution rather than raw counts.
+                Each day contributes equally as one observation, but after grouping, the frequency within each interval varies. Furthermore, to ensure comparability between “home” and “travel” periods, given their unequal number of days, all values were normalised into percentages, so that bar length reflects proportional distribution rather than raw counts.
             </p>
         
             <p>
-                Focusing first on sleep onset time, the contrast between the two conditions is immediately visible. Under the 
-                “home” condition, sleep times are highly dispersed, spanning roughly from midnight to 4:00 AM, with no strong 
-                clustering. This wide spread suggests a lack of consistent routine, with substantial day-to-day variability.
+                Focusing first on sleep onset time, the contrast between the two conditions is immediately visible. Under the “home” condition, sleep times are highly dispersed, spanning roughly from midnight to 4:00 AM, with no strong clustering. This wide spread suggests a lack of consistent routine, with substantial day-to-day variability. In contrast, during travel, sleep times become noticeably more concentrated, primarily between 12:00 AM and 2:00 AM. Although still relatively late, this narrower range indicates a more regularised pattern.
             </p>
         
             <p>
-                In contrast, during travel, sleep times become noticeably more concentrated, primarily between 12:00 AM and 
-                2:00 AM. Although still relatively late, this narrower range indicates a more regularised pattern. One notable 
-                feature is that in both conditions, the most frequent sleep onset occurs around 1:15 AM, accounting for 
-                approximately 15% of days at home and nearly 20% during travel.
+                One notable feature is that in both conditions, the most frequent sleep onset occurs around 1:15 AM. This interval accounts for approximately 15% of days at home and nearly 20% during travel. This consistency suggests a behavioural threshold: around 1:00 AM, I tend to recognise that it is “late enough” to initiate sleep. Based on long-term observation, there is typically a delay of around 10–15 minutes between the decision to sleep (e.g., putting the phone away and turning off the lights) and the moment when the wearable device records sleep onset. While this recorded time does not necessarily correspond to deep sleep, it marks the point at which I lose conscious awareness, which aligns reasonably well with subjective experience.
             </p>
         
             <p>
-                This consistency suggests a behavioural threshold: around 1:00 AM, I tend to recognise that it is “late enough” 
-                to initiate sleep. Based on long-term observation, there is typically a delay of around 10–15 minutes between 
-                the decision to sleep and the moment when the wearable device records sleep onset. While this recorded time does 
-                not necessarily correspond to deep sleep, it marks the point at which conscious awareness fades, aligning 
-                reasonably well with subjective experience.
+                Despite the overall regularity during travel, several outliers appear as extremely late sleep times. Upon revisiting the raw data, these instances can be attributed to specific situational constraints, particularly late-night travel. For example, on days involving late arrivals at Dublin Airport, I often landed around 1:00 AM and had to remain in the airport overnight before catching early-morning transport back to Cork. In such cases, actual rest was delayed until 2:30–4:00 AM. In another instance, a recorded sleep time of 5:30 AM resulted from fragmented rest the previous night that was not captured by the wearable device, likely due to shallow or interrupted sleep. These anomalies highlight both the influence of contextual factors and the limitations of device-based sleep tracking, and could also be discussed as part of data error or measurement bias.
             </p>
         
             <p>
-                Despite the overall regularity during travel, several outliers appear as extremely late sleep times. Revisiting 
-                the raw data shows that these instances are linked to specific situational constraints, particularly late-night 
-                transport. For example, arrivals at Dublin Airport around 1:00 AM often required staying overnight before 
-                continuing to Cork, delaying actual rest until 2:30–4:00 AM.
+                In contrast, irregularity at home is not driven by external constraints but by internal variability. In addition to frequent late nights, there are occasional instances of unusually early sleep (e.g., 8:00–9:00 PM), typically following periods of accumulated sleep deprivation or physical fatigue (such as illness). These extremes further contribute to the overall dispersion of the distribution.
             </p>
         
             <p>
-                In another case, a recorded sleep time of 5:30 AM appears to result from fragmented or shallow sleep that was 
-                not fully captured by the wearable device. These anomalies highlight both the influence of context and the 
-                limitations of device-based tracking, and can also be interpreted as instances of measurement bias.
+                Turning to wake-up times, the difference between the two conditions becomes even more pronounced. At home, wake-up times range widely from approximately 7:00 AM to 12:00 PM, with the highest density occurring around 8:00–9:00 AM. This pattern is partially shaped by external factors such as alarms set for early-morning commitments (e.g., coordinating with collaborators in China across time zones), but these constraints are inconsistent. As a result, wake-up times remain flexible and often delayed, with many days extending into late morning.
             </p>
         
             <p>
-                In contrast, irregularity at home is not driven by external constraints but by internal variability. In addition 
-                to frequent late nights, there are occasional instances of unusually early sleep (e.g., 8:00–9:00 PM), typically 
-                following accumulated fatigue or illness. These extremes further widen the overall distribution.
+                By contrast, during travel, wake-up times are both earlier and more tightly clustered. The most frequent intervals fall between 7:00 and 8:00 AM, accounting for roughly one-third of all travel days. This reflects a clear behavioural shift: travel introduces a strong external anchor, such as planned activities, limited time at each destination, and a motivation to maximise daytime exploration, which encourages earlier rising.
             </p>
         
             <p>
-                Turning to wake-up times, the difference between the two conditions becomes even more pronounced. At home, 
-                wake-up times range widely from approximately 7:00 AM to 12:00 PM, with the highest density around 8:00–9:00 AM. 
-                While some earlier wake-ups are shaped by external commitments, these constraints are inconsistent, resulting in 
-                a generally flexible and often delayed pattern.
+                An additional asymmetry emerges at the lower bound of wake-up times. Under the home condition, there are no recorded instances of waking before 6:30 AM, with the earliest at 6:45 AM. However, during travel, approximately one-third of days involve waking before 7:00 AM. These early wake-ups are often associated with insufficient sleep, particularly in cases of disrupted or shortened rest due to transport schedules. In fact, a subset of travel days shows sleep durations concentrated between approximately 3:00 AM and 7:00 AM, indicating severely restricted rest.
             </p>
         
             <p>
-                By contrast, during travel, wake-up times are both earlier and more tightly clustered. The most frequent 
-                intervals fall between 7:00 and 8:00 AM, accounting for roughly one-third of all travel days. This reflects a 
-                clear behavioural shift, where structured schedules and the motivation to maximise daytime activities act as 
-                strong external anchors.
+                This pattern suggests that while travel introduces structure, it also pushes behaviour toward extremes. On the one hand, it stabilises daily rhythms through external scheduling and motivation; on the other hand, it creates conditions, especially around transit, that lead to highly irregular and sometimes physically taxing sleep patterns. The consequences of this trade-off are not negligible. For instance, following an intensive travel period, I experienced acute physical fatigue and illness, including fever and prolonged recovery sleep (up to 14 hours), indicating that accumulated sleep debt and disruption can have immediate physiological effects.
             </p>
-        
-            <p>
-                An additional asymmetry appears at the lower bound. Under the home condition, there are no recorded wake-ups 
-                before 6:30 AM, with the earliest at 6:45 AM. During travel, however, approximately one-third of days involve 
-                waking before 7:00 AM, often associated with shortened or disrupted sleep due to transport schedules.
-            </p>
-        
-            <p>
-                In fact, a subset of travel days shows sleep durations concentrated between approximately 3:00 AM and 7:00 AM, 
-                indicating severely restricted rest. This suggests that while travel introduces structure, it also pushes 
-                behaviour toward extremes, especially around periods of transit.
-            </p>
-        
-            <p>
-                The consequences of this trade-off are tangible. Following an intensive travel period, I experienced acute 
-                physical fatigue and illness, including fever and prolonged recovery sleep of up to 14 hours. This indicates 
-                that accumulated sleep debt and disruption can have immediate physiological effects.
-            </p>
-        
-        
         </div>
 
 
@@ -577,13 +503,19 @@
         </div>
 
         <div class="essay-more-text">
-            <h3 class="subsection-title">What leads to good or poor sleep?</h3>
+            <h3 class="subsection-title">What leads to a good or poor sleep?</h3>
             <p>
-                To further examine regularity, I constructed circular “clock-like” visualisations alongside binned bar charts 
-                to represent the distribution of sleep and wake-up times under different conditions. Rather than plotting each 
-                exact timestamp, I grouped time into 15-minute intervals (i.e., four segments per hour). This aggregation reduces 
-                visual fragmentation while still preserving temporal resolution.
+                To further enrich the analysis, I introduced an additional interactive visualisation in which sleep quality is explicitly highlighted through colour coding: “good” days are marked in blue, “poor” days in red, while “fair” days remain in grey. I also implemented three sorting modes, by sleep onset time, wake-up time, and total sleep duration, to allow for comparative observation across different temporal dimensions. Across these views, no strict or deterministic relationship emerges between sleep quality and either bedtime or wake-up time. Both “good” and “poor” nights appear distributed across a wide temporal range, suggesting that simply sleeping earlier or later does not guarantee better outcomes.
             </p>
+
+            <p>
+                That said, a weak tendency can still be observed: “good” quality sleep more often occurs when sleep begins before approximately 1:00 a.m., with wake-up times generally falling after 7:00 a.m. However, the most noticeable pattern appears when sorting by total duration. “Poor” quality sleep clusters at both extremes: on nights with very short sleep as well as those with unusually long durations. This indicates that insufficient sleep is not the only issue; excessive sleep may also be associated with lower perceived quality.
+            </p>
+
+            <p>
+                While existing research suggests that sleep quality is shaped by multiple interacting factors beyond timing and duration, my own data points to duration as a particularly influential variable. At the same time, subjective experience complicates this pattern: even when total sleep is long, going to bed very late often results in persistent fatigue the next day. In this sense, although the visual patterns do not show a strong dependency on clock time alone, the lived experience of recovery still appears to be sensitive to when sleep occurs, not just how long it lasts.
+            </p>
+            
         </div>
 
 
@@ -591,11 +523,7 @@
             <h2 class="subsection-title">Conclusion</h2>
         
             <p>
-                This project began with an intuitive awareness that my sleep habits were irregular and often unhealthy. However, 
-                visualising the data transformed this vague perception into something far more concrete. What is striking is not 
-                simply that my sleep is inconsistent, but the extent of that inconsistency. Rather than clustering within a relatively 
-                narrow time window, my sleep onset spans a large portion of the 24-hour cycle. This is not just a pattern of “late 
-                sleeping,” but a near absence of a stable temporal structure.
+                This project began with an intuitive awareness that my sleep habits were irregular and often unhealthy. However, visualising the data transformed this vague perception into something far more concrete. What is striking is not simply that my sleep is inconsistent, but the extent of that inconsistency. Rather than clustering within a relatively narrow time window, my sleep onset spans a large portion of the 24-hour cycle. This is not just a pattern of “late sleeping,” but a near absence of a stable temporal structure.
             </p>
         
             <p>
@@ -606,42 +534,23 @@
             </p>
         
             <p>
-                This observation is consistent with existing research. For instance, Taub and Berger (1976) demonstrate that disruptions 
-                to the 24-hour sleep–wake cycle impair human performance largely independently of total sleep duration. In my case, 
-                even when total sleep time is occasionally sufficient, irregular timing may still undermine daily functioning.
+                This observation is consistent with existing research. For instance, J.M. Taub and R.J. Berger (1976) demonstrate that disruptions to the 24-hour sleep–wake cycle impair human performance largely independently of total sleep duration. In my case, even when total sleep time is occasionally sufficient, irregular timing may still undermine daily functioning.
             </p>
         
             <p>
-                At the same time, the data complicates a purely duration-based understanding of sleep. Longer sleep does not necessarily 
-                correspond to better perceived quality, while shorter but more regular sleep sometimes produces more stable daily rhythms. 
-                This helps explain a familiar but frustrating experience: even after “catching up” on sleep, I do not necessarily feel 
-                better. As Czeisler (2014) argues, sleep timing, duration, and quality are all essential for health and performance. 
-                Taken together, this suggests that regularity and alignment with circadian rhythms may be as important as, if not more 
-                important than, total hours slept.
+                At the same time, the data complicates a purely duration-based understanding of sleep. Longer sleep does not necessarily correspond to better perceived quality, while shorter but more regular sleep sometimes produces more stable daily rhythms. This helps explain a familiar but frustrating experience: even after “catching up” on sleep, I do not necessarily feel better. As Charles A. Czeisler (2014) argues, sleep timing, duration, and quality are all essential for health and performance. Taken together, this suggests that regularity and alignment with circadian rhythms may be as important as, if not more important than, total hours slept.
             </p>
         
             <p>
-                From a behavioural perspective, the data also reveals a reinforcing cycle. The absence of a structured daytime routine 
-                makes it easier for nights to extend unpredictably, even when I am already exhausted. This, in turn, disrupts the following 
-                day, making it harder to establish any consistent routine. In this sense, what appears as “flexibility” does not result in 
-                freedom, but in drift. By contrast, the external rhythms imposed during travel act as temporal anchors, promoting greater 
-                consistency. This suggests that a certain degree of external constraint may not be restrictive, but stabilising.
+                From a behavioural perspective, the data also reveals a reinforcing cycle. The absence of a structured daytime routine makes it easier for nights to extend unpredictably, even when I am already exhausted. This, in turn, disrupts the following day, making it harder to establish any consistent routine. In this sense, what appears as “flexibility” does not result in freedom, but in drift. By contrast, the external rhythms imposed during travel act as temporal anchors, promoting greater consistency. This suggests that a certain degree of external constraint may not be restrictive, but stabilising.
             </p>
         
             <p>
-                However, it is also necessary to acknowledge the limitations of the dataset. Missing data reduces completeness, and 
-                device-based measurements introduce potential inaccuracies—for example, periods of inactivity may be misclassified as 
-                sleep. More fundamentally, quantified self data inevitably abstracts away from lived experience: it records when I slept, 
-                but not why I stayed awake, what I was doing, or how I felt at the time. As a result, while the visualisations reveal 
-                clear patterns, they do not constitute a complete representation of reality and must be interpreted critically.
+                However, it is also necessary to acknowledge the limitations of the dataset. Missing data reduces completeness, and device-based measurements introduce potential inaccuracies—for example, periods of inactivity may be misclassified as sleep. More fundamentally, quantified self data inevitably strips away human context. It records when I slept, but ignores why I stayed awake, what I was doing, or how I felt at the time. As a result, while the visualisations reveal clear patterns, they do not constitute a complete representation of reality and must be interpreted critically.
             </p>
         
             <p>
-                Ultimately, this project demonstrates the value of a digital humanities approach to everyday life. By combining personal 
-                data, visualisation, and interpretive reflection, it becomes possible to connect subjective experience with empirical 
-                patterns. In this context, sleep is not only a biological necessity, but also a lens through which to understand the 
-                relationship between individual behaviour and external structure. What this project reveals is not just when I sleep, 
-                but how easily intention gives way to habit—and how, in the absence of structure, that habit can become difficult to control.
+                Ultimately, this project demonstrates the value of a digital humanities approach to everyday life. By combining personal data, visualisation, and interpretive reflection, it becomes possible to connect subjective experience with empirical patterns. In this context, sleep is not only a biological necessity, but also a lens through which to understand the relationship between individual behaviour and external structure. What this project reveals is not just when I sleep, but how easily intention gives way to habit, and how, in the absence of structure, that habit can become difficult to control.
             </p>
         </div>
 
