@@ -3,183 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shiqi Ge | Portfolio Upgrade Test</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <title>Shiqi Ge | DH & Comm Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- 核心设计系统 --- */
         :root {
-            --bg: #ffffff;
-            --fg: #000000;
-            --border: 1px solid #000000;
-            --gray: #f4f4f4;
-            --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            --bg: #fdfcfb;       /* 柔和的纸张色 */
+            --fg: #2c2c2c;       /* 炭灰色，比纯黑柔和 */
+            --accent: #556b2f;   /* 暗橄榄绿，代表学术与人文 */
+            --dot-color: #d1d1d1;
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         * { box-sizing: border-box; }
 
         body {
-            background: var(--bg);
+            background-color: var(--bg);
             color: var(--fg);
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0;
-            line-height: 1.5;
+            /* 灵魂点状网格背景 */
+            background-image: radial-gradient(var(--dot-color) 1px, transparent 0);
+            background-size: 30px 30px;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 顶部进度条 */
+        /* 顶部进度条 - 改为绿色，更自然 */
         .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            background: var(--fg);
-            width: 0%;
-            z-index: 2000;
-            transition: width 0.1s;
+            position: fixed; top: 0; left: 0; height: 3px;
+            background: var(--accent); width: 0%; z-index: 2000;
         }
 
-        /* 布局容器 */
-        .page-shell {
-            max-width: 1600px;
-            margin: 0 auto;
-            border-left: var(--border);
-            border-right: var(--border);
-        }
+        .page-shell { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
 
-        /* Header 导航 */
+        /* Header - 增加磨砂玻璃感 */
         .site-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 30px 40px;
-            border-bottom: var(--border);
-            position: sticky;
-            top: 0;
-            background: rgba(255, 255, 255, 0.85);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 30px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: sticky; top: 0;
+            background: rgba(253, 252, 251, 0.8);
             backdrop-filter: blur(10px);
             z-index: 1000;
         }
 
-        .brand { display: flex; align-items: center; gap: 15px; text-decoration: none; color: #000; }
-        .brand-mark { width: 16px; height: 16px; background: #000; }
-        .brand-copy strong { display: block; font-size: 18px; letter-spacing: 1px; }
-        .brand-copy small { font-size: 10px; text-transform: uppercase; opacity: 0.6; }
-
+        .brand-copy strong { font-family: 'EB Garamond', serif; font-size: 24px; letter-spacing: 0; }
         .site-nav a {
-            text-decoration: none;
-            color: var(--fg);
-            margin-left: 30px;
-            font-size: 13px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            text-decoration: none; color: var(--fg); margin-left: 35px;
+            font-size: 13px; letter-spacing: 1px; font-weight: 500;
         }
 
-        /* Hero 主视觉区 */
-        .hero {
-            padding: 150px 40px;
-            border-bottom: var(--border);
-        }
-
+        /* Hero - 人文与数字的对冲 */
+        .hero { padding: 120px 0 80px 0; }
         .hero-title {
-            font-size: clamp(40px, 8vw, 100px);
-            line-height: 0.85;
-            font-weight: 900;
-            margin: 0 0 30px 0;
-            text-transform: uppercase;
-            letter-spacing: -3px;
+            font-family: 'EB Garamond', serif; /* 标题改用衬线体 */
+            font-size: clamp(45px, 7vw, 90px);
+            font-weight: 400; line-height: 1.1; margin: 0;
         }
-
-        .outline-text {
-            -webkit-text-stroke: 1px #000;
-            color: transparent;
-        }
-
+        .hero-title i { font-style: italic; opacity: 0.8; } /* 强调人文气质 */
         .hero-lead {
-            font-size: 18px;
-            max-width: 600px;
-            font-weight: 300;
+            font-size: 19px; max-width: 550px; margin-top: 25px;
+            color: #666; font-weight: 300; line-height: 1.6;
         }
 
-        /* 通用区块标题 */
-        .section-heading {
-            padding: 60px 40px;
-            border-bottom: var(--border);
-        }
+        /* 区块标题 */
+        .section-heading { margin: 80px 0 40px 0; border-left: 4px solid var(--accent); padding-left: 20px; }
+        .kicker { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 5px; }
+        .section-heading h2 { font-family: 'EB Garamond', serif; font-size: 32px; margin: 0; }
 
-        .kicker { font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; }
-        .section-heading h2 { font-size: 32px; margin: 0; font-weight: 400; }
-
-        /* 文章列表 (Archive 风格) */
-        .log-grid { display: flex; flex-direction: column; }
+        /* 文章列表 - 扁平化但有悬浮色块 */
         .log-item {
-            display: grid;
-            grid-template-columns: 100px 1fr auto;
-            padding: 40px;
-            border-bottom: var(--border);
-            text-decoration: none;
-            color: inherit;
-            transition: var(--transition);
+            display: grid; grid-template-columns: 80px 1fr auto;
+            padding: 30px; margin-bottom: 10px;
+            background: transparent; border-radius: 12px;
+            text-decoration: none; color: inherit; transition: var(--transition);
         }
-        .log-item:hover { background: var(--gray); padding-left: 50px; }
-        .log-index { font-weight: 900; opacity: 0.2; }
-        .log-content h3 { margin: 0 0 10px 0; font-size: 20px; }
-        .log-tags { font-size: 11px; opacity: 0.5; text-transform: uppercase; letter-spacing: 1px; }
+        .log-item:hover {
+            background: var(--card-bg);
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+        .log-index { font-family: 'EB Garamond', serif; font-style: italic; font-size: 20px; color: var(--accent); }
+        .log-content h3 { margin: 0; font-size: 20px; font-weight: 500; }
+        .log-tags { font-size: 12px; color: #888; margin-top: 5px; }
 
-        /* 作品集网格 (Grid 风格) */
+        /* 作品集网格 - 真正的悬浮卡片感 */
         .works-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
         }
         .work-panel {
-            border-right: var(--border);
-            border-bottom: var(--border);
-            padding: 40px;
+            background: var(--card-bg);
+            border-radius: 20px; /* 柔和的圆角 */
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.8);
             transition: var(--transition);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            backdrop-filter: blur(5px);
         }
-        .work-panel:nth-child(even) { border-right: none; }
+        .work-panel:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.08); /* 深邃但浅淡的阴影 */
+            background: #fff;
+        }
         .work-image {
-            aspect-ratio: 16/9;
+            aspect-ratio: 16/10; border-radius: 12px; overflow: hidden; margin-bottom: 20px;
             background: #eee;
-            overflow: hidden;
-            margin-bottom: 25px;
-            border: var(--border);
         }
         .work-image img {
             width: 100%; height: 100%; object-fit: cover;
-            filter: grayscale(100%);
             transition: var(--transition);
         }
-        .work-panel:hover img { filter: grayscale(0%); transform: scale(1.05); }
+        .work-panel h3 { font-family: 'EB Garamond', serif; font-size: 24px; margin: 0 0 10px 0; }
 
-        /* 页脚 */
-        .site-footer {
-            padding: 60px 40px;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            opacity: 0.5;
-            text-align: center;
-        }
+        .site-footer { padding: 100px 0 50px 0; text-align: center; font-size: 12px; opacity: 0.4; }
 
-        /* 滚动显现动画类 */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: var(--transition);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .reveal { opacity: 0; transform: translateY(20px); transition: var(--transition); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* 手机端适配 */
         @media (max-width: 768px) {
             .works-grid { grid-template-columns: 1fr; }
-            .work-panel { border-right: none; }
-            .log-item { grid-template-columns: 50px 1fr; }
-            .site-nav { display: none; }
+            .page-shell { padding: 0 20px; }
         }
     </style>
 </head>
@@ -190,15 +134,13 @@
     <div class="page-shell">
         <header class="site-header">
             <a href="#" class="brand">
-                <div class="brand-mark"></div>
                 <div class="brand-copy">
-                    <strong>SHIQI GE</strong>
-                    <small>Digital Arts & Humanities</small>
+                    <strong>Shiqi Ge</strong>
                 </div>
             </a>
             <nav class="site-nav">
-                <a href="#essays">Essays</a>
-                <a href="#projects">Projects</a>
+                <a href="#essays">Writing</a>
+                <a href="#projects">Practice</a>
                 <a href="mailto:17amrtin@gmail.com">Contact</a>
             </nav>
         </header>
@@ -206,91 +148,82 @@
         <main>
             <section class="hero">
                 <h1 class="hero-title reveal">
-                    Digital Arts<br>
-                    <span class="outline-text">& Humanities</span>
+                    Bridging <i>Digital</i> Artifacts <br>& <i>Human</i> Narratives
                 </h1>
                 <p class="hero-lead reveal" style="transition-delay: 0.2s;">
-                    Posters, Python graphics, and digital humanities projects – combining visual storytelling with code.
+                    Exploring the intersection of data, communication, and culture through visual storytelling and computational methods.
                 </p>
             </section>
 
-            <section id="essays" class="reveal">
-                <div class="section-heading">
-                    <p class="kicker">01 / Archives</p>
-                    <h2>Selected Essays / 论文与评论</h2>
+            <section id="essays">
+                <div class="section-heading reveal">
+                    <p class="kicker">Archives / 01</p>
+                    <h2>Selected Essays</h2>
                 </div>
                 <div class="log-grid">
-                    <a href="tracking-my-sleep.html" class="log-item">
-                        <span class="log-index">01</span>
+                    <a href="tracking-my-sleep.html" class="log-item reveal">
+                        <span class="log-index">01.</span>
                         <div class="log-content">
                             <h3>Sleep Data Visualization</h3>
-                            <div class="log-tags">DH / Data Viz / Personal Narrative</div>
+                            <div class="log-tags">Digital Humanities / Quantified Self</div>
                         </div>
-                        <span class="log-arrow">→</span>
+                        <span class="log-arrow">↗</span>
                     </a>
-                    <a href="essay-crowdsourcing.html" class="log-item">
-                        <span class="log-index">02</span>
+                    <a href="essay-crowdsourcing.html" class="log-item reveal">
+                        <span class="log-index">02.</span>
                         <div class="log-content">
-                            <h3>Crowdsourcing & Classification</h3>
-                            <div class="log-tags">Research Methods / Knowledge Production</div>
+                            <h3>Crowdsourcing & Knowledge</h3>
+                            <div class="log-tags">Communication Theory / Research Design</div>
                         </div>
-                        <span class="log-arrow">→</span>
+                        <span class="log-arrow">↗</span>
                     </a>
                 </div>
             </section>
 
-            <section id="projects" class="reveal">
-                <div class="section-heading">
-                    <p class="kicker">02 / Artifacts</p>
-                    <h2>Featured Projects / 实践项目</h2>
+            <section id="projects">
+                <div class="section-heading reveal">
+                    <p class="kicker">Artifacts / 02</p>
+                    <h2>Featured Projects</h2>
                 </div>
                 <div class="works-grid">
-                    <div class="work-panel">
+                    <div class="work-panel reveal">
                         <div class="work-image">
                             <img src="assets/img/DEAD POETS SOCIETY.jpg" alt="Project">
                         </div>
-                        <h3>Dead Poets Society Poster</h3>
-                        <p class="log-tags">Python / GIMP / Automation</p>
+                        <h3>Dead Poets Society</h3>
+                        <p class="log-tags">Generative Design / Python-Fu</p>
                     </div>
-                    <div class="work-panel">
+                    <div class="work-panel reveal">
                         <div class="work-image">
                             <img src="assets/img/turtle-fractals.png" alt="Project">
                         </div>
-                        <h3>Turtle Fractals Collection</h3>
-                        <p class="log-tags">Generative Art / Python</p>
+                        <h3>Fractal Geometries</h3>
+                        <p class="log-tags">Visual Coding / Turtle Graphics</p>
                     </div>
                 </div>
             </section>
         </main>
 
         <footer class="site-footer">
-            <p>© <span id="year"></span> SHIQI GE · BUILT WITH CODE & CURIOSITY</p>
+            <p>© <span id="year"></span> SHIQI GE · CORK, IRELAND</p>
         </footer>
     </div>
 
     <script>
-        // 1. 设置年份
         document.getElementById('year').textContent = new Date().getFullYear();
-
-        // 2. 滚动进度条
         window.onscroll = function() {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             let scrolled = (winScroll / height) * 100;
             document.getElementById("bar").style.width = scrolled + "%";
             
-            // 3. 滚动显现逻辑
             const reveals = document.querySelectorAll('.reveal');
             reveals.forEach(el => {
                 let windowHeight = window.innerHeight;
                 let elementTop = el.getBoundingClientRect().top;
-                if (elementTop < windowHeight - 100) {
-                    el.classList.add('active');
-                }
+                if (elementTop < windowHeight - 50) { el.classList.add('active'); }
             });
         };
-
-        // 页面加载时先触发一次显现
         window.onload = () => window.onscroll();
     </script>
 </body>
