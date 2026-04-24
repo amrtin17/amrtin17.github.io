@@ -961,6 +961,17 @@
         });
     }
     
+    // 响应式支持
+    window.addEventListener('resize', function () {
+        mainChart.resize();
+    
+        echarts.getInstanceByDom(document.getElementById('sleepChart'))?.resize();
+        echarts.getInstanceByDom(document.getElementById('wakeChart'))?.resize();
+    
+        if (chart2) chart2.resize();
+    });
+
+
 </script>
 
 </body>
