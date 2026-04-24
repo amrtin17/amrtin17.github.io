@@ -531,8 +531,28 @@
 
         <!-- ### 图表3 ### -->
         <div style="margin-top:40px;">
-          <h3>Sortable Sleep Timeline</h3>
+          
+          <div class="header">
+            <h3>Sortable Sleep Timeline</h3>
         
+            <!-- legend -->
+            <div class="legend">
+              <div class="legend-item">
+                <div class="dot good"></div>
+                <span>Good</span>
+              </div>
+              <div class="legend-item">
+                <div class="dot fair"></div>
+                <span>Fair</span>
+              </div>
+              <div class="legend-item">
+                <div class="dot poor"></div>
+                <span>Poor</span>
+              </div>
+            </div>
+          </div>
+        
+          <!-- 排序控件 -->
           <div style="margin-bottom:10px;">
             Sort by:
             <select id="sortKey2">
@@ -545,10 +565,11 @@
               <option value="asc">Ascending</option>
               <option value="desc">Descending</option>
             </select>
-        
           </div>
         
+          <!-- 图表 -->
           <div id="chart2" style="width:100%; height:600px;"></div>
+        
         </div>
 
 
