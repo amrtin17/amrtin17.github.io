@@ -539,7 +539,6 @@
               <option value="total">Total Sleep</option>
               <option value="sleep">Sleep Time</option>
               <option value="wake">Wake Time</option>
-              <option value="interrupt">Interrupt</option>
             </select>
         
             <select id="sortOrder2">
@@ -882,7 +881,17 @@
     // 时间转分钟
     function timeToMinutes2(timeStr) {
         var parts = timeStr.split(':');
-        return parseInt(parts[0]) * 60 + parseInt(parts[1]);
+        var h = parseInt(parts[0]);
+        var m = parseInt(parts[1]);
+    
+        var minutes = h * 60 + m;
+    
+        // ✅ 关键：把凌晨当作“第二天”
+        if (h < 12) {
+            minutes += 1440;
+        }
+    
+        return minutes;
     }
     
     
@@ -903,10 +912,6 @@
                 valA = timeToMinutes2(a[2]);
                 valB = timeToMinutes2(b[2]);
     
-            } else if (key === 'interrupt') {
-                valA = a[4];
-                valB = b[4];
-            }
     
             return order === 'asc'
                 ? valA - valB
