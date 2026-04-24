@@ -908,7 +908,13 @@
     }
 
     // 初始化新图表
-    var chart2 = echarts.init(document.getElementById('chart2'));
+    var chart2 //全局
+    document.addEventListener('DOMContentLoaded', function () {
+        // 初始化
+        chart2 = echarts.init(document.getElementById('chart2'));
+        // 渲染
+        renderChart2(rawData);
+    });
 
     // 渲染函数
     function renderChart2(data) {
