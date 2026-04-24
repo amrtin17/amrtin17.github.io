@@ -107,6 +107,41 @@
           font-size: 0.85rem;
           color: #888;
         }
+        
+        .essay-intro-layout {
+          display: flex;
+          gap: 40px;
+          align-items: flex-start;
+        }
+        
+        .intro-text {
+          flex: 2;
+        }
+        
+        .intro-images {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+        
+        .intro-images img {
+          width: 100%;
+          border-radius: 12px;
+        }
+        
+        .intro-images figcaption {
+          text-align: center;
+          font-size: 0.8rem;
+          color: #888;
+        }
+        
+        /* 防止手机炸 */
+        @media (max-width: 768px) {
+          .essay-intro-layout {
+            flex-direction: column;
+          }
+        }
 
     </style>
 </head>
@@ -138,29 +173,36 @@
 
     <article class="essay-body">
 
-      <h2 id="subtitle">Introduction</h2>
-      
-      <p>
-      I’ve always been keeping track of my personal data, such as location, sleep time, steps, device screen time, 
+      <div class="essay-intro-layout">
+
+      <!-- 左边文字 -->
+      <div class="intro-text">
+        <h2 id="subtitle">Introduction</h2>
+        
+        <p>
+          I’ve always been keeping track of my personal data, such as location, sleep time, steps, device screen time, 
           film watching records, and diaries if I’m more available. The idea of the “quantified self” suggests that 
           by systematically tracking personal data, individuals can gain insight into their daily behaviours and 
           underlying patterns. In this project, I focus on my own sleep habits over a period of 100 days. Rather than 
           simply measuring sleep duration, I aim to explore how my sleep schedule varies across different contexts and 
           how it reflects the tension between my intended routines and actual behaviour.
-      </p>
-        <figure class="essay-figure">
-            <img src="assets/img/locationdata.jpg" alt="My  Location records" />
-            <figcaption>
-                 My location records during the past year
-            </figcaption>
+        </p>
+      </div>
+    
+      <!-- 右边图片 -->
+      <div class="intro-images">
+        <figure>
+          <img src="assets/img/locationdata.jpg" alt="My Location records" />
+          <figcaption>My location records during the past year</figcaption>
         </figure>
-
-        <figure class="essay-figure">
-            <img src="assets/img/filmwatchingrecord.jpg" alt="My  Location records" />
-            <figcaption>
-                 My film watching records
-            </figcaption>
+    
+        <figure>
+          <img src="assets/img/filmwatchingrecord.jpg" alt="My film watching records" />
+          <figcaption>My film watching records</figcaption>
         </figure>
+      </div>
+    
+    </div>
     </article>
     
     <div class="header">
