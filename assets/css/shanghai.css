@@ -60,15 +60,27 @@ body{
         rgba(10,18,35,.45) 75%,
         rgba(10,18,35,0) 100%
     );
+}
 
+.sidebar:hover{
+    left:0;
+}
+
+.sidebar::before{
+    content:"";
+    position:absolute;
+    left:220px;
+    top:0;
+    width:24px;
+    height:100%;
 }
 
 .logo{
-    font-size:24px;
-    font-weight:700;
-    line-height:1.4;
+    font-size:22px;
+    font-weight:600;
+    letter-spacing:1px;
     color:white;
-    margin-bottom:60px;
+    margin-bottom:55px;
 }
 
 .sidebar nav{
