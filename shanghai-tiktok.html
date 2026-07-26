@@ -2,51 +2,88 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Shanghai Through Global TikTok Eyes</title>
 
     <meta name="description"
-        content="An interactive Digital Humanities dashboard exploring how international TikTok creators perceive and experience Shanghai.">
+          content="An interactive Digital Humanities dashboard exploring how international TikTok creators perceive Shanghai through short-form videos.">
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Styles -->
     <link rel="stylesheet" href="assets/css/shanghai.css">
+
 </head>
 
 <body>
 
+    <!-- Background -->
     <div class="background-grid"></div>
-    
+
+    <!-- Right Navigation -->
     <aside class="right-nav">
-        <div class="nav-card">
-            <div class="nav-title">
-                Explore
-            </div>
-    
-            <nav>
-                <a href="#hero">Overview</a>
-                <a href="#kpi">Key Metrics</a>
-                <a href="#map">City Map</a>
-                <a href="#emotion">Emotion</a>
-                <a href="#experience">Experience</a>
-                <a href="#mobility">Mobility</a>
-                <a href="#insights">Insights</a>
-            </nav>
-        </div>
+        <nav>
+            <a href="#hero">
+                <span class="line"></span>
+                <span class="label">Overview</span>
+            </a>
+            <a href="#overview">
+                <span class="line"></span>
+                <span class="label">Research</span>
+            </a>
+            <a href="#kpi">
+                <span class="line"></span>
+                <span class="label">Metrics</span>
+            </a>
+            <a href="#map">
+                <span class="line"></span>
+                <span class="label">City Map</span>
+            </a>
+            <a href="#emotion">
+                <span class="line"></span>
+                <span class="label">Emotion</span>
+            </a>
+            <a href="#experience">
+                <span class="line"></span>
+                <span class="label">Experience</span>
+            </a>
+            <a href="#mobility">
+                <span class="line"></span>
+                <span class="label">Mobility</span>
+            </a>
+            <a href="#insights">
+                <span class="line"></span>
+                <span class="label">Insights</span>
+            </a>
+        </nav>
     </aside>
 
-    <main class="main-content">
+    <!-- Main -->
+    <main>
+
+        <!-- Hero -->
         <section id="hero" class="hero">
-            <div class="hero-content">
+            <div class="container">
+                <p class="eyebrow">Digital Humanities Exhibition</p>
+
                 <h1>
-                    Shanghai Through Global TikTok Eyes
+                    Shanghai Through<br>
+                    Global TikTok Eyes
                 </h1>
-        
+
                 <p class="subtitle">
-                    Exploring how international TikTok creators experience, represent,
-                    and emotionally perceive Shanghai through Digital Humanities.
+                    Exploring how international TikTok creators perceive, experience,
+                    and emotionally represent Shanghai through short-form videos.
                 </p>
-        
+
                 <div class="hero-tags">
                     <span>Digital Humanities</span>
                     <span>TikTok</span>
@@ -54,70 +91,10 @@
                     <span>Urban Image</span>
                 </div>
             </div>
-        
         </section>
-        
-        <section id="kpi" class="section">
-            <h2>Key Metrics</h2>
-            <div class="kpi-grid">
-                <div class="kpi-card">
-                    <h3>Videos</h3>
-                    <p id="videoCount">200</p>
-                </div>
-        
-                <div class="kpi-card">
-                    <h3>Countries</h3>
-                    <p id="countryCount">36</p>
-                </div>
-        
-                <div class="kpi-card">
-                    <h3>POIs</h3>
-                    <p id="poiCount">81</p>
-                </div>
-        
-                <div class="kpi-card">
-                    <h3>Average Likes</h3>
-                    <p id="avgLikes">52K</p>
-                </div>
-            </div>
-        </section>
-        
-        <section id="map" class="section">
-            <h2>Where Do Creators Go?</h2>
-            <p class="section-intro">
-                Interactive map of Shanghai showing the most frequently visited
-                attractions and experiences.
-            </p>
-            <div id="mapChart"></div>
-        </section>
-        
-        <section id="emotion" class="section">
-            <h2>Emotion Landscape</h2>
-            <div id="emotionChart"></div>
-        </section>
-        
-        <section id="experience" class="section">
-            <h2>Urban Experience</h2>
-            <div id="experienceChart"></div>
-        </section>
-        
-        <section id="mobility" class="section">
-            <h2>Mobility Patterns</h2>
-            <div id="mobilityChart"></div>
-        </section>
-        
-        <section id="insights" class="section">
-            <h2>Key Findings</h2>
-            <div class="insight-box">
-                <ul>
-                    <li>Most creators focus on iconic landmarks.</li>
-                    <li>Food experiences generate stronger positive emotions.</li>
-                    <li>Nighttime Shanghai is significantly overrepresented.</li>
-                    <li>Several local districts remain underexplored.</li>
-                </ul>
-            </div>
-        </section>
-        
+
+        <!-- 其余 section... -->
+
     </main>
 
     <script src="assets/js/app.js"></script>
