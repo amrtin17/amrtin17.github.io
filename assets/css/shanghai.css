@@ -30,11 +30,19 @@ body{
 /* ==========================
    Sidebar
 ========================== */
+.nav-trigger{
+    position:fixed;
+    left:0;
+    top:0;
+    width:18px;
+    height:100vh;
+    z-index:998;
+}
 
 .sidebar{
     position: fixed;
 
-    left: -220px;
+    left:-248px;
     top: 0;
 
     width: 260px;
@@ -62,6 +70,7 @@ body{
     );
 }
 
+.nav-trigger:hover+.sidebar,
 .sidebar:hover{
     left:0;
 }
