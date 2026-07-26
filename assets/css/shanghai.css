@@ -78,6 +78,33 @@ ul{
 
 
 /* ==========================================
+   background-grid
+========================================== */
+.background-grid{
+
+    position:fixed;
+    inset:0;
+
+    background-image:
+
+    linear-gradient(
+    rgba(255,255,255,.03) 1px,
+    transparent 1px),
+
+    linear-gradient(
+    90deg,
+    rgba(255,255,255,.03) 1px,
+    transparent 1px);
+
+    background-size:60px 60px;
+
+    pointer-events:none;
+
+    z-index:-1;
+
+}
+
+/* ==========================================
    RIGHT NAVIGATION
 ========================================== */
 
@@ -93,7 +120,7 @@ ul{
     display:flex;
     flex-direction:column;
     align-items:flex-end;
-    gap:22px;
+    gap:18px;
 }
 
 .right-nav a{
@@ -112,6 +139,15 @@ ul{
     flex-shrink:0;
 }
 
+/* 每条线默认长度不同 */
+.right-nav a:nth-child(1) .line{width:34px;}
+.right-nav a:nth-child(2) .line{width:18px;}
+.right-nav a:nth-child(3) .line{width:42px;}
+.right-nav a:nth-child(4) .line{width:24px;}
+.right-nav a:nth-child(5) .line{width:36px;}
+.right-nav a:nth-child(6) .line{width:20px;}
+.right-nav a:nth-child(7) .line{width:30px;}
+
 .label{
     width:0;
     overflow:hidden;
@@ -124,7 +160,6 @@ ul{
 
 .right-nav:hover .line{
     width:42px;
-    background:var(--accent);
 }
 
 .right-nav:hover .label{
@@ -138,6 +173,7 @@ ul{
 
 .right-nav a:hover .line{
     width:56px;
+    background:var(--accent);
 }
 
 .right-nav a:hover .label{
@@ -177,6 +213,8 @@ main{
     line-height:1.8;
     margin-bottom:40px;
 }
+
+
 
 
 /* ==========================
