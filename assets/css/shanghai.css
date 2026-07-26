@@ -34,86 +34,132 @@ body{
 
 
 /* ==========================
-   Sidebar
+   Right Navigation
 ========================== */
-.nav-trigger{
+
+.right-nav{
     position:fixed;
-    left:0;
-    top:0;
-    width:18px;
-    height:100vh;
-    z-index:998;
+    top:50%;
+    right:28px;
+    transform:translateY(-50%);
+    z-index:1000;
 }
 
-.sidebar{
-    position: fixed;
+/* ---------- Navigation Card ---------- */
 
-    left:-248px;
-    top: 0;
-
-    width: 260px;
-    height: 100vh;
-
-    padding: 45px 28px;
-
-    display: flex;
-    flex-direction: column;
-
-    z-index: 999;
-
-    transition: left .35s ease;
-
-    /* 半透明玻璃 */
-    backdrop-filter: blur(16px);
-
-    /* 从左到右越来越透明 */
-    background: linear-gradient(
-        to right,
-        rgba(10,18,35,.95) 0%,
-        rgba(10,18,35,.82) 40%,
-        rgba(10,18,35,.45) 75%,
-        rgba(10,18,35,0) 100%
-    );
-}
-
-.nav-trigger:hover+.sidebar,
-.sidebar:hover{
-    left:0;
-}
-
-.sidebar::before{
-    content:"";
-    position:absolute;
-    left:220px;
-    top:0;
-    width:24px;
-    height:100%;
-}
-
-.logo{
-    font-size:22px;
-    font-weight:600;
-    letter-spacing:1px;
-    color:white;
-    margin-bottom:55px;
-}
-
-.sidebar nav{
+.nav-card{
+    position:relative;
     display:flex;
     flex-direction:column;
+    align-items:flex-end;
     gap:18px;
 }
 
-.sidebar nav a{
-    color:#8ca7ba;
-    text-decoration:none;
-    font-size:16px;
-    transition:.25s;
+/* ---------- Title ---------- */
+
+.nav-title{
+    opacity:0;
+    visibility:hidden;
+
+    font-size:12px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+
+    color:#79d6ff;
+
+    transition:.3s;
 }
 
-.sidebar nav a:hover{
+/* ---------- Navigation ---------- */
+
+.right-nav nav{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:18px;
+}
+
+/* ---------- Default State ---------- */
+
+.right-nav nav a{
+
+    position:relative;
+
+    width:28px;
+    height:2px;
+
+    overflow:hidden;
+
+    background:rgba(255,255,255,.28);
+
+    color:transparent;
+
+    text-decoration:none;
+
+    transition:
+    width .35s,
+    background .35s,
+    color .25s,
+    transform .25s;
+}
+
+/* 每条线长度不同 */
+
+.right-nav nav a:nth-child(1){width:34px;}
+.right-nav nav a:nth-child(2){width:18px;}
+.right-nav nav a:nth-child(3){width:42px;}
+.right-nav nav a:nth-child(4){width:24px;}
+.right-nav nav a:nth-child(5){width:36px;}
+.right-nav nav a:nth-child(6){width:20px;}
+.right-nav nav a:nth-child(7){width:30px;}
+
+/* ---------- Hover Expand ---------- */
+
+.right-nav:hover{
+
+    padding:26px;
+
+    border-radius:18px;
+
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+
+    background:rgba(14,22,40,.42);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:0 10px 40px rgba(0,0,0,.35);
+}
+
+.right-nav:hover .nav-title{
+
+    opacity:1;
+    visibility:visible;
+}
+
+.right-nav:hover nav a{
+
+    width:150px;
+    height:auto;
+
+    background:none;
+
+    color:#dce8f2;
+
+    font-size:15px;
+
+    text-align:right;
+
+    padding:4px 0;
+}
+
+/* ---------- Link Hover ---------- */
+
+.right-nav nav a:hover{
+
     color:#35d0ff;
-    padding-left:8px;
+
+    transform:translateX(-8px);
 }
 
 
@@ -122,7 +168,7 @@ body{
 ========================== */
 
 .main-content{
-    width:80%;
+    width:100%;
 }
 
 
@@ -312,7 +358,7 @@ body{
 }
 
 @media(max-width:780px){
-    .sidebar{
+    .right-nav{
         display:none;
     }
 
