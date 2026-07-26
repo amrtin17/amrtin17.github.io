@@ -1,1 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Shanghai Through Global TikTok Eyes</title>
+
+    <meta name="description"
+        content="An interactive Digital Humanities dashboard exploring how international TikTok creators perceive and experience Shanghai.">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            Shanghai Through Global TikTok Eyes
+        </div>
+
+        <nav>
+            <a href="#hero">Overview</a>
+            <a href="#kpi">Key Metrics</a>
+            <a href="#map">City Map</a>
+            <a href="#emotion">Emotion</a>
+            <a href="#experience">Experience</a>
+            <a href="#mobility">Mobility</a>
+            <a href="#insights">Insights</a>
+        </nav>
+
+    </aside>
+
+    <main class="main-content">
+        <section id="hero"></section>
+        <section id="kpi"></section>
+        <section id="map"></section>
+        <section id="emotion"></section>
+        <section id="experience"></section>
+        <section id="mobility"></section>
+        <section id="insights"></section>
+    </main>
+
+    <script src="assets/js/app.js"></script>
+
+</body>
+
+</html>
