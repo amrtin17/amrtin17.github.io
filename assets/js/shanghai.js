@@ -1,63 +1,21 @@
 /* ==========================================
-   Emotion Chart
+   Load CSV Data
 ========================================== */
 
-function initEmotionChart(){
+async function loadData(){
+   const response = await fetch("assets/data/poi.csv");
+   
+   const csv = await response.text();
+   
+   console.log(csv);
+}
+
+async function init(){
+
+    await loadData();
 
 }
 
+init();
 
 
-/* ==========================================
-   Category Chart
-========================================== */
-
-function initCategoryChart(){
-
-}
-
-
-
-/* ==========================================
-   Sankey
-========================================== */
-
-function initSankeyChart(){
-
-}
-
-
-
-/* ==========================================
-   Map
-========================================== */
-
-function initMap(){
-
-}
-
-
-
-/* ==========================================
-   Mobility
-========================================== */
-
-function initMobilityChart(){
-
-}
-
-
-
-/* ==========================================
-   Initialize
-========================================== */
-
-initEmotionChart();
-
-initCategoryChart();
-
-initSankeyChart();
-
-initMap();
-
-initMobilityChart();
