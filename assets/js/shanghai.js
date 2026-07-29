@@ -3,7 +3,7 @@
 ========================================== */
 
 async function loadData(){
-   const response = await fetch("assets/data/poi.csv");
+   const response = await fetch("assets/data/shanghai_data.csv");
    
    const csv = await response.text();
    
