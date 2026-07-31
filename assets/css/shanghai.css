@@ -240,13 +240,13 @@ main{
     font-size:60px;
     line-height:1.15;
     margin-bottom:28px;
-    color:white;
+    color:var(--text);
 }
 
 .subtitle{
     font-size:22px;
     line-height:1.8;
-    color:#9db2c1;
+    color:var(--text-light);
     max-width:760px;
 }
 
@@ -258,20 +258,289 @@ main{
 }
 
 .hero-tags span{
-    padding:
-    10px 18px;
-    border:
-    1px solid #2ca8d7;
-    color:#35d0ff;
+    padding:10px 18px;
+    border:1px solid var(--accent);
+    color:var(--accent);
     letter-spacing:.5px;
-    transition:.3s;
+    transition:var(--transition);
 }
 
 .hero-tags span:hover{
-    background:#35d0ff;
-    color:#07131f;
+    background:var(--accent);
+    color:var(--bg-gradient);
 }
 
+/* ==========================================
+Research Overview Section
+========================================== */
+
+.research-overview-grid{
+
+    display:grid;
+    grid-template-columns:1.6fr 1fr;
+    gap:56px;
+    align-items:start;
+}
+
+/* ---------- LEFT ---------- */
+
+.overview-label{
+
+    display:inline-block;
+    font-size:.78rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:18px;
+    font-weight:600;
+}
+
+.overview-title{
+
+    font-size:clamp(2.8rem,5vw,3.8rem);
+    line-height:1.15;
+    font-weight:700;
+    color:var(--text);
+    max-width:720px;
+    margin:0 0 28px;
+}
+
+.overview-intro{
+
+    max-width:700px;
+    color:var(--text-light);
+    font-size:1rem;
+    line-height:1.9;
+    margin-bottom:48px;
+}
+
+.overview-intro strong{
+
+    color:var(--accent);
+    font-weight:600;
+}
+
+/* ---------- Timeline ---------- */
+
+.timeline-title{
+
+    font-size:1.2rem;
+    color:var(--text);
+    margin-bottom:30px;
+    font-weight:600;
+}
+
+.timeline{
+
+    position:relative;
+    margin-left:10px;
+}
+
+.timeline-item{
+
+    position:relative;
+    display:flex;
+    gap:24px;
+    padding-bottom:42px;
+}
+
+.timeline-item:last-child{
+
+    padding-bottom:0;
+}
+
+.timeline-marker{
+
+    position:relative;
+    width:18px;
+    height:18px;
+    flex-shrink:0;
+    margin-top:4px;
+    border-radius:50%;
+    background:var(--accent);
+    box-shadow:
+    0 0 8px rgba(53,208,255,.35);
+}
+
+.timeline-marker::after{
+
+    content:"";
+    position:absolute;
+    left:50%;
+    top:18px;
+    transform:translateX(-50%);
+    width:1px;
+    height:48px;
+    background:rgba(53,208,255,.18);
+}
+
+.timeline-item:last-child .timeline-marker::after{
+
+    display:none;
+}
+
+.timeline-content h4{
+
+    color:var(--text);
+    font-size:1rem;
+    margin:0 0 8px;
+    font-weight:600;
+}
+
+.timeline-content p{
+
+    color:var(--text-light);
+    line-height:1.7;
+    margin:0;
+    max-width:500px;
+    font-size:.95rem;
+}
+
+/* ---------- RIGHT ---------- */
+
+.overview-right{
+
+    display:flex;
+    flex-direction:column;
+    gap:28px;
+}
+
+.overview-card{
+
+    border:1px solid rgba(53,208,255,.2);
+    background:var(--bg-panel);
+    box-shadow:0 0 18px rgba(53,208,255,.08);
+    padding:34px;
+    transition:var(--transition);
+}
+
+.overview-card:hover{
+
+    transform:translateY(-6px);
+    border-color:rgba(53,208,255,.45);
+    box-shadow:0 0 28px rgba(53,208,255,.18);
+}
+
+.card-title{
+
+    color:var(--text);
+    font-size:1.25rem;
+    margin:0 0 30px;
+    font-weight:600;
+}
+
+/* ---------- Questions ---------- */
+
+.rq-list{
+
+    display:flex;
+    flex-direction:column;
+    gap:28px;
+}
+
+.rq-item{
+
+    display:flex;
+    align-items:flex-start;
+    gap:18px;
+}
+
+.rq-number{
+
+    width:38px;
+    height:38px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border:1px solid rgba(53,208,255,.45);
+
+    color:var(--accent);
+    font-weight:700;
+
+    box-shadow:
+    0 0 10px rgba(53,208,255,.18);
+
+    flex-shrink:0;
+}
+
+.rq-item h4{
+
+    margin:8px 0 0;
+    color:var(--text);
+    line-height:1.6;
+    font-size:1rem;
+    font-weight:500;
+}
+
+/* ---------- Method ---------- */
+
+.method-grid{
+
+    display:grid;
+    gap:24px;
+}
+
+.method-item{
+
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.method-label{
+
+    color:var(--text-muted);
+    font-size:.75rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+}
+
+.method-value{
+
+    color:var(--accent);
+    font-size:1.15rem;
+    font-weight:700;
+    line-height:1.4;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width:1024px){
+
+    .research-overview-grid{
+
+        grid-template-columns:1fr;
+        gap:48px;
+    }
+
+    .overview-title{
+
+        max-width:none;
+    }
+
+    .overview-intro{
+
+        max-width:none;
+    }
+
+}
+
+@media (max-width:640px){
+
+    .overview-card{
+        padding:26px;
+    }
+
+    .timeline-item{
+        gap:18px;
+    }
+
+    .rq-item{
+        gap:14px;
+    }
+
+}
 
 /* ==========================
    KPI
@@ -355,6 +624,82 @@ main{
     border:1px solid #18364d;
     background:#08141f;
 
+}
+
+/* ==========================
+   Leaflet Marker
+========================== */
+
+.leaflet-div-icon,
+.research-div-icon{
+    background: transparent !important;
+    border: none !important;
+}
+.leaflet-marker-icon{
+    overflow: visible !important;
+}
+
+.research-marker{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    white-space:nowrap;
+}
+
+.marker-core{
+    position:relative;
+    aspect-ratio:1/1;
+    border-radius:50%;
+    overflow:visible;
+    flex-shrink:0;
+    /* 半透明填充 */
+    background:rgba(53,208,255,.40);
+    /* 没有边框 */
+    border:none;
+    /* 很柔和的发光 */
+    box-shadow:
+        0 0 14px rgba(53,208,255,.20),
+        0 0 28px rgba(53,208,255,.10);
+    transition:.25s;
+}
+
+.marker-core::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    border:1px solid rgba(53,208,255,.28);
+    animation:ripple 2.8s infinite;
+    pointer-events:none;
+}
+
+.marker-label{
+    margin-left:10px;
+    color:white;
+    font-size:13px;
+    font-weight:600;
+    white-space:nowrap;
+    text-shadow:0 0 8px black;
+}
+
+.visitor-indicator{
+
+    display:none;
+}
+
+@keyframes ripple{
+    0%{
+        transform:scale(1);
+        opacity:.55;
+    }
+    100%{
+        transform:scale(2.3);
+        opacity:0;
+    }
 }
 
 /* ==========================

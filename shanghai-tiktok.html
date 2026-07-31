@@ -19,7 +19,14 @@
           rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="assets/css/shanghai.css">
+    <link rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <link rel="stylesheet"
+        href="assets/css/shanghai.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 </head>
 
@@ -93,25 +100,169 @@
             </div>
         </section>
 
-        <!-- ==========================================
-        Research
-        ========================================== -->
-        
-        <section id="overview" class="section">
+        <!-- =========================
+        Research Overview Section
+        ========================= -->
+        <section class="section research-overview-section" id="research-overview">
+
             <div class="container">
-                <p class="section-tag">Research Background</p>
-        
-                <h2>
-                    How do international TikTok creators
-                    portray Shanghai?
-                </h2>
-        
-                <p class="section-desc">
-                    This Digital Humanities project investigates how overseas TikTok creators experience Shanghai through travel videos.
-                    Rather than analysing official media, the project focuses on spontaneous urban encounters,
-                    revealing how global visitors construct Shanghai's city image through movement, food, architecture and everyday interaction.
-                </p>
+
+                <div class="research-overview-grid">
+
+                    <!-- LEFT -->
+                    <div class="overview-left">
+
+                        <span class="overview-label">Research Overview</span>
+
+                        <h2 class="overview-title">
+                            How do international TikTok creators
+                            construct Shanghai's urban image?
+                        </h2>
+
+                        <p class="overview-intro">
+                            As global tourism continues to recover after the pandemic, a new wave of
+                            international travellers has turned everyday journeys into widely shared
+                            digital stories. The rise of the <strong>China Travel</strong> phenomenon
+                            on TikTok has transformed personal experiences into public narratives,
+                            allowing millions of viewers to encounter Chinese cities through creators'
+                            eyes. Among these destinations, Shanghai stands out as a globally connected
+                            metropolis where historical heritage, contemporary lifestyles, and urban
+                            innovation intersect. This project investigates how creators experience,
+                            interpret, and communicate Shanghai through embodied interactions with urban
+                            space. By combining qualitative content analysis with Digital Humanities
+                            visualization, the dashboard reveals spatial patterns, emotional responses,
+                            and emerging representations that together shape Shanghai's contemporary
+                            international image.
+                        </p>
+
+                        <div class="research-timeline">
+
+                            <h3 class="timeline-title">Research Context</h3>
+
+                            <div class="timeline">
+
+                                <div class="timeline-item">
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <h4>Global Tourism Recovery</h4>
+                                        <p>International travel rapidly rebounded following the COVID-19 pandemic.</p>
+                                    </div>
+                                </div>
+
+                                <div class="timeline-item">
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <h4>China Travel</h4>
+                                        <p>Visa policies and social media accelerated renewed global interest in China.</p>
+                                    </div>
+                                </div>
+
+                                <div class="timeline-item">
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <h4>TikTok Storytelling</h4>
+                                        <p>Creators transformed personal travel experiences into immersive digital narratives.</p>
+                                    </div>
+                                </div>
+
+                                <div class="timeline-item">
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <h4>Digital Humanities Dashboard</h4>
+                                        <p>Interactive visualization uncovers spatial, emotional, and cultural storytelling patterns.</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- RIGHT -->
+                    <aside class="overview-right">
+
+                        <!-- Research Questions -->
+                        <div class="overview-card">
+
+                            <h3 class="card-title">Research Questions</h3>
+
+                            <div class="rq-list">
+
+                                <div class="rq-item">
+                                    <span class="rq-number">1</span>
+                                    <div>
+                                        <h4>Where do visitors experience Shanghai?</h4>
+                                    </div>
+                                </div>
+
+                                <div class="rq-item">
+                                    <span class="rq-number">2</span>
+                                    <div>
+                                        <h4>How do they interact with urban space?</h4>
+                                    </div>
+                                </div>
+
+                                <div class="rq-item">
+                                    <span class="rq-number">3</span>
+                                    <div>
+                                        <h4>How do they emotionally respond?</h4>
+                                    </div>
+                                </div>
+
+                                <div class="rq-item">
+                                    <span class="rq-number">4</span>
+                                    <div>
+                                        <h4>What image of Shanghai emerges?</h4>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Method -->
+                        <div class="overview-card">
+
+                            <h3 class="card-title">Research Method</h3>
+
+                            <div class="method-grid">
+
+                                <div class="method-item">
+                                    <span class="method-label">Platform</span>
+                                    <span class="method-value">TikTok</span>
+                                </div>
+
+                                <div class="method-item">
+                                    <span class="method-label">Sample</span>
+                                    <span class="method-value">100 Videos</span>
+                                </div>
+
+                                <div class="method-item">
+                                    <span class="method-label">Method</span>
+                                    <span class="method-value">Qualitative Content Analysis</span>
+                                </div>
+
+                                <div class="method-item">
+                                    <span class="method-label">Framework</span>
+                                    <span class="method-value">Embodied Communication</span>
+                                </div>
+
+                                <div class="method-item">
+                                    <span class="method-label">Output</span>
+                                    <span class="method-value">Interactive DH Dashboard</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </aside>
+
+                </div>
+
             </div>
+
         </section>
         
         <!-- ==========================================
