@@ -812,7 +812,7 @@ window.addEventListener("resize", () => {
          * This prevents one creator/video with many coded rows from
          * disproportionately dominating the visual.
          */
-        const pois = Array.from(poiMap.values())
+        const rankedPOIs = Array.from(poiMap.values())
             .map(poi => ({
                 ...poi,
                 videoCount: poi.videos.size,
@@ -825,7 +825,29 @@ window.addEventListener("resize", () => {
                 }
 
                 return b.impressionCount - a.impressionCount;
-            })
+            });
+
+        console.table(
+            rankedPOIs.slice(0, 10).map((poi, index) => ({
+                Rank: index + 1,
+                POI: poi.label,
+                Videos: poi.videoCount,
+                "Impression Count": poi.impressionCount,
+                Impressions: Array.from(poi.impressions.values())
+                    .sort((a, b) => {
+                        if (b.frequency !== a.frequency) {
+                            return b.frequency - a.frequency;
+                        }
+
+                        return a.label.localeCompare(b.label);
+                    })
+                    .slice(0, CONFIG.maxWordsPerPOI)
+                    .map(word => `${word.label} (${word.frequency})`)
+                    .join(", ")
+            }))
+        );
+
+        const pois = rankedPOIs
             .slice(0, CONFIG.maxPOIs);
 
         /*
