@@ -1,0 +1,91 @@
+Video_ID,Stop_Order,POI,Activity,Impression,Emo_Tone,Time_Code
+SH001,1,Bund,Viewing,Beautiful,Impressive,2
+,2,Nanjing Road,Shopping,Amazing,Enjoyable,1
+,3,Yu Yuan Garden,Viewing,Beautiful,Favorite,1
+,4,Tianzifang,Shopping,Nice,Enjoyable,1
+,5,Warehouse No.3 Restaurant,Dining,Futuristic,Impressed,2
+,6,24 HR SPA,Relax,Unique,Surprised,2
+SH002,1,Yu Yuan Garden,Viewing,Peaceful,Relaxed,1
+,2,Yuyuan Bazaar,Shopping,Local,Enjoyable,1
+,3,Pudong,Sightseeing,Modern,Excited,1
+,4,Bund,Sightseeing,Iconic,Enjoyable,1
+,5,Sightseeing Tunnel,Sightseeing,Touristy,Enjoyable,1
+,6,Shanghai Tower,Viewing,Incredible,Impressed,1
+,7,Nanxiang Steamed Buns,Dining,Delicious,Enjoyable,2
+,8,Night Food Stalls,Dining,Local,Enjoyable,2
+,9,Zhujiajiao Water Town,Sightseeing,Historic,Impressed,1
+,10,Waterfront Restaurant,Dining,Beautiful,Enjoyable,1
+,11,Nanjing Road,Shopping,Next-level,Excited,2
+,12,Bund Light Show,Viewing,Spectacular,Impressed,2
+,13,Long Bar,Relax,Fancy,Enjoyable,2
+,14,Waldorf Astoria,Relax,Luxurious,Enjoyable,2
+SH003,1,French Concession,Walking,Cool,Enjoyable,1
+,2,Apoli Bakery,Dining,Harry Potter-esque,Delighted,1
+,3,Haus Nowhere,Visiting,Crazy,Impressed,1
+SH004,1,French Concession,Walking,Cool,Enjoyable,1
+,2,Apoli Bakery,Dining,Harry Potter-esque,Delighted,1
+,3,Haus Nowhere,Visiting,Crazy,Impressed,1
+,4,Gentle Monster F1 Pop-up,Shopping,Cool,Excited,1
+,5,MUJI,Shopping,Cool,Enjoyable,1
+,6,Sheep Matcha,Dining,Cute,Delighted,1
+,7,Shanghai Greenhouse Gardens,Visiting,Cool,Impressed,1
+,8,Xiaolongbao,Dining,Delicious,Satisfied,2
+SH005,1,Bund,Viewing,Futuristic,Impressed,2
+,2,Yu Yuan Garden,Viewing,Beautiful,Impressed,1
+,3,Nanjing Road,Shopping,Crazy,Excited,2
+,4,Tianzifang,Viewing,Artistic,Enjoyable,2
+,5,Zhujiajiao,Sightseeing,Historic,Awe,1
+SH006,1,Matcha Tokyo,Dining,Good,Enjoyable,1
+,2,French Concession,Shopping,Nice,Enjoyable,1
+,3,Bakery,Dining,Insane,Enjoyable,1
+,4,DJI Store,Shopping,Popular,Happy,1
+,5,Basement FT,Shopping,Crazy,Amused,1
+,6,Vintage Stores,Shopping,Cool,Impressed,1
+,7,Xintiandi,Walking,Favorite,Enjoyable,2
+,8,Chinese Food Restaurant,Dining,Amazing,Enjoyable,2
+,9,Photo Booth,Visiting,Fun,Amused,2
+SH007,1,Cafe & Brunch,Dining,Cute,Enjoyable,1
+,2,Bund,Walking,Iconic,Impressive,1
+,3,BWT Tower Café,Dining,Surreal,Impressive,1
+,4,M50 Creative Space,Viewing,Artistic,Impressive,1
+,5,fufu,Shopping,Cute,Enjoyable,1
+,6,Old Millfun,Viewing,Unique,Surprised,1
+,7,Korean-inspired Fashion Mall,Shopping,Trendy,Enjoyable,1
+,8,Noodles Restaurant,Dining,Delicious,Satisfied,2
+,9,Bund,Walking,Iconic,Enjoyable,2
+SH008,1,Michelin Guide Restaurant,Dining,Rich,Enjoyable,1
+,2,Gucheng Park,Walking,Beautiful,Relaxed,1
+,3,Starbucks Reserve,Visiting,Crazy,Impressed,1
+,4,Louis Vuitton Ship,Visiting,Iconic,Impressed,1
+,5,Wukang Mansion,Viewing,Iconic,Excited,1
+,6,Apoli Ita Bakery,Dining,Delicious,Enjoyable,1
+,7,Subdued,Shopping,Popular,Enjoyable,1
+,8,Matcha Tokyo,Dining,So-so,Neutral,1
+,9,Brandy Melville,Shopping,Various,Enjoyable,2
+,10,Haidilao (Shimao Plaza),Dining,Delicious,Enjoyable,2
+,11,Bund,Viewing,Beautiful,Impressed,2
+SH009,1,To Summer,Shopping,Beautiful,Enjoyable,1
+,2,Songmont,Shopping,Cool,Impressed,1
+,3,Goodbai,Shopping,Cool,Enjoyable,1
+,4,Avenn,Shopping,Unique,Impressed,1
+,5,Gentle Monster,Shopping,Experiential,Excited,1
+SH010,1,Brunch Restaurant,Dining,Perfect,Enjoyable,1
+,2,Back Street,Shopping,Cheap,Surprised,1
+,3,Cafe,Dining,Good,Enjoyable,1
+,4,Bakery,Dining,Good,Enjoyable,1
+,5,Bund,Walking,Iconic,Enjoyable,2
+SH011,1,Sloppy Gem,Dining,Cool,Enjoyable,1
+,2,Bakery,Dining,Fresh,Enjoyable,1
+,3,Anfu Road,Walking,Beautiful,Impressed,1
+,4,EMG Concept Store,Shopping,Cool,Inspired,1
+,5,Human Made,Shopping,Cool,Interested,1
+,6,Gentle Monster,Visiting,Creative,Inspired,1
+,7,Art Gallery,Visiting,Closed,Frustrated,1
+,8,Traditional Chinese Massage,Relax,Incredible,Relieved,2
+,9,Fancy Restaurant,Dining,Delicious,Enjoyable,2
+SH012,1,Anfu Road,Shopping,Favorite,Enjoyable,1
+,2,Miss Sensor,Shopping,Favorite,Enjoyable,1
+,3,Not Just Pajama,Shopping,Favorite,Enjoyable,1
+,4,Brandy Melville,Shopping,Favorite,Enjoyable,1
+,5,Rugfish,Shopping,Favorite,Enjoyable,1
+,6,Greenway,Shopping,Favorite,Enjoyable,1

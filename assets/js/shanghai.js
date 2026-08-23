@@ -618,7 +618,7 @@ window.addEventListener("resize", () => {
     const CONFIG = {
         container: "#placePerceptionChart",
 
-        maxPOIs: 8,
+        maxPOIs: 6,
 
         minWordsPerPOI: 3,
         maxWordsPerPOI: 8,
@@ -649,65 +649,44 @@ window.addEventListener("resize", () => {
        DATA RESOLUTION
     ========================================================== */
 
-    function resolveDataset() {
-        const candidates = [];
+    const DATA_PATH = "assets/data/description.csv";
 
+    async function resolveDataset() {
         try {
-            if (typeof DATA !== "undefined") candidates.push(DATA);
-        } catch (e) {}
+            const dataset = await d3.csv(DATA_PATH);
 
-        try {
-            if (typeof data !== "undefined") candidates.push(data);
-        } catch (e) {}
-
-        try {
-            if (typeof codingData !== "undefined") candidates.push(codingData);
-        } catch (e) {}
-
-        try {
-            if (typeof placePerceptionData !== "undefined") {
-                candidates.push(placePerceptionData);
-            }
-        } catch (e) {}
-
-        if (Array.isArray(window.DATA)) {
-            candidates.push(window.DATA);
-        }
-
-        if (Array.isArray(window.data)) {
-            candidates.push(window.data);
-        }
-
-        if (Array.isArray(window.codingData)) {
-            candidates.push(window.codingData);
-        }
-
-        if (Array.isArray(window.placePerceptionData)) {
-            candidates.push(window.placePerceptionData);
-        }
-
-        const dataset = candidates.find(
-            candidate =>
-                Array.isArray(candidate) &&
-                candidate.length > 0 &&
-                candidate.some(row =>
-                    row &&
-                    Object.prototype.hasOwnProperty.call(row, "POI") &&
-                    Object.prototype.hasOwnProperty.call(row, "Impression")
-                )
-        );
-
-        if (!dataset) {
-            console.warn(
-                "[PlacePerception] No compatible dataset found. " +
-                "Expected fields: POI and Impression."
+            const valid = dataset.some(row =>
+                row &&
+                Object.prototype.hasOwnProperty.call(row, "POI") &&
+                Object.prototype.hasOwnProperty.call(row, "Impression")
             );
+
+            if (!valid) {
+                console.warn(
+                    "[PlacePerception] CSV loaded, but POI / Impression fields were not found."
+                );
+                return [];
+            }
+
+            console.log(
+                "[PlacePerception] Loaded:",
+                dataset.length,
+                "rows from",
+                DATA_PATH
+            );
+
+            return dataset;
+
+        } catch (error) {
+            console.error(
+                "[PlacePerception] Failed to load CSV:",
+                DATA_PATH,
+                error
+            );
+
             return [];
         }
-
-        return dataset;
     }
-
 
     /* ==========================================================
        UTILITIES
@@ -961,75 +940,173 @@ window.addEventListener("resize", () => {
      */
     function calculateWordLayout(poi, index, width, height, wordScale) {
         const words = poi.words || [];
-
         const clusterCenterX = poi.x;
+        const placed = [];
+        const frequencies = words.map(d => d.frequency);
+        const minFrequency = d3.min(frequencies) || 1;
+        const maxFrequency = d3.max(frequencies) || 1;
 
         /*
-         * Keep semantic clouds mostly above their own POI,
-         * while allowing limited horizontal drift.
-         */
-        const availableDrift = Math.min(
-            width / Math.max(poiCountGlobal, 1) * 0.34,
-            115
+        * ------------------------------------------------------
+        * Each POI gets its own "floating cloud".
+        * Instead of spreading words across the whole vertical
+        * space, the words occupy a limited vertical zone.
+        * Different POIs receive different cloud positions.
+        * ------------------------------------------------------
+        */
+
+        const cloudHeight = Math.min(
+            110 + words.length * 32,
+            300
         );
 
-        const placed = [];
+        const cloudWidth = Math.min(
+            110 + words.length * 16,
+            230
+        );
+
+        /*
+        * Give every POI a different vertical center.
+        * The center is deliberately irregular rather than
+        * following a fixed 1-2-3-4-5 hierarchy.
+        */
+        const cloudRatio =
+            0.18 +
+            random() * 0.52;
+
+        let cloudCenterY =
+            height * cloudRatio;
+
+        /*
+        * Keep the whole cloud safely inside the SVG.
+        */
+        const minCenterY =
+            55 + cloudHeight / 2;
+
+        const maxCenterY =
+            height -
+            CONFIG.anchorHeight -
+            35 -
+            cloudHeight / 2;
+
+        cloudCenterY = Math.max(
+            minCenterY,
+            Math.min(maxCenterY, cloudCenterY)
+        );
+
 
         words.forEach((word, wordIndex) => {
-            const fontSize = wordScale(word.frequency);
+
+            const fontSize =
+                wordScale(word.frequency);
 
             const textWidth =
-                estimateWordWidth(word.label, fontSize);
+                estimateWordWidth(
+                    word.label,
+                    fontSize
+                );
 
             const textHeight =
                 estimateWordHeight(fontSize);
 
             /*
-             * Deterministic radial/organic arrangement.
-             */
-            const angle =
-                (wordIndex * 2.399963) +
-                index * 0.77;
+            * Progress is only used to create an organic
+            * distribution inside the cloud.
+            *
+            * It is NOT a vertical ranking.
+            */
+            const progress =
+                words.length > 1
+                    ? wordIndex / (words.length - 1)
+                    : 0.5;
 
-            const radius =
-                25 +
-                wordIndex * 15 +
-                random() * 20;
+            /*
+            * Spread words around the cloud center rather than
+            * making them climb continuously from the POI.
+            */
+            const verticalBase =
+                (progress - 0.5) *
+                cloudHeight;
+
+            const verticalJitter =
+                (random() - 0.5) *
+                cloudHeight *
+                0.38;
+
+            /*
+            * Frequency still mainly controls font size.
+            * It only adds a very small upward tendency.
+            */
+            const frequencyRatio =
+                (word.frequency - minFrequency) /
+                Math.max(
+                    maxFrequency - minFrequency,
+                    1
+                );
+
+            const frequencyLift =
+                frequencyRatio * 28;
+
+            /*
+            * Horizontal distribution is deliberately wider
+            * than before so the group reads as a cloud rather
+            * than a vertical column.
+            */
+            const angle =
+                wordIndex * 2.399963 +
+                index * 0.91;
+
+            const horizontalBase =
+                Math.cos(angle) *
+                cloudWidth *
+                0.32;
+
+            const horizontalJitter =
+                (random() - 0.5) *
+                cloudWidth *
+                0.42;
 
             let x =
                 clusterCenterX +
-                Math.cos(angle) *
-                Math.min(radius, availableDrift);
+                horizontalBase +
+                horizontalJitter;
 
             let y =
-                poi.y -
-                105 -
-                wordIndex * 43 -
-                Math.sin(angle) * 24 -
-                random() * 35;
+                cloudCenterY +
+                verticalBase +
+                verticalJitter -
+                frequencyLift;
 
             /*
-             * Keep text within viewport.
-             */
-            const halfWidth = textWidth / 2;
+            * Keep words inside the SVG.
+            */
+            const halfWidth =
+                textWidth / 2;
 
             x = Math.max(
                 halfWidth + 8,
-                Math.min(width - halfWidth - 8, x)
+                Math.min(
+                    width - halfWidth - 8,
+                    x
+                )
             );
 
             y = Math.max(
-                35,
-                Math.min(height - CONFIG.anchorHeight - 15, y)
+                45,
+                Math.min(
+                    height -
+                        CONFIG.anchorHeight -
+                        15,
+                    y
+                )
             );
 
             /*
-             * Lightweight deterministic collision avoidance.
-             *
-             * We only adjust words belonging to the same POI.
-             * This keeps clusters organic without turning the whole
-             * visualization into a force-directed network.
-             */
+            * Local collision avoidance.
+            *
+            * Words are pushed around within their own cloud
+            * instead of being pushed endlessly upward.
+            */
             let attempts = 0;
 
             while (
@@ -1039,18 +1116,38 @@ window.addEventListener("resize", () => {
                     Math.abs(existing.y - y) <
                         (existing.height + textHeight) * 0.55
                 ) &&
-                attempts < 12
+                attempts < 14
             ) {
-                y -= 14;
 
                 if (attempts % 2 === 0) {
-                    x += 13;
+                    x += 16;
                 } else {
-                    x -= 18;
+                    y += 13;
                 }
 
                 attempts++;
             }
+
+            /*
+            * Final boundary check.
+            */
+            x = Math.max(
+                halfWidth + 8,
+                Math.min(
+                    width - halfWidth - 8,
+                    x
+                )
+            );
+
+            y = Math.max(
+                45,
+                Math.min(
+                    height -
+                        CONFIG.anchorHeight -
+                        15,
+                    y
+                )
+            );
 
             placed.push({
                 ...word,
@@ -1069,371 +1166,611 @@ window.addEventListener("resize", () => {
 
 
     /* ==========================================================
-       POI SILHOUETTES
+    POI SILHOUETTES
     ========================================================== */
 
-    function drawSkyline(group, scale = 1) {
+    /* ---------- Bund ---------- */
+
+    function drawBundSilhouette(group, scale = 1) {
         const g = group.append("g")
             .attr("transform", `scale(${scale})`);
 
-        const buildings = [
-            { x: -42, y: 23, w: 15, h: 37 },
-            { x: -23, y: 10, w: 17, h: 50 },
-            { x: -2, y: 29, w: 13, h: 31 },
-            { x: 14, y: -2, w: 16, h: 62 },
-            { x: 34, y: 19, w: 13, h: 41 }
+        /*
+        * Bund silhouette
+        *
+        * Visual idea:
+        * Oriental Pearl Tower + dense Lujiazui skyline
+        *
+        * Unlike an icon:
+        * - buildings are filled masses
+        * - skyline forms one continuous visual silhouette
+        * - Oriental Pearl is the dominant landmark
+        */
+
+
+        /* ======================================================
+        Lujiazui skyline masses
+        ====================================================== */
+
+        const skyline = [
+
+            /* far-left low buildings */
+            {
+                d: "M-54,50 L-54,30 L-46,30 L-46,24 L-38,24 L-38,50 Z"
+            },
+
+            /* rounded old-style tower */
+            {
+                d: "M-39,50 L-39,29 Q-39,22 -32,20 Q-25,22 -25,29 L-25,50 Z"
+            },
+
+            /* mid-rise */
+            {
+                d: "M-28,50 L-28,20 L-18,20 L-18,14 L-8,14 L-8,50 Z"
+            },
+
+            /* building with antenna */
+            {
+                d: "M-10,50 L-10,22 L-4,22 L-4,17 L2,17 L2,50 Z"
+            },
+
+            /* Shanghai Tower-like curved tower */
+            {
+                d: "M7,50 L9,18 Q11,10 16,5 Q21,10 23,18 L25,50 Z"
+            },
+
+            /* Shanghai World Financial Center */
+            {
+                d: "M27,50 L27,13 L31,10 L39,10 L39,50 Z"
+            },
+
+            /* Jin Mao Tower */
+            {
+                d: "M41,50 L41,19 L44,15 L47,19 L47,50 Z"
+            },
+
+            /* right-side building */
+            {
+                d: "M49,50 L49,24 L55,20 L58,23 L58,50 Z"
+            }
         ];
 
-        g.selectAll("rect")
-            .data(buildings)
+
+        g.selectAll(".bund-skyline")
+            .data(skyline)
             .enter()
-            .append("rect")
-            .attr("x", d => d.x)
-            .attr("y", d => d.y)
-            .attr("width", d => d.w)
-            .attr("height", d => d.h)
-            .attr("fill", "none")
-            .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.72)
-            .attr("stroke-width", 1);
+            .append("path")
+            .attr("class", "bund-skyline")
+            .attr("d", d => d.d)
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.16);
 
-        g.append("line")
-            .attr("x1", 0)
-            .attr("x2", 0)
-            .attr("y1", -14)
-            .attr("y2", 3)
-            .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.8)
-            .attr("stroke-width", 1);
 
-        g.append("circle")
+        /* ======================================================
+        Architectural cuts / roof details
+        These are subtle — not icon outlines.
+        ====================================================== */
+
+        // Jin Mao stepped roof
+        g.append("path")
+            .attr(
+                "d",
+                "M41,19 L43,15 L45,11 L47,15 L49,19"
+            )
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.16);
+
+
+        // Shanghai Tower antenna
+        g.append("path")
+            .attr(
+                "d",
+                "M15.5,6 L16,-8 L16.8,-15 L17.5,-8 L18,6 Z"
+            )
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.16);
+
+
+        /* ======================================================
+        Oriental Pearl Tower
+        Main visual anchor
+        ====================================================== */
+
+        const tower = g.append("g")
+            .attr("class", "oriental-pearl-silhouette");
+
+
+        /*
+        * Tower legs
+        */
+        tower.append("path")
+            .attr(
+                "d",
+                "M-8,50 L-3,26 L0,22 L3,26 L8,50 Z"
+            )
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.20);
+
+
+        /*
+        * Lower sphere
+        */
+        tower.append("circle")
+            .attr("cx", 0)
+            .attr("cy", 27)
+            .attr("r", 8)
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.20);
+
+
+        /*
+        * Tower shaft
+        */
+        tower.append("path")
+            .attr(
+                "d",
+                "M-2.4,27 L-1.5,5 L1.5,5 L2.4,27 Z"
+            )
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.22);
+
+
+        /*
+        * Main upper sphere
+        */
+        tower.append("circle")
+            .attr("cx", 0)
+            .attr("cy", 4)
+            .attr("r", 7)
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.22);
+
+
+        /*
+        * Upper shaft
+        */
+        tower.append("path")
+            .attr(
+                "d",
+                "M-1.6,0 L-1,-15 L1,-15 L1.6,0 Z"
+            )
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.20);
+
+
+        /*
+        * Small upper sphere
+        */
+        tower.append("circle")
             .attr("cx", 0)
             .attr("cy", -17)
-            .attr("r", 3)
-            .attr("fill", "none")
+            .attr("r", 3.2)
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.22);
+
+
+        /*
+        * Antenna
+        */
+        tower.append("path")
+            .attr(
+                "d",
+                "M-0.7,-19 L-0.35,-31 L0,-37 L0.35,-31 L0.7,-19 Z"
+            )
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.20);
+
+
+        /* ======================================================
+        Subtle architectural negative spaces
+        Gives the silhouette some recognisable structure.
+        ====================================================== */
+
+        // Shanghai World Financial Center opening
+        g.append("path")
+            .attr(
+                "d",
+                "M31,17 L35,15 L38,17 L38,21 L31,21 Z"
+            )
+            .attr("fill", "#04070d")
+            .attr("fill-opacity", 0.75);
+
+
+        // Oriental Pearl tower openings
+        tower.append("rect")
+            .attr("x", -0.8)
+            .attr("y", 10)
+            .attr("width", 1.6)
+            .attr("height", 5)
+            .attr("fill", "#04070d")
+            .attr("fill-opacity", 0.75);
+
+
+        tower.append("rect")
+            .attr("x", -0.8)
+            .attr("y", 34)
+            .attr("width", 1.6)
+            .attr("height", 7)
+            .attr("fill", "#04070d")
+            .attr("fill-opacity", 0.75);
+
+
+        /* ======================================================
+        Ground / river edge
+        ====================================================== */
+
+        g.append("rect")
+            .attr("x", -58)
+            .attr("y", 49)
+            .attr("width", 118)
+            .attr("height", 2)
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.18);
+
+
+        g.append("line")
+            .attr("x1", -58)
+            .attr("x2", 60)
+            .attr("y1", 52)
+            .attr("y2", 52)
             .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.8);
+            .attr("stroke-opacity", 0.22)
+            .attr("stroke-width", 1);
     }
 
 
-    function drawPavilion(group, scale = 1) {
+    /* ---------- Nanjing Road ---------- */
+
+    function drawNanjingSilhouette(group, scale = 1) {
         const g = group.append("g")
             .attr("transform", `scale(${scale})`);
 
+        // Layered commercial buildings
         g.append("path")
-            .attr("d", "M-43,10 L0,-15 L43,10 L34,10 L0,-6 L-34,10 Z")
-            .attr("fill", "none")
+            .attr(
+                "d",
+                "M-48,48 L-48,17 L-38,17 L-38,9 L-25,9 L-25,15 L-10,15 L-10,4 L5,4 L5,14 L20,14 L20,8 L34,8 L34,18 L48,18 L48,48 Z"
+            )
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.14)
             .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.82)
-            .attr("stroke-width", 1.3);
+            .attr("stroke-opacity", 0.38)
+            .attr("stroke-width", 0.9);
 
-        [-25, -8, 8, 25].forEach(x => {
+        // Storefront rhythm
+        [-35, -17, 0, 17, 34].forEach(x => {
             g.append("line")
                 .attr("x1", x)
                 .attr("x2", x)
-                .attr("y1", 9)
-                .attr("y2", 49)
+                .attr("y1", 27)
+                .attr("y2", 48)
                 .attr("stroke", CONFIG.accent)
-                .attr("stroke-opacity", 0.68)
-                .attr("stroke-width", 1);
+                .attr("stroke-opacity", 0.3)
+                .attr("stroke-width", 0.8);
         });
 
+        // Ground
         g.append("line")
-            .attr("x1", -35)
-            .attr("x2", 35)
+            .attr("x1", -53)
+            .attr("x2", 53)
             .attr("y1", 50)
             .attr("y2", 50)
             .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.5)
+            .attr("stroke-opacity", 0.32)
             .attr("stroke-width", 1);
     }
 
 
-    function drawCastle(group, scale = 1) {
+    /* ---------- Yu Yuan Garden ---------- */
+
+    function drawYuYuanSilhouette(group, scale = 1) {
         const g = group.append("g")
             .attr("transform", `scale(${scale})`);
 
-        g.append("rect")
-            .attr("x", -34)
-            .attr("y", 18)
-            .attr("width", 68)
-            .attr("height", 34)
+        // Traditional roof silhouette
+        g.append("path")
+            .attr(
+                "d",
+                "M-45,17 Q-35,11 -25,4 L-12,-8 Q0,-17 12,-8 L25,4 Q35,11 45,17 L34,17 L25,11 L0,-2 L-25,11 L-34,17 Z"
+            )
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.16)
+            .attr("stroke", CONFIG.accent)
+            .attr("stroke-opacity", 0.42)
+            .attr("stroke-width", 0.9);
+
+        // Columns
+        [-27, -9, 9, 27].forEach(x => {
+            g.append("rect")
+                .attr("x", x - 2)
+                .attr("y", 15)
+                .attr("width", 4)
+                .attr("height", 34)
+                .attr("fill", CONFIG.accent)
+                .attr("fill-opacity", 0.16);
+        });
+
+        // Base
+        g.append("path")
+            .attr("d", "M-38,49 L38,49 L31,44 L-31,44 Z")
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.18);
+
+        g.append("line")
+            .attr("x1", -47)
+            .attr("x2", 47)
+            .attr("y1", 50)
+            .attr("y2", 50)
+            .attr("stroke", CONFIG.accent)
+            .attr("stroke-opacity", 0.32)
+            .attr("stroke-width", 1);
+    }
+
+
+    /* ---------- French Concession ---------- */
+
+    function drawFrenchConcessionSilhouette(group, scale = 1) {
+        const g = group.append("g")
+            .attr("transform", `scale(${scale})`);
+
+        // Old villa
+        g.append("path")
+            .attr(
+                "d",
+                "M-38,48 L-38,14 L-25,14 L-25,7 L-10,7 L-10,14 L10,14 L10,4 L25,4 L25,14 L38,14 L38,48 Z"
+            )
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.13)
+            .attr("stroke", CONFIG.accent)
+            .attr("stroke-opacity", 0.36)
+            .attr("stroke-width", 0.9);
+
+        // Tree canopy
+        g.append("path")
+            .attr(
+                "d",
+                "M-53,29 Q-48,18 -39,21 Q-35,8 -24,15 Q-18,4 -10,14 Q-5,8 0,18 L0,34 L-53,34 Z"
+            )
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.10);
+
+        // Tree trunk
+        g.append("path")
+            .attr(
+                "d",
+                "M-29,31 Q-28,40 -32,50 M-25,32 Q-24,41 -21,50"
+            )
             .attr("fill", "none")
             .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.75)
+            .attr("stroke-opacity", 0.3)
             .attr("stroke-width", 1.2);
 
-        [-27, 0, 27].forEach((x, i) => {
-            const towerHeight = i === 1 ? 55 : 45;
+        // Ground
+        g.append("line")
+            .attr("x1", -53)
+            .attr("x2", 53)
+            .attr("y1", 50)
+            .attr("y2", 50)
+            .attr("stroke", CONFIG.accent)
+            .attr("stroke-opacity", 0.32)
+            .attr("stroke-width", 1);
+    }
 
-            g.append("rect")
-                .attr("x", x - 9)
-                .attr("y", 52 - towerHeight)
-                .attr("width", 18)
-                .attr("height", towerHeight)
-                .attr("fill", "none")
-                .attr("stroke", CONFIG.accent)
-                .attr("stroke-opacity", 0.75)
-                .attr("stroke-width", 1);
 
+    /* ---------- Bakery ---------- */
+
+    function drawBakerySilhouette(group, scale = 1) {
+        const g = group.append("g")
+            .attr("transform", `scale(${scale})`);
+
+        // Small shop
+        g.append("path")
+            .attr(
+                "d",
+                "M-38,48 L-38,18 L-30,8 L30,8 L38,18 L38,48 Z"
+            )
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.13)
+            .attr("stroke", CONFIG.accent)
+            .attr("stroke-opacity", 0.36)
+            .attr("stroke-width", 0.9);
+
+        // Awning
+        g.append("path")
+            .attr(
+                "d",
+                "M-42,18 L42,18 L35,27 L-35,27 Z"
+            )
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.18);
+
+        // Bread / pastry symbol
+        g.append("path")
+            .attr(
+                "d",
+                "M-10,40 Q-5,31 0,40 Q5,31 10,40"
+            )
+            .attr("fill", "none")
+            .attr("stroke", CONFIG.accent)
+            .attr("stroke-opacity", 0.38)
+            .attr("stroke-width", 1);
+
+        // Ground
+        g.append("line")
+            .attr("x1", -46)
+            .attr("x2", 46)
+            .attr("y1", 50)
+            .attr("y2", 50)
+            .attr("stroke", CONFIG.accent)
+            .attr("stroke-opacity", 0.32)
+            .attr("stroke-width", 1);
+    }
+
+
+    /* ---------- Tianzifang ---------- */
+
+    function drawTianzifangSilhouette(group, scale = 1) {
+        const g = group.append("g")
+            .attr("transform", `scale(${scale})`);
+
+        // Shikumen-style layered houses
+        g.append("path")
+            .attr(
+                "d",
+                "M-48,48 L-48,17 L-35,17 L-35,7 L-18,7 L-18,14 L-3,14 L-3,2 L14,2 L14,12 L29,12 L29,7 L42,7 L42,18 L48,18 L48,48 Z"
+            )
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.14)
+            .attr("stroke", CONFIG.accent)
+            .attr("stroke-opacity", 0.38)
+            .attr("stroke-width", 0.9);
+
+        // Alley / doorway rhythm
+        [-32, -11, 10, 31].forEach(x => {
             g.append("path")
                 .attr(
                     "d",
-                    `M${x - 12},${52 - towerHeight}
-                     L${x},${42 - towerHeight}
-                     L${x + 12},${52 - towerHeight}`
+                    `M${x - 5},48 L${x - 5},32 Q${x},25 ${x + 5},32 L${x + 5},48`
                 )
                 .attr("fill", "none")
                 .attr("stroke", CONFIG.accent)
-                .attr("stroke-opacity", 0.8)
-                .attr("stroke-width", 1);
+                .attr("stroke-opacity", 0.3)
+                .attr("stroke-width", 0.8);
         });
 
-        g.append("path")
-            .attr("d", "M-8,52 L-8,34 Q0,25 8,34 L8,52")
-            .attr("fill", "none")
-            .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.8)
-            .attr("stroke-width", 1);
-    }
-
-
-    function drawStorefront(group, scale = 1) {
-        const g = group.append("g")
-            .attr("transform", `scale(${scale})`);
-
-        g.append("rect")
-            .attr("x", -43)
-            .attr("y", 4)
-            .attr("width", 86)
-            .attr("height", 47)
-            .attr("fill", "none")
-            .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.72)
-            .attr("stroke-width", 1);
-
-        g.append("path")
-            .attr("d", "M-48,5 L48,5 L40,20 L-40,20 Z")
-            .attr("fill", "none")
-            .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.65)
-            .attr("stroke-width", 1);
-
-        g.append("rect")
-            .attr("x", -10)
-            .attr("y", 29)
-            .attr("width", 20)
-            .attr("height", 22)
-            .attr("fill", "none")
-            .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.62)
-            .attr("stroke-width", 1);
-
+        // Ground
         g.append("line")
-            .attr("x1", -30)
-            .attr("x2", -17)
-            .attr("y1", 30)
-            .attr("y2", 30)
+            .attr("x1", -53)
+            .attr("x2", 53)
+            .attr("y1", 50)
+            .attr("y2", 50)
             .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.6);
-
-        g.append("line")
-            .attr("x1", 17)
-            .attr("x2", 30)
-            .attr("y1", 30)
-            .attr("y2", 30)
-            .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.6);
+            .attr("stroke-opacity", 0.32)
+            .attr("stroke-width", 1);
     }
 
 
-    function drawCafe(group, scale = 1) {
+    /* ---------- Generic ---------- */
+
+    function drawGenericSilhouette(group, scale = 1) {
         const g = group.append("g")
             .attr("transform", `scale(${scale})`);
 
-        g.append("rect")
-            .attr("x", -37)
-            .attr("y", 8)
-            .attr("width", 74)
-            .attr("height", 43)
-            .attr("fill", "none")
-            .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.7);
-
+        // Abstract urban mass
         g.append("path")
-            .attr("d", "M-42,8 L42,8")
+            .attr(
+                "d",
+                "M-35,48 L-35,20 L-18,20 L-18,9 L0,9 L0,16 L18,16 L18,4 L35,4 L35,48 Z"
+            )
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.13)
             .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.9);
-
-        g.append("circle")
-            .attr("cx", -19)
-            .attr("cy", 29)
-            .attr("r", 7)
-            .attr("fill", "none")
-            .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.7);
-
-        g.append("path")
-            .attr("d", "M-12,29 Q0,17 12,29")
-            .attr("fill", "none")
-            .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.7);
-
-        g.append("rect")
-            .attr("x", 20)
-            .attr("y", 25)
-            .attr("width", 10)
-            .attr("height", 26)
-            .attr("fill", "none")
-            .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.65);
-    }
-
-
-    function drawRestaurant(group, scale = 1) {
-        const g = group.append("g")
-            .attr("transform", `scale(${scale})`);
-
-        g.append("path")
-            .attr("d", "M-44,4 L0,-13 L44,4")
-            .attr("fill", "none")
-            .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.8);
-
-        g.append("rect")
-            .attr("x", -39)
-            .attr("y", 4)
-            .attr("width", 78)
-            .attr("height", 47)
-            .attr("fill", "none")
-            .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.68);
-
-        g.append("rect")
-            .attr("x", -9)
-            .attr("y", 28)
-            .attr("width", 18)
-            .attr("height", 23)
-            .attr("fill", "none")
-            .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.65);
-    }
-
-
-    function drawGenericAnchor(group, scale = 1) {
-        const g = group.append("g")
-            .attr("transform", `scale(${scale})`);
-
-        g.append("rect")
-            .attr("x", -34)
-            .attr("y", 3)
-            .attr("width", 68)
-            .attr("height", 48)
-            .attr("fill", "none")
-            .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.65);
+            .attr("stroke-opacity", 0.3)
+            .attr("stroke-width", 0.8);
 
         g.append("line")
             .attr("x1", -42)
             .attr("x2", 42)
-            .attr("y1", 3)
-            .attr("y2", 3)
+            .attr("y1", 50)
+            .attr("y2", 50)
             .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.8);
-
-        g.append("circle")
-            .attr("cx", 0)
-            .attr("cy", 27)
-            .attr("r", 9)
-            .attr("fill", "none")
-            .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.65);
+            .attr("stroke-opacity", 0.3)
+            .attr("stroke-width", 1);
     }
 
 
-    function selectAnchorType(label) {
+    /* ==========================================================
+    POI → SILHOUETTE MAPPING
+    ========================================================== */
+
+    function selectSilhouette(label) {
         const value = normalizeKey(label);
 
         if (
             value.includes("bund") ||
             value.includes("waitan") ||
-            value.includes("lujiazui") ||
-            value.includes("pudong")
+            value.includes("外滩")
         ) {
-            return "skyline";
+            return "bund";
         }
 
         if (
-            value.includes("yuyuan") ||
+            value.includes("nanjing road") ||
+            value.includes("nanjing")
+        ) {
+            return "nanjing";
+        }
+
+        if (
             value.includes("yu yuan") ||
-            value.includes("garden")
+            value.includes("yuyuan") ||
+            value.includes("garden") ||
+            value.includes("豫园")
         ) {
-            return "pavilion";
+            return "yuyuan";
         }
 
         if (
-            value.includes("disney") ||
-            value.includes("castle")
+            value.includes("french concession") ||
+            value.includes("法租界")
         ) {
-            return "castle";
+            return "french";
         }
 
         if (
-            value.includes("cafe") ||
-            value.includes("coffee") ||
-            value.includes("咖啡")
+            value.includes("bakery") ||
+            value.includes("面包")
         ) {
-            return "cafe";
+            return "bakery";
         }
 
         if (
-            value.includes("restaurant") ||
-            value.includes("dining") ||
-            value.includes("food") ||
-            value.includes("餐厅")
+            value.includes("tianzifang") ||
+            value.includes("田子坊")
         ) {
-            return "restaurant";
-        }
-
-        if (
-            value.includes("nanjing") ||
-            value.includes("xintiandi") ||
-            value.includes("shopping") ||
-            value.includes("mall")
-        ) {
-            return "storefront";
+            return "tianzifang";
         }
 
         return "generic";
     }
 
 
+    /* ==========================================================
+    DRAW POI SILHOUETTE
+    ========================================================== */
+
     function drawPOIAnchor(group, poi) {
-        const type = selectAnchorType(poi.label);
+        const type = selectSilhouette(poi.label);
 
         const iconGroup = group
             .append("g")
-            .attr("class", "poi-icon");
+            .attr("class", "poi-silhouette");
 
         const scale =
             poi.label.length > 16
                 ? 0.82
                 : 1;
 
-        if (type === "skyline") {
-            drawSkyline(iconGroup, scale);
-        } else if (type === "pavilion") {
-            drawPavilion(iconGroup, scale);
-        } else if (type === "castle") {
-            drawCastle(iconGroup, scale);
-        } else if (type === "storefront") {
-            drawStorefront(iconGroup, scale);
-        } else if (type === "cafe") {
-            drawCafe(iconGroup, scale);
-        } else if (type === "restaurant") {
-            drawRestaurant(iconGroup, scale);
+        if (type === "bund") {
+            drawBundSilhouette(iconGroup, scale);
+
+        } else if (type === "nanjing") {
+            drawNanjingSilhouette(iconGroup, scale);
+
+        } else if (type === "yuyuan") {
+            drawYuYuanSilhouette(iconGroup, scale);
+
+        } else if (type === "french") {
+            drawFrenchConcessionSilhouette(iconGroup, scale);
+
+        } else if (type === "bakery") {
+            drawBakerySilhouette(iconGroup, scale);
+
+        } else if (type === "tianzifang") {
+            drawTianzifangSilhouette(iconGroup, scale);
+
         } else {
-            drawGenericAnchor(iconGroup, scale);
+            drawGenericSilhouette(iconGroup, scale);
         }
     }
 
@@ -1654,7 +1991,10 @@ window.addEventListener("resize", () => {
 
         lineLayerGlobal
             .selectAll(".poi-word-line")
-            .data(words, d => `${d.poiKey}__${d.key}`)
+            .data(
+                words,
+                d => `${d.poiKey}__${d.key}`
+            )
             .enter()
             .append("path")
             .attr("class", "poi-word-line")
@@ -1667,18 +2007,59 @@ window.addEventListener("resize", () => {
                 const endX = d.x;
                 const endY = d.y + d.height * 0.25;
 
+                const verticalDistance =
+                    Math.abs(startY - endY);
+
+                /*
+                * Longer floating words receive a softer,
+                * more spacious curve.
+                */
+                const curveStrength =
+                    Math.min(
+                        verticalDistance * 0.18,
+                        95
+                    );
+
+                /*
+                * Horizontal displacement affects the curve,
+                * but only mildly.
+                */
+                const horizontalCurve =
+                    Math.min(
+                        Math.abs(endX - startX) * 0.16,
+                        55
+                    );
+
+                const direction =
+                    endX >= startX ? 1 : -1;
+
                 const midpointY =
                     startY +
                     (endY - startY) * 0.52;
 
-                const curveOffset =
-                    (endX - startX) * 0.15;
+                const control1X =
+                    startX +
+                    (endX - startX) * 0.12 +
+                    direction * horizontalCurve;
+
+                const control2X =
+                    endX -
+                    (endX - startX) * 0.12 -
+                    direction * horizontalCurve;
+
+                const control1Y =
+                    midpointY -
+                    curveStrength * 0.42;
+
+                const control2Y =
+                    midpointY +
+                    curveStrength * 0.18;
 
                 return `
                     M ${startX} ${startY}
                     C
-                    ${startX + curveOffset} ${midpointY},
-                    ${endX - curveOffset} ${midpointY},
+                    ${control1X} ${control1Y},
+                    ${control2X} ${control2Y},
                     ${endX} ${endY}
                 `;
             })
@@ -1889,7 +2270,7 @@ window.addEventListener("resize", () => {
        MAIN RENDER FUNCTION
     ========================================================== */
 
-    function renderPlacePerception() {
+    async function renderPlacePerception() {
         const container = d3.select(CONFIG.container);
 
         if (container.empty()) {
@@ -1899,7 +2280,7 @@ window.addEventListener("resize", () => {
             return;
         }
 
-        const rawData = resolveDataset();
+        const rawData = await resolveDataset();
 
         if (!rawData.length) {
             container
