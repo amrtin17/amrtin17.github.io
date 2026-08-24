@@ -272,8 +272,1355 @@ console.log("Shanghai JS Loaded");
 })();
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ==========================================
-   Emotion sankey
+   Q2. Landmark vs Consumption
+========================================== */
+
+(() => {
+    'use strict';
+
+    /* =========================================================
+     * Configuration
+     * ======================================================= */
+
+    const CONFIG = {
+
+        chartContainerId: 'placeTypeChart',
+
+        // Same CSV used by Q5
+        csvPath: 'assets/data/description.csv',
+
+        // SVG height
+        height: 540,
+        maxWidth: 760,
+
+        // Chart margins
+        margin: {
+            top: 70,
+            right: 100,
+            bottom: 50,
+            left: 60
+        },
+
+        // Fixed coordinate range
+        domain: [-1, 1],
+
+        // Marker size
+        minRadius: 7,
+        maxRadius: 24,
+
+        // Q1 marker visual language
+        markerColor: '#35d0ff',
+        markerFill: 'rgba(53,208,255,.40)',
+        markerStroke: 'rgba(53,208,255,.28)',
+
+        // Text
+        textColor: '#f5f7fb',
+        mutedColor: '#9db2c1',
+        axisColor: 'rgba(157,178,193,.45)'
+
+    };
+
+
+    /* =========================================================
+     * Container
+     * ======================================================= */
+
+    const container =
+        document.getElementById(
+            CONFIG.chartContainerId
+        );
+
+    if (!container) return;
+
+    container.innerHTML = '';
+
+
+    /* =========================================================
+     * Load CSV
+     * ======================================================= */
+
+    d3.csv(CONFIG.csvPath)
+        .then(rawData => {
+
+            if (!rawData || !rawData.length) {
+
+                console.warn(
+                    'Q2: CSV contains no data.'
+                );
+
+                return;
+            }
+
+
+            /* =================================================
+             * Aggregate POIs
+             * ================================================= */
+
+            const poiMap = new Map();
+
+            rawData.forEach(row => {
+
+                const poi =
+                    String(row.POI || '').trim();
+
+                if (!poi) return;
+
+
+                const la =
+                    Number(row.Q2_LA);
+
+                const co =
+                    Number(row.Q2_CO);
+
+
+                /*
+                 * Q2_LA and Q2_CO are expected
+                 * to contain only 0 or 1.
+                 */
+                if (
+                    !Number.isFinite(la) ||
+                    !Number.isFinite(co)
+                ) {
+                    return;
+                }
+
+
+                if (!poiMap.has(poi)) {
+
+                    poiMap.set(poi, {
+
+                        name: poi,
+
+                        N: 0,
+
+                        laSum: 0,
+
+                        coSum: 0
+
+                    });
+
+                }
+
+
+                const item =
+                    poiMap.get(poi);
+
+
+                /*
+                 * N = number of rows in CSV.
+                 *
+                 * If the same POI appears twice
+                 * in the same video, both rows count.
+                 */
+                item.N += 1;
+
+                item.laSum += la;
+
+                item.coSum += co;
+
+            });
+
+
+            /* =================================================
+             * Calculate POI Statistics
+             * ================================================= */
+
+            const poiData =
+                Array.from(poiMap.values())
+                .map(item => {
+
+                    /*
+                     * Average original 0–1 values
+                     */
+                    const q2LA =
+                        item.laSum / item.N;
+
+                    const q2CO =
+                        item.coSum / item.N;
+
+
+                    /*
+                     * Transform:
+                     *
+                     * 0   → -1
+                     * 0.5 →  0
+                     * 1   →  1
+                     */
+                    const x =
+                        q2LA * 2 - 1;
+
+                    const y =
+                        q2CO * 2 - 1;
+
+
+                    return {
+
+                        name: item.name,
+
+                        N: item.N,
+
+                        Q2_LA: q2LA,
+
+                        Q2_CO: q2CO,
+
+                        x: x,
+
+                        y: y
+
+                    };
+
+                });
+
+
+            if (!poiData.length) {
+
+                console.warn(
+                    'Q2: No valid POI data found.'
+                );
+
+                return;
+            }
+
+
+            /* =================================================
+             * Console Output
+             * ================================================= */
+
+            console.table(
+
+                poiData.map(d => ({
+
+                    POI: d.name,
+
+                    N: d.N,
+
+                    Q2_LA:
+                        Number(
+                            d.Q2_LA.toFixed(2)
+                        ),
+
+                    Q2_CO:
+                        Number(
+                            d.Q2_CO.toFixed(2)
+                        ),
+
+                    X:
+                        Number(
+                            d.x.toFixed(2)
+                        ),
+
+                    Y:
+                        Number(
+                            d.y.toFixed(2)
+                        )
+
+                }))
+
+            );
+
+
+            /* =================================================
+             * Draw Chart
+             * ================================================= */
+
+            drawChart(
+                poiData,
+                container
+            );
+
+
+            /* =================================================
+             * Responsive Resize
+             * ================================================= */
+
+            let resizeTimer;
+
+            window.addEventListener(
+                'resize',
+                () => {
+
+                    clearTimeout(
+                        resizeTimer
+                    );
+
+                    resizeTimer =
+                        setTimeout(() => {
+
+                            drawChart(
+                                poiData,
+                                container
+                            );
+
+                        }, 150);
+
+                }
+            );
+
+
+        })
+        .catch(error => {
+
+            console.error(
+                'Q2 CSV loading failed:',
+                error
+            );
+
+        });
+
+
+    /* =========================================================
+     * Draw Chart
+     * ======================================================= */
+
+    function drawChart(
+        poiData,
+        container
+    ) {
+
+        if (!poiData.length) return;
+
+
+        /* =====================================================
+         * Remove Previous Chart
+         * ===================================================== */
+
+        d3.select(container)
+            .selectAll('svg')
+            .remove();
+
+        d3.select('body')
+            .selectAll('.q2-tooltip')
+            .remove();
+
+
+        /* =====================================================
+         * Dimensions
+         * ===================================================== */
+
+        const width =
+            Math.min(container.clientWidth, CONFIG.maxWidth);
+
+        const height =
+            CONFIG.height;
+
+
+        const innerWidth =
+            width -
+            CONFIG.margin.left -
+            CONFIG.margin.right;
+
+        const innerHeight =
+            height -
+            CONFIG.margin.top -
+            CONFIG.margin.bottom;
+
+
+        /* =====================================================
+         * SVG
+         * ===================================================== */
+
+        const svg =
+            d3.select(container)
+            .append('svg')
+            .style('display', 'block')
+            .style('margin', '0 auto')
+            .attr(
+                'width',
+                '100%'
+            )
+            .attr(
+                'height',
+                height
+            )
+            .attr(
+                'viewBox',
+                `0 0 ${width} ${height}`
+            )
+            .attr(
+                'preserveAspectRatio',
+                'xMidYMid meet'
+            )
+            .style(
+                'display',
+                'block'
+            );
+
+
+        const chart =
+            svg.append('g')
+            .attr(
+                'transform',
+                `translate(
+                    ${CONFIG.margin.left},
+                    ${CONFIG.margin.top}
+                )`
+            );
+
+
+        /* =====================================================
+         * Scales
+         * ===================================================== */
+
+        const xScale =
+            d3.scaleLinear()
+            .domain(CONFIG.domain)
+            .range([
+                0,
+                innerWidth
+            ]);
+
+
+        const yScale =
+            d3.scaleLinear()
+            .domain(CONFIG.domain)
+            .range([
+                innerHeight,
+                0
+            ]);
+
+
+        const originX =
+            xScale(0);
+
+        const originY =
+            yScale(0);
+
+
+
+        /* =====================================================
+         * Grid Lines
+         * ===================================================== */
+
+        const gridColor =
+            'rgba(255,255,255,.055)';
+
+        [-0.5, 0.5].forEach(value => {
+
+            /* Vertical grid */
+            chart.append('line')
+                .attr(
+                    'x1',
+                    xScale(value)
+                )
+                .attr(
+                    'x2',
+                    xScale(value)
+                )
+                .attr(
+                    'y1',
+                    0
+                )
+                .attr(
+                    'y2',
+                    innerHeight
+                )
+                .attr(
+                    'stroke',
+                    gridColor
+                )
+                .attr(
+                    'stroke-width',
+                    1
+                );
+
+
+            /* Horizontal grid */
+            chart.append('line')
+                .attr(
+                    'x1',
+                    0
+                )
+                .attr(
+                    'x2',
+                    innerWidth
+                )
+                .attr(
+                    'y1',
+                    yScale(value)
+                )
+                .attr(
+                    'y2',
+                    yScale(value)
+                )
+                .attr(
+                    'stroke',
+                    gridColor
+                )
+                .attr(
+                    'stroke-width',
+                    1
+                );
+
+        });
+
+
+        /* =====================================================
+         * Main Axes
+         * ===================================================== */
+
+        /*
+         * Horizontal axis
+         * y = 0
+         */
+        chart.append('line')
+            .attr(
+                'x1',
+                0
+            )
+            .attr(
+                'x2',
+                innerWidth
+            )
+            .attr(
+                'y1',
+                originY
+            )
+            .attr(
+                'y2',
+                originY
+            )
+            .attr(
+                'stroke',
+                CONFIG.axisColor
+            )
+            .attr(
+                'stroke-width',
+                1
+            );
+
+
+        /*
+         * Vertical axis
+         * x = 0
+         */
+        chart.append('line')
+            .attr(
+                'x1',
+                originX
+            )
+            .attr(
+                'x2',
+                originX
+            )
+            .attr(
+                'y1',
+                0
+            )
+            .attr(
+                'y2',
+                innerHeight
+            )
+            .attr(
+                'stroke',
+                CONFIG.axisColor
+            )
+            .attr(
+                'stroke-width',
+                1
+            );
+
+
+        /* =====================================================
+         * Axis Tick Labels
+         * ===================================================== */
+
+        const tickValues = [
+            -1,
+            -0.5,
+            0,
+            0.5,
+            1
+        ];
+
+
+        /* X-axis ticks */
+
+        tickValues.forEach(value => {
+
+            chart.append('text')
+                .attr(
+                    'x',
+                    xScale(value)
+                )
+                .attr(
+                    'y',
+                    originY + 28
+                )
+                .attr(
+                    'text-anchor',
+                    'middle'
+                )
+                .attr(
+                    'fill',
+                    CONFIG.mutedColor
+                )
+                .attr(
+                    'font-size',
+                    12
+                )
+                .text(value);
+
+        });
+
+
+        /* Y-axis ticks */
+
+        tickValues.forEach(value => {
+
+            chart.append('text')
+                .attr(
+                    'x',
+                    originX - 15
+                )
+                .attr(
+                    'y',
+                    yScale(value) + 4
+                )
+                .attr(
+                    'text-anchor',
+                    'end'
+                )
+                .attr(
+                    'fill',
+                    CONFIG.mutedColor
+                )
+                .attr(
+                    'font-size',
+                    12
+                )
+                .text(value);
+
+        });
+
+
+        /* =====================================================
+         * Axis Labels
+         * ===================================================== */
+
+        /*
+         * Landmark
+         * → right side of horizontal axis
+         */
+        chart.append('text')
+            .attr(
+                'x',
+                innerWidth + 18
+            )
+            .attr(
+                'y',
+                originY + 5
+            )
+            .attr(
+                'text-anchor',
+                'start'
+            )
+            .attr(
+                'fill',
+                CONFIG.textColor
+            )
+            .attr(
+                'font-size',
+                16
+            )
+            .attr(
+                'font-weight',
+                600
+            )
+            .text('Landmark');
+
+
+        /*
+         * Consumption
+         * → above vertical axis
+         */
+        chart.append('text')
+            .attr(
+                'x',
+                originX
+            )
+            .attr(
+                'y',
+                -28
+            )
+            .attr(
+                'text-anchor',
+                'middle'
+            )
+            .attr(
+                'fill',
+                CONFIG.textColor
+            )
+            .attr(
+                'font-size',
+                16
+            )
+            .attr(
+                'font-weight',
+                600
+            )
+            .text('Consumption');
+
+
+        /* =====================================================
+         * Quadrant Labels
+         * ===================================================== */
+
+        const quadrantStyle = {
+
+            fill:
+                'rgba(157,178,193,.42)',
+
+            size: 12
+
+        };
+
+
+        /*
+         * II
+         */
+        chart.append('text')
+            .attr(
+                'x',
+                innerWidth * 0.25
+            )
+            .attr(
+                'y',
+                innerHeight * 0.20
+            )
+            .attr(
+                'text-anchor',
+                'middle'
+            )
+            .attr(
+                'fill',
+                quadrantStyle.fill
+            )
+            .attr(
+                'font-size',
+                quadrantStyle.size
+            )
+            .text('II');
+
+
+        /*
+         * I
+         */
+        chart.append('text')
+            .attr(
+                'x',
+                innerWidth * 0.75
+            )
+            .attr(
+                'y',
+                innerHeight * 0.20
+            )
+            .attr(
+                'text-anchor',
+                'middle'
+            )
+            .attr(
+                'fill',
+                quadrantStyle.fill
+            )
+            .attr(
+                'font-size',
+                quadrantStyle.size
+            )
+            .text('I');
+
+
+        /*
+         * III
+         */
+        chart.append('text')
+            .attr(
+                'x',
+                innerWidth * 0.25
+            )
+            .attr(
+                'y',
+                innerHeight * 0.84
+            )
+            .attr(
+                'text-anchor',
+                'middle'
+            )
+            .attr(
+                'fill',
+                quadrantStyle.fill
+            )
+            .attr(
+                'font-size',
+                quadrantStyle.size
+            )
+            .text('III');
+
+
+        /*
+         * IV
+         */
+        chart.append('text')
+            .attr(
+                'x',
+                innerWidth * 0.75
+            )
+            .attr(
+                'y',
+                innerHeight * 0.84
+            )
+            .attr(
+                'text-anchor',
+                'middle'
+            )
+            .attr(
+                'fill',
+                quadrantStyle.fill
+            )
+            .attr(
+                'font-size',
+                quadrantStyle.size
+            )
+            .text('IV');
+
+
+        /* =====================================================
+         * Origin
+         * ===================================================== */
+
+        chart.append('circle')
+            .attr(
+                'cx',
+                originX
+            )
+            .attr(
+                'cy',
+                originY
+            )
+            .attr(
+                'r',
+                3
+            )
+            .attr(
+                'fill',
+                CONFIG.markerColor
+            );
+
+
+        /* =====================================================
+         * Marker Size Scale
+         * ===================================================== */
+
+        const counts =
+            poiData.map(
+                d => d.N
+            );
+
+        const minN =
+            Math.min(...counts);
+
+        const maxN =
+            Math.max(...counts);
+
+
+        const radiusScale =
+            d3.scaleSqrt()
+            .domain([
+                minN,
+                maxN
+            ])
+            .range([
+                CONFIG.minRadius,
+                CONFIG.maxRadius
+            ]);
+
+
+        function getRadius(N) {
+
+            if (minN === maxN) {
+
+                return (
+                    CONFIG.minRadius +
+                    CONFIG.maxRadius
+                ) / 2;
+
+            }
+
+            return radiusScale(N);
+
+        }
+
+
+        /* =====================================================
+         * Tooltip
+         * ===================================================== */
+
+        const tooltip =
+            d3.select('body')
+            .append('div')
+            .attr(
+                'class',
+                'q2-tooltip'
+            )
+            .style(
+                'position',
+                'fixed'
+            )
+            .style(
+                'pointer-events',
+                'none'
+            )
+            .style(
+                'opacity',
+                0
+            )
+            .style(
+                'z-index',
+                9999
+            )
+            .style(
+                'padding',
+                '12px 15px'
+            )
+            .style(
+                'background',
+                '#08141f'
+            )
+            .style(
+                'border',
+                '1px solid rgba(53,208,255,.35)'
+            )
+            .style(
+                'box-shadow',
+                '0 0 18px rgba(53,208,255,.12)'
+            )
+            .style(
+                'color',
+                '#f5f7fb'
+            )
+            .style(
+                'font-size',
+                '13px'
+            )
+            .style(
+                'line-height',
+                '1.7'
+            );
+
+
+        /* =====================================================
+         * Marker Group
+         * ===================================================== */
+
+        const markerGroup =
+            chart.append('g')
+            .attr(
+                'class',
+                'q2-markers'
+            );
+
+
+        const markers =
+            markerGroup
+            .selectAll('.q2-marker')
+            .data(
+                poiData
+            )
+            .enter()
+            .append('g')
+            .attr(
+                'class',
+                'q2-marker'
+            )
+            .attr(
+                'transform',
+                d =>
+                    `translate(
+                        ${xScale(d.x)},
+                        ${yScale(d.y)}
+                    )`
+            )
+            .style(
+                'cursor',
+                'pointer'
+            );
+
+
+        /* =====================================================
+         * Ripple
+         * ===================================================== */
+
+        markers.each(function(d) {
+
+            const marker =
+                d3.select(this);
+
+            const baseRadius =
+                getRadius(d.N);
+
+
+            const ripple =
+                marker.append('circle')
+                .attr(
+                    'class',
+                    'q2-ripple'
+                )
+                .attr(
+                    'r',
+                    baseRadius
+                )
+                .attr(
+                    'fill',
+                    'none'
+                )
+                .attr(
+                    'stroke',
+                    CONFIG.markerStroke
+                )
+                .attr(
+                    'stroke-width',
+                    1
+                )
+                .attr(
+                    'opacity',
+                    0.55
+                );
+
+
+            function animateRipple() {
+
+                ripple
+                    .interrupt()
+                    .attr(
+                        'r',
+                        baseRadius
+                    )
+                    .attr(
+                        'opacity',
+                        0.55
+                    )
+                    .transition()
+                    .duration(2800)
+                    .ease(d3.easeLinear)
+                    .attr(
+                        'r',
+                        baseRadius * 2.3
+                    )
+                    .attr(
+                        'opacity',
+                        0
+                    )
+                    .on(
+                        'end',
+                        animateRipple
+                    );
+
+            }
+
+
+            animateRipple();
+
+        });
+
+
+        /* =====================================================
+         * Marker Core
+         * ===================================================== */
+
+        markers.append('circle')
+            .attr(
+                'class',
+                'q2-marker-core'
+            )
+            .attr(
+                'r',
+                d => getRadius(d.N)
+            )
+            .attr(
+                'fill',
+                CONFIG.markerFill
+            )
+            .attr(
+                'stroke',
+                'none'
+            )
+            .style(
+                'filter',
+                'drop-shadow(0 0 7px rgba(53,208,255,.20))'
+            );
+
+
+        /* =====================================================
+         * POI Labels
+         * ===================================================== */
+
+        markers.append('text')
+            .attr(
+                'class',
+                'q2-poi-label'
+            )
+            .attr(
+                'x',
+                d =>
+                    getRadius(d.N) + 10
+            )
+            .attr(
+                'y',
+                4
+            )
+            .attr(
+                'fill',
+                CONFIG.textColor
+            )
+            .attr(
+                'font-size',
+                12
+            )
+            .attr(
+                'font-weight',
+                600
+            )
+            .style(
+                'text-shadow',
+                '0 0 8px black'
+            )
+            .text(
+                d => d.name
+            );
+
+
+        /* =====================================================
+         * Hover
+         * ===================================================== */
+
+        markers
+
+            .on(
+                'mouseenter',
+                function(event, d) {
+
+                    const marker =
+                        d3.select(this);
+
+
+                    /*
+                     * Bring selected marker to front
+                     */
+                    this.parentNode
+                        .appendChild(this);
+
+
+                    /*
+                     * Enlarge marker
+                     */
+                    marker
+                        .select(
+                            '.q2-marker-core'
+                        )
+                        .transition()
+                        .duration(200)
+                        .attr(
+                            'r',
+                            getRadius(d.N) * 1.25
+                        )
+                        .attr(
+                            'fill',
+                            'rgba(53,208,255,.65)'
+                        );
+
+
+                    /*
+                     * Highlight label
+                     */
+                    marker
+                        .select(
+                            '.q2-poi-label'
+                        )
+                        .transition()
+                        .duration(200)
+                        .attr(
+                            'fill',
+                            CONFIG.markerColor
+                        );
+
+
+                    /*
+                     * Tooltip content
+                     */
+                    tooltip
+                        .html(`
+                            <strong>
+                                ${d.name}
+                            </strong>
+                            <div>
+                                N: ${d.N}
+                            </div>
+                            <div>
+                                Landmark:
+                                ${d3.format('.2f')(d.Q2_LA)}
+                            </div>
+                            <div>
+                                Consumption:
+                                ${d3.format('.2f')(d.Q2_CO)}
+                            </div>
+                        `)
+                        .style(
+                            'opacity',
+                            1
+                        );
+
+                }
+            )
+
+
+            .on(
+                'mousemove',
+                function(event) {
+
+                    tooltip
+                        .style(
+                            'left',
+                            `${event.clientX + 16}px`
+                        )
+                        .style(
+                            'top',
+                            `${event.clientY + 16}px`
+                        );
+
+                }
+            )
+
+
+            .on(
+                'mouseleave',
+                function(event, d) {
+
+                    const marker =
+                        d3.select(this);
+
+
+                    /*
+                     * Restore marker
+                     */
+                    marker
+                        .select(
+                            '.q2-marker-core'
+                        )
+                        .transition()
+                        .duration(200)
+                        .attr(
+                            'r',
+                            getRadius(d.N)
+                        )
+                        .attr(
+                            'fill',
+                            CONFIG.markerFill
+                        );
+
+
+                    /*
+                     * Restore label
+                     */
+                    marker
+                        .select(
+                            '.q2-poi-label'
+                        )
+                        .transition()
+                        .duration(200)
+                        .attr(
+                            'fill',
+                            CONFIG.textColor
+                        );
+
+
+                    /*
+                     * Hide tooltip
+                     */
+                    tooltip
+                        .transition()
+                        .duration(150)
+                        .style(
+                            'opacity',
+                            0
+                        );
+
+                }
+            );
+
+
+        /* =====================================================
+         * Initial Animation
+         * ===================================================== */
+
+        markers
+            .style(
+                'opacity',
+                0
+            )
+            .attr(
+                'transform',
+                d =>
+                    `translate(
+                        ${xScale(d.x)},
+                        ${yScale(d.y)}
+                    ) scale(0.5)`
+            )
+            .transition()
+            .delay(
+                (d, i) => i * 45
+            )
+            .duration(500)
+            .ease(
+                d3.easeCubicOut
+            )
+            .style(
+                'opacity',
+                1
+            )
+            .attr(
+                'transform',
+                d =>
+                    `translate(
+                        ${xScale(d.x)},
+                        ${yScale(d.y)}
+                    ) scale(1)`
+            );
+
+    }
+
+})();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   Q4.Emotion sankey
 ========================================== */
 
 // Load Sankey data from CSV and build nodes/links dynamically
@@ -288,17 +1635,48 @@ function buildSankeyData(rows) {
     const poiNames = [];
     const interactionNames = [];
     const emotionNames = [];
+
     const nodeSet = new Set();
     const pathCounts = new Map();
 
+    // ==========================================
+    // 1. Count POI frequency
+    // ==========================================
+    const poiFrequency = new Map();
+
+    rows.forEach((row) => {
+        const poi = (row.POI || "").trim();
+
+        if (!poi) return;
+
+        poiFrequency.set(
+            poi,
+            (poiFrequency.get(poi) || 0) + 1
+        );
+    });
+
+    // ==========================================
+    // 2. Keep Top 20 POIs
+    // ==========================================
+    const topPOIs = new Set(
+        [...poiFrequency.entries()]
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 20)
+            .map(([poi]) => poi)
+    );
+
+    // ==========================================
+    // 3. Add nodes
+    // ==========================================
     const addNode = (name, layer) => {
         if (!name) return;
 
-        const targetList = layer === "poi"
-            ? poiNames
-            : layer === "interaction"
-                ? interactionNames
-                : emotionNames;
+        const targetList =
+            layer === "poi"
+                ? poiNames
+                : layer === "interaction"
+                    ? interactionNames
+                    : emotionNames;
 
         if (!nodeSet.has(name)) {
             nodeSet.add(name);
@@ -306,6 +1684,9 @@ function buildSankeyData(rows) {
         }
     };
 
+    // ==========================================
+    // 4. Build paths
+    // ==========================================
     rows.forEach((row) => {
         const poi = (row.POI || "").trim();
         const interaction = (row.Interaction || "").trim();
@@ -313,26 +1694,56 @@ function buildSankeyData(rows) {
 
         if (!poi || !interaction || !emotion) return;
 
+        // Only Top 20 POIs are displayed
+        if (!topPOIs.has(poi)) {
+            return;
+        }
+
+        // Only add interactions and emotions
+        // that are connected to Top 20 POIs
         addNode(poi, "poi");
         addNode(interaction, "interaction");
         addNode(emotion, "emotion");
 
-        const pathKey = `${poi}::${interaction}::${emotion}`;
-        pathCounts.set(pathKey, (pathCounts.get(pathKey) || 0) + 1);
+        const pathKey =
+            `${poi}::${interaction}::${emotion}`;
+
+        pathCounts.set(
+            pathKey,
+            (pathCounts.get(pathKey) || 0) + 1
+        );
     });
 
-    const nodeNames = [...poiNames, ...interactionNames, ...emotionNames];
-    const nodes = nodeNames.map((name) => ({ name }));
+    // ==========================================
+    // 5. Create nodes
+    // ==========================================
+    const nodeNames = [
+        ...poiNames,
+        ...interactionNames,
+        ...emotionNames
+    ];
 
+    const nodes = nodeNames.map((name) => ({
+        name
+    }));
+
+    // ==========================================
+    // 6. Create links
+    // ==========================================
     const links = [];
     const linkCounts = new Map();
 
     pathCounts.forEach((count, pathKey) => {
-        const [poi, interaction, emotion] = pathKey.split("::");
+        const [poi, interaction, emotion] =
+            pathKey.split("::");
 
         const addLink = (source, target) => {
             const key = `${source}::${target}`;
-            linkCounts.set(key, (linkCounts.get(key) || 0) + count);
+
+            linkCounts.set(
+                key,
+                (linkCounts.get(key) || 0) + count
+            );
         };
 
         addLink(poi, interaction);
@@ -341,10 +1752,21 @@ function buildSankeyData(rows) {
 
     linkCounts.forEach((value, key) => {
         const [source, target] = key.split("::");
-        links.push({ source, target, value });
+
+        links.push({
+            source,
+            target,
+            value
+        });
     });
 
-    return { nodes, links, poiCount: poiNames.length, interactionCount: interactionNames.length, emotionCount: emotionNames.length };
+    return {
+        nodes,
+        links,
+        poiCount: poiNames.length,
+        interactionCount: interactionNames.length,
+        emotionCount: emotionNames.length
+    };
 }
 
 function createStyledNodes(nodes, poiCount, interactionCount) {
@@ -403,7 +1825,7 @@ function renderEmotionChart(rows) {
             left: 24,
             right: 56,
             nodeWidth: 20,
-            nodeGap: 24,
+            nodeGap: 8,
             nodeAlign: "justify",
             layoutIterations: 72,
             draggable: false,
@@ -575,14 +1997,19 @@ window.addEventListener("resize", () => {
 });
 
 
+
+
+
+
+
+
+
+
+
+
+
 /* ==========================================
-   Experience
-========================================== */
-
-
-
-/* ==========================================
-   Description
+   Q5.Description
 ========================================== */
 
 (function () {
@@ -598,7 +2025,7 @@ window.addEventListener("resize", () => {
         maxPOIs: 6,
 
         minWordsPerPOI: 3,
-        maxWordsPerPOI: 8,
+        maxWordsPerPOI: 10,
 
         poiLabelSize: 13,
 
