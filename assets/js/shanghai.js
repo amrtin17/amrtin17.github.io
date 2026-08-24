@@ -4,20 +4,9 @@
 console.log("Shanghai JS Loaded");
 
 
-/* ==========================================
-   Initialize Charts
-========================================== */
-
-
 
 /* ==========================================
-   KPI
-========================================== */
-
-
-
-/* ==========================================
-   Map
+   Q1. Map
 ========================================== */
 
 (() => {
@@ -39,7 +28,7 @@ console.log("Shanghai JS Loaded");
     };
 
     /* =========================================================
-     * Dataset
+     * Q1 Dataset
      * ======================================================= */
 
     const poiData = [
@@ -2379,21 +2368,37 @@ window.addEventListener("resize", () => {
     ========================================================== */
 
     function calculatePOIPositions(pois, width, height) {
-        const usableWidth = width * 0.90;
-        const startX = width * 0.05;
+        /*
+        * Leave enough horizontal room for the semantic cluster
+        * of the first and last POI.
+        */
+        const edgePadding =
+            Math.min(
+                150,
+                Math.max(
+                    115,
+                    width * 0.11
+                )
+            );
+
+        const usableWidth =
+            width - edgePadding * 2;
 
         const spacing =
             pois.length > 1
                 ? usableWidth / (pois.length - 1)
-                : usableWidth;
+                : 0;
 
         return pois.map((poi, index) => ({
             ...poi,
             x:
                 pois.length === 1
                     ? width / 2
-                    : startX + spacing * index,
-            y: height - CONFIG.anchorHeight / 2 - 10
+                    : edgePadding + spacing * index,
+            y:
+                height -
+                CONFIG.anchorHeight / 2 -
+                10
         }));
     }
 
@@ -2413,23 +2418,6 @@ window.addEventListener("resize", () => {
         return fontSize * 1.25;
     }
 
-
-    /*
-     * Organic semantic layout.
-     *
-     * Instead of a rectangular word cloud:
-     * - every POI gets a vertical semantic "column"
-     * - words drift sideways around that column
-     * - height is decorative
-     * - a deterministic jitter produces an organic atmosphere
-     */
-    function calculateWordLayout(
-        poi,
-        index,
-        width,
-        height,
-        wordScale
-    ) {
 
         /*
         * ======================================================
@@ -2452,6 +2440,15 @@ window.addEventListener("resize", () => {
         *             POI
         * ======================================================
         */
+    
+    function calculateWordLayout(
+        poi,
+        index,
+        width,
+        height,
+        wordScale
+    ) {
+
 
         const words = [...(poi.words || [])]
             .sort((a, b) => {
@@ -2585,24 +2582,27 @@ window.addEventListener("resize", () => {
         */
 
         const slots = [
-
             /* strongest / central impression */
             [0, -4],
 
             /* upper-left / upper-right */
-            [-46, -43],
-            [46, -39],
+            [-48, -48],
+            [48, -44],
 
             /* middle-left / middle-right */
-            [-68, 13],
-            [68, 16],
+            [-72, 5],
+            [72, 8],
 
-            /* lower-left / lower-right */
-            [-39, 62],
-            [39, 64],
+            /* lower-middle-left / lower-middle-right */
+            [-58, 48],
+            [58, 50],
+
+            /* bottom-left / bottom-right */
+            [-28, 82],
+            [28, 84],
 
             /* bottom centre */
-            [0, 88]
+            [0, 108]
         ];
 
 
@@ -4781,7 +4781,6 @@ window.addEventListener("resize", () => {
             .attr("letter-spacing", "0.16em")
             .attr("fill", CONFIG.textSecondary)
             .attr("fill-opacity", 0.42)
-            .text("PLACE → DESCRIPTION");
 
 
         /*

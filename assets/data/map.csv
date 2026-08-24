@@ -1,0 +1,27 @@
+id,name,videoCount,topActivity,category,description,latitude,longitude
+1,Bund,6,Viewing,Landmark,"Shanghai’s iconic waterfront promenade, known for its historic architecture and skyline views across the Huangpu River.",31.24033,121.48604
+2,Nanjing Road,3,Shopping,Commercial,"Shanghai’s major commercial boulevard, combining pedestrian shopping areas, historic buildings and vibrant city activity.",31.23928,121.47861
+3,Yu Yuan Garden,4,Viewing,Heritage,"A classical Chinese garden in Shanghai’s Old City, featuring traditional architecture, rockeries, ponds and landscaped courtyards.",31.22892,121.48775
+4,Tianzifang,2,Viewing/Shopping,Heritage,"A historic lane neighbourhood characterized by shikumen architecture, small shops, cafés, galleries and creative businesses.",31.21023,121.4641
+5,Pudong,1,Sightseeing,Modern City,"Shanghai’s modern eastern urban district, associated with the city’s financial skyline and contemporary development.",31.235,121.51
+6,Sightseeing Tunnel,1,Sightseeing,Modern City,An underground pedestrian tunnel beneath the Huangpu River connecting the Bund area with Lujiazui.,31.2389,121.4992
+7,Shanghai Tower,1,Viewing,Landmark,China’s tallest skyscraper and a defining element of Shanghai’s contemporary skyline in Lujiazui.,31.23562,121.50127
+8,Zhujiajiao,2,Sightseeing,Heritage,"An ancient water town on the outskirts of Shanghai, characterized by canals, historic buildings and stone bridges.",31.10757,121.05696
+9,Bund Light Show,1,Viewing,Landmark,A nighttime visual spectacle along the Huangpu waterfront featuring illuminated buildings and the Shanghai skyline.,31.24033,121.48604
+10,Apoli Itabakery,3,Dining,Food,"A popular bakery in Shanghai’s Changning area known for Italian-style breads, pastries and a distinctive European-inspired interior.",31.20459,121.43759
+11,Wukang Building,1,Viewing,Landmark,"An iconic historic apartment building designed by László Hudec, located at the intersection of Wukang Road and Huaihai Middle Road.",31.20627,121.4337
+12,Subdued,2,Shopping,Shopping,A fashion store on Wukang Road known for contemporary women’s clothing and a youthful retail atmosphere.,31.20635,121.43917
+13,Wulumuqi Road,1,Walking,Neighbourhood,"A tree-lined street in the former French Concession area, associated with Shanghai’s local neighbourhood and lifestyle experience.",31.2105,121.444
+14,Anfu Road,3,Walking,Neighbourhood,"A popular lifestyle street in the former French Concession area, known for cafés, independent shops, fashion stores and street scenes.",31.2109,121.4427
+15,Jing’an Temple View Bridge,1,Viewing,Landmark,An urban viewing point associated with Shanghai’s Jing’an area and its contemporary cityscape.,31.223,121.445
+16,Yu Bazaar,1,Viewing,Commercial,"A traditional-style commercial area surrounding Yu Garden, featuring shops, food stalls and tourist-oriented streetscapes.",31.2278,121.4923
+17,French Concession,2,Walking,Neighbourhood,"Historic central Shanghai district characterized by tree-lined streets, villas, cafés and a distinctive urban lifestyle atmosphere.",31.21,121.445
+18,Gentle Monster,3,Shopping/Visiting,Shopping,"A visually distinctive Korean eyewear retail space combining fashion, experimental installations and immersive store design.",31.21849,121.46266
+19,Shanghai Greenhouse Gardens,1,Visiting,Park,A garden and greenhouse environment offering a green-space experience within Shanghai’s dense urban setting.,31.197,121.449
+20,Matcha Tokyo,2,Dining,Food,A Japanese-style matcha and dessert venue associated with contemporary café culture in Shanghai.,31.205,121.44
+21,Brandy Melville,2,Shopping,Shopping,A fashion retail store associated with the youthful shopping and lifestyle scene around Shanghai’s former French Concession.,31.205,121.438
+22,Xintiandi,1,Walking,Lifestyle,"A regenerated urban district combining traditional shikumen architecture with contemporary restaurants, retail and entertainment.",31.22194,121.4705
+23,M50 Creative Space,1,Viewing,Culture,"A contemporary art district converted from former industrial buildings, featuring galleries, studios, graffiti and creative spaces.",31.25049,121.44347
+24,Old Millfun,1,Viewing,Heritage,A preserved 1930s industrial slaughterhouse complex known for its distinctive concrete architecture and historic industrial character.,31.25663,121.48772
+25,Gucheng Park,1,Walking,Park,"An urban park in Shanghai’s Old City area, located between Yu Garden and the Bund and associated with the city’s historic urban fabric.",31.229,121.492
+26,Wukang Mansion,1,Viewing,Landmark,"A protected historic apartment building in the former French Concession, designed by László Hudec in a French Renaissance style.",31.20627,121.4337
