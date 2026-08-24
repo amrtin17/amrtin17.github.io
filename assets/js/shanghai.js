@@ -27,238 +27,332 @@ console.log("Shanghai JS Loaded");
         }
     };
 
+
     /* =========================================================
      * Q1 Dataset
      * ======================================================= */
 
-    const poiData = [
-        {
-            id: 1,
-            name: 'The Bund',
-            latitude: 31.2400,
-            longitude: 121.4905,
-            videoCount: 58,
-            topActivity: 'Sightseeing',
-            averageLikes: 48200,
-            description: 'Iconic waterfront skyline and the most frequently visited filming location.',
-            category: 'Landmark',
-            countryCoverage: 31
-        },
-        {
-            id: 2,
-            name: 'Yuyuan Garden',
-            latitude: 31.2273,
-            longitude: 121.4926,
-            videoCount: 34,
-            topActivity: 'Cultural Exploration',
-            averageLikes: 31500,
-            description: 'Historic garden featuring traditional Chinese architecture.',
-            category: 'Heritage',
-            countryCoverage: 22
-        },
-        {
-            id: 3,
-            name: 'Nanjing Road',
-            latitude: 31.2348,
-            longitude: 121.4753,
-            videoCount: 41,
-            topActivity: 'Shopping',
-            averageLikes: 36400,
-            description: 'Busy commercial street known for shopping and vibrant nightlife.',
-            category: 'Commercial',
-            countryCoverage: 27
-        },
-        {
-            id: 4,
-            name: 'Lujiazui',
-            latitude: 31.2363,
-            longitude: 121.4997,
-            videoCount: 52,
-            topActivity: 'City Skyline',
-            averageLikes: 45800,
-            description: 'Modern financial district dominated by Shanghai skyscrapers.',
-            category: 'Modern City',
-            countryCoverage: 30
-        },
-        {
-            id: 5,
-            name: 'Former French Concession',
-            latitude: 31.2144,
-            longitude: 121.4547,
-            videoCount: 29,
-            topActivity: 'Walking',
-            averageLikes: 28600,
-            description: 'Tree-lined historic neighbourhood popular for lifestyle content.',
-            category: 'Neighbourhood',
-            countryCoverage: 19
-        },
-        {
-            id: 6,
-            name: 'Xintiandi',
-            latitude: 31.2205,
-            longitude: 121.4757,
-            videoCount: 37,
-            topActivity: 'Dining',
-            averageLikes: 33700,
-            description: 'Lifestyle district combining heritage buildings with modern retail.',
-            category: 'Lifestyle',
-            countryCoverage: 24
-        }
-    ];
+    d3.csv('assets/data/map.csv')
+        .then(poiData => {
 
-    /* =========================================================
-     * Helper Functions
-     * ======================================================= */
+            poiData = poiData.map(item => ({
+                id: Number(item.id),
+                name: item.name,
+                latitude: Number(item.latitude),
+                longitude: Number(item.longitude),
+                videoCount: Number(item.videoCount),
+                topActivity: item.topActivity,
+                category: item.category,
+                description: item.description || ''
+            }));
 
-    const mapContainer = document.getElementById(CONFIG.mapContainerId);
+            console.table(poiData);
 
-    if (!mapContainer) return;
 
-    mapContainer.innerHTML = '';
+            /* =========================================================
+             * Helper Functions
+             * ======================================================= */
 
-    const getMarkerSize = (count) => {
-        const counts = poiData.map(d => d.videoCount);
-        const min = Math.min(...counts);
-        const max = Math.max(...counts);
+            const mapContainer = document.getElementById(
+                CONFIG.mapContainerId
+            );
 
-        if (min === max) return 24;
+            if (!mapContainer) return;
 
-        return Math.round(
-            18 + ((count - min) / (max - min)) * 18
-        );
-    };
+            mapContainer.innerHTML = '';
 
-    const createPopupHTML = (poi) => `
-        <div class="poi-popup">
-            <strong>${poi.name}</strong><br>
-            <div>Videos: ${poi.videoCount}</div>
-            <div>Top Activity: ${poi.topActivity}</div>
-            <div>Average Likes: ${poi.averageLikes.toLocaleString()}</div>
-            <div style="margin-top:6px;">
-                ${poi.description}
-            </div>
-        </div>
-    `;
 
-    const createMarkerHTML = (poi, size) => `
-        <div class="research-marker" data-id="${poi.id}">
-            <div class="marker-core" style="
-                width:${size}px;
-                height:${size}px;
-            ">
-                <span class="visitor-indicator"></span>
-            </div>
-            <div class="marker-label">
-                ${poi.name}
-            </div>
-        </div>
-    `;
+            const getMarkerSize = (count) => {
 
-    const updateFindingPanel = (poi) => {
-        const panel = document.getElementById(CONFIG.findingPanelId);
+                const counts = poiData.map(
+                    d => d.videoCount
+                );
 
-        if (!panel) return;
+                const min = Math.min(...counts);
+                const max = Math.max(...counts);
 
-        panel.innerHTML = `
-            <h3>${poi.name}</h3>
-            <p><strong>Videos:</strong> ${poi.videoCount}</p>
-            <p><strong>Top Activity:</strong> ${poi.topActivity}</p>
-            <p><strong>Average Likes:</strong> ${poi.averageLikes.toLocaleString()}</p>
-        `;
-    };
+                if (min === max) return 24;
 
-    /* =========================================================
-     * Map Rendering
-     * ======================================================= */
+                return Math.round(
+                    18 +
+                    ((count - min) / (max - min)) * 18
+                );
+            };
 
-    const map = L.map(CONFIG.mapContainerId, {
-        zoomControl: true,
-        attributionControl: true
-    }).setView(CONFIG.center, CONFIG.zoom);
 
-    L.tileLayer(CONFIG.tileUrl, CONFIG.tileOptions).addTo(map);
+            const createPopupHTML = (poi) => `
+                <div class="poi-popup">
+                    <strong>${poi.name}</strong><br>
+                    <div>Videos: ${poi.videoCount}</div>
+                    <div>Top Activity: ${poi.topActivity}</div>
+                    <div style="margin-top:6px;">
+                        ${poi.description}
+                    </div>
+                </div>
+            `;
 
-    /* =========================================================
-     * Marker Creation
-     * ======================================================= */
 
-    const markers = [];
+            const createMarkerHTML = (poi, size) => `
+                <div class="research-marker" data-id="${poi.id}" style="
+                    position:relative;
+                    width:1px;
+                    height:1px;
+                    overflow:visible;
+                ">
 
-    poiData.forEach((poi, index) => {
+                    <div class="marker-core" style="
+                        width:${size}px;
+                        height:${size}px;
+                        position:absolute;
+                        left:0;
+                        top:0;
+                        transform:translate(-50%, -50%);
+                    ">
+                        <span class="visitor-indicator"></span>
+                    </div>
 
-        const markerSize = getMarkerSize(poi.videoCount);
+                    <div class="marker-label" style="
+                        position:absolute;
+                        left:12px;
+                        top:-10px;
+                        white-space:nowrap;
+                    ">
+                        ${poi.name}
+                    </div>
 
-        const icon = L.divIcon({
-            className: 'research-div-icon',
-            html: createMarkerHTML(poi, markerSize),
-            iconSize: [120, 120],
-            iconAnchor: [60, 60]
-        });
+                </div>
+            `;
 
-        const marker = L.marker(
-            [poi.latitude, poi.longitude],
-            {
-                icon
-            }
-        );
+            
 
-        marker.bindPopup(createPopupHTML(poi));
 
-        marker.addTo(map);
+            const updateFindingPanel = (poi) => {
 
-        markers.push(marker);
+                const panel = document.getElementById(
+                    CONFIG.findingPanelId
+                );
 
-        /* -----------------------------
-         * Hover animation
-         * --------------------------- */
+                if (!panel) return;
 
-        marker.on('add', () => {
-            const el = marker.getElement();
+                panel.innerHTML = `
+                    <h3>${poi.name}</h3>
+                    <p><strong>Videos:</strong> ${poi.videoCount}</p>
+                    <p><strong>Top Activity:</strong> ${poi.topActivity}</p>
+                `;
+            };
 
-            if (!el) return;
 
-            el.style.opacity = '0';
+            /* =========================================================
+             * Map Rendering
+             * ======================================================= */
+
+            const map = L.map(
+                CONFIG.mapContainerId,
+                {
+                    zoomControl: true,
+                    attributionControl: true
+                }
+            ).setView(
+                CONFIG.center,
+                CONFIG.zoom
+            );
+
+
+            L.tileLayer(
+                CONFIG.tileUrl,
+                CONFIG.tileOptions
+            ).addTo(map);
+
+
+            /* =========================================================
+             * Marker Creation
+             * ======================================================= */
+
+            const markers = [];
+
+            poiData.forEach((poi, index) => {
+
+                const markerSize = getMarkerSize(
+                    poi.videoCount
+                );
+
+
+                const icon = L.divIcon({
+                    className: 'research-div-icon',
+
+                    html: createMarkerHTML(
+                        poi,
+                        markerSize
+                    ),
+
+                    iconSize: [120, 120],
+                    iconAnchor: [60, 60]
+                });
+
+
+                const marker = L.marker(
+                    [
+                        poi.latitude,
+                        poi.longitude
+                    ],
+                    {
+                        icon
+                    }
+                );
+
+
+                marker.bindPopup(
+                    createPopupHTML(poi)
+                );
+
+                marker.addTo(map);
+
+                markers.push(marker);
+
+
+                /* -----------------------------
+                 * Hover animation
+                 * --------------------------- */
+
+                marker.on('add', () => {
+
+                    const el = marker.getElement();
+
+                    if (!el) return;
+
+                    el.style.opacity = '0';
+
+                    setTimeout(() => {
+                        el.style.opacity = '1';
+                    }, index * 120);
+
+
+                    el.addEventListener(
+                        'mouseenter',
+                        () => {
+                            el.classList.add('hover');
+                        }
+                    );
+
+
+                    el.addEventListener(
+                        'mouseleave',
+                        () => {
+                            el.classList.remove('hover');
+                        }
+                    );
+
+                });
+
+
+                /* -----------------------------
+                 * Popup + Finding Panel
+                 * --------------------------- */
+
+                marker.on('click', () => {
+                    updateFindingPanel(poi);
+                });
+
+                /* =========================================================
+                * Auto label avoidance
+                * ======================================================= */
+
+                const updateLabelPositions = () => {
+
+                    const placed = [];
+
+                    markers.forEach(marker => {
+
+                        const el = marker.getElement();
+                        if (!el) return;
+
+                        const label = el.querySelector('.marker-label');
+                        if (!label) return;
+
+                        const candidates = [
+                            [12, -10],
+                            [12, -32],
+                            [12, 12],
+                            [-12, -32],
+                            [-12, 12],
+                            [-80, -10],
+                            [0, -45],
+                            [0, 25]
+                        ];
+
+                        let position = candidates[0];
+
+                        for (const [x, y] of candidates) {
+
+                            label.style.left = `${x}px`;
+                            label.style.top = `${y}px`;
+
+                            const rect = label.getBoundingClientRect();
+
+                            const overlap = placed.some(r =>
+                                rect.left < r.right &&
+                                rect.right > r.left &&
+                                rect.top < r.bottom &&
+                                rect.bottom > r.top
+                            );
+
+                            if (!overlap) {
+                                position = [x, y];
+                                placed.push(rect);
+                                break;
+                            }
+                        }
+
+                        label.style.left = `${position[0]}px`;
+                        label.style.top = `${position[1]}px`;
+                    });
+                };
+
+                setTimeout(updateLabelPositions, 100);
+            });
+
+
+            /* =========================================================
+             * Events
+             * ======================================================= */
+
+            window.addEventListener(
+                'resize',
+                () => {
+                    map.invalidateSize();
+                    setTimeout(updateLabelPositions, 100);
+                }
+            );
+
+            map.on('zoomend moveend', updateLabelPositions);
+
+
+            /* =========================================================
+             * Initialisation
+             * ======================================================= */
 
             setTimeout(() => {
-                el.style.opacity = '1';
-            }, index * 120);
+                map.invalidateSize();
+            }, 100);
 
-            el.addEventListener('mouseenter', () => {
-                el.classList.add('hover');
-            });
+        })
 
-            el.addEventListener('mouseleave', () => {
-                el.classList.remove('hover');
-            });
+
+        /* =========================================================
+         * Error Handling
+         * ======================================================= */
+
+        .catch(error => {
+
+            console.error(
+                'Q1 Map Error:',
+                error
+            );
+
         });
-
-        /* -----------------------------
-         * Popup + Finding Panel
-         * --------------------------- */
-
-        marker.on('click', () => {
-            updateFindingPanel(poi);
-        });
-
-    });
-
-    /* =========================================================
-     * Events
-     * ======================================================= */
-
-    window.addEventListener('resize', () => {
-        map.invalidateSize();
-    });
-
-    /* =========================================================
-     * Initialisation
-     * ======================================================= */
-
-    setTimeout(() => {
-        map.invalidateSize();
-    }, 100);
 
 })();
+
 
 
 
@@ -450,10 +544,10 @@ console.log("Shanghai JS Loaded");
                      * 1   →  1
                      */
                     const x =
-                        q2LA * 2 - 1;
+                        q2CO * 2 - 1;
 
                     const y =
-                        q2CO * 2 - 1;
+                        q2LA * 2 - 1;
 
 
                     return {
@@ -901,7 +995,7 @@ console.log("Shanghai JS Loaded");
          * ===================================================== */
 
         /*
-         * Landmark
+         * Consumption
          * → right side of horizontal axis
          */
         chart.append('text')
@@ -929,11 +1023,11 @@ console.log("Shanghai JS Loaded");
                 'font-weight',
                 600
             )
-            .text('Landmark');
+            .text('Consumption');
 
 
         /*
-         * Consumption
+         * Landmark
          * → above vertical axis
          */
         chart.append('text')
@@ -961,7 +1055,7 @@ console.log("Shanghai JS Loaded");
                 'font-weight',
                 600
             )
-            .text('Consumption');
+            .text('Landmark');
 
 
         /* =====================================================
