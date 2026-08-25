@@ -185,8 +185,8 @@ console.log("Shanghai JS Loaded");
                         markerSize
                     ),
 
-                    iconSize: [120, 120],
-                    iconAnchor: [60, 60]
+                    iconSize: [1, 1],
+                    iconAnchor: [0, 0]
                 });
 
 
@@ -1702,6 +1702,26 @@ console.log("Shanghai JS Loaded");
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ==========================================
    Q4.Emotion sankey
 ========================================== */
@@ -2078,6 +2098,35 @@ loadEmotionData();
 window.addEventListener("resize", () => {
     emotionChart.resize();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

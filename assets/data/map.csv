@@ -3,25 +3,21 @@ id,name,videoCount,topActivity,category,latitude,longitude
 2,Nanjing Road,3,Shopping,Commercial,31.23928,121.47861
 3,Yu Yuan Garden,4,Viewing,Heritage,31.22892,121.48775
 4,Tianzifang,2,Viewing/Shopping,Heritage,31.21023,121.4641
-5,Pudong,1,Sightseeing,Modern City,31.235,121.51
+5,Haus Nowhere,3,Shopping/Visiting,Shopping,31.21849,121.46266
 6,Sightseeing Tunnel,1,Sightseeing,Modern City,31.2389,121.4992
 7,Shanghai Tower,1,Viewing,Landmark,31.23562,121.50127
 8,Zhujiajiao,2,Sightseeing,Heritage,31.10757,121.05696
-9,Bund Light Show,1,Viewing,Landmark,31.24033,121.48604
+9,Old Millfun,1,Viewing,Heritage,31.25663,121.48772
 10,Apoli Itabakery,3,Dining,Food,31.20459,121.43759
 11,Wukang Building,1,Viewing,Landmark,31.20627,121.4337
 12,Subdued,2,Shopping,Shopping,31.20635,121.43917
-13,Wulumuqi Road,1,Walking,Neighbourhood,31.2105,121.444
-14,Anfu Road,3,Walking,Neighbourhood,31.2109,121.4427
+13,Wulumuqi Road,1,Walking,Neighbourhood,31.216225,121.440636
+14,Anfu Road,3,Walking,Neighbourhood,31.21588,121.43927
 15,Jing’an Temple View Bridge,1,Viewing,Landmark,31.223,121.445
 16,Yu Bazaar,1,Viewing,Commercial,31.2278,121.4923
 17,French Concession,2,Walking,Neighbourhood,31.21,121.445
-18,Haus Nowhere,3,Shopping/Visiting,Shopping,31.21849,121.46266
-19,Shanghai Greenhouse Gardens,1,Visiting,Park,31.197,121.449
-20,Matcha Tokyo,2,Dining,Food,31.205,121.44
-21,Brandy Melville,2,Shopping,Shopping,31.205,121.438
+18,M50 Creative Space,1,Viewing,Culture,31.25049,121.44347
+19,Shanghai Greenhouse Gardens,1,Visiting,Park,31.18026,121.4704
+20,Gucheng Park,1,Walking,Park,31.2305,121.48944
+21,Brandy Melville,2,Shopping,Shopping,31.213381,121.440665
 22,Xintiandi,1,Walking,Lifestyle,31.22194,121.4705
-23,M50 Creative Space,1,Viewing,Culture,31.25049,121.44347
-24,Old Millfun,1,Viewing,Heritage,31.25663,121.48772
-25,Gucheng Park,1,Walking,Park,31.229,121.492
-26,Wukang Mansion,1,Viewing,Landmark,31.20627,121.4337
