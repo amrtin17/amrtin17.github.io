@@ -1,269 +1,323 @@
 POI,Interaction,Emotion
 Bund,Viewing,Impressed
-Bund,Shopping,Enjoyable
-Bund,Walking,Impressed
-Bund,Walking,Enjoyable
-Nanjing Road,Shopping,Excited
 Nanjing Road,Shopping,Enjoyable
-Yu Yuan Garden,Viewing,Impressed
-Yu Yuan Garden,Viewing,Relaxed
-Yu Yuan Garden,Viewing,Impressed
+Yu Yuan Garden,Viewing,Surprised
 Tianzifang,Shopping,Enjoyable
-Tianzifang,Viewing,Enjoyable
-Warehouse No.3 Restaurant,Dining,Impressed
-Traditional SPA & Massage,Relax,Surprised
-Yuyuan Bazaar,Shopping,Enjoyable
-Bund,Viewing,Excited
-Viewing Tunnel,Viewing,Enjoyable
-Shanghai Tower,Viewing,Impressed
-Nanxiang Steamed Buns,Dining,Enjoyable
-Night Food Stalls,Dining,Enjoyable
-Zhujiajiao,Viewing,Impressed
-Zhujiajiao,Viewing,Impressed
-Waterfront Restaurant,Dining,Enjoyable
-Bund Light Show,Viewing,Impressed
-Long Bar,Relax,Enjoyable
-Apoli Itabakery,Dining,Enjoyable
-Apoli Itabakery,Dining,Delighted
-Wukang Building,Viewing,Enjoyable
-Subdued,Shopping,Enjoyable
-Rosa Gallica,Shopping,Impressed
-Look Now Flagship Store,Shopping,Interested
-Wulumuqi Road,Walking,Enjoyable
-Xinzhihu Shouxiang,Shopping,Enjoyable
-Gathering,Shopping,Interested
-Anfu Road,Walking,Enjoyable
-Anfu Road,Walking,Impressed
-Jing’an Temple View Bridge,Viewing,Impressed
-Yu Bazaar,Viewing,Impressed
-French Concession,Walking,Enjoyable
-French Concession,Shopping,Enjoyable
-Haus Nowhere,Visiting,Impressed
-Gentle Monster,Visiting,Excited
-Gentle Monster,Shopping,Excited
-MUJI,Shopping,Enjoyable
-Sheep Matcha,Dining,Delighted
-Shanghai Greenhouse Gardens,Visiting,Impressed
-Xiaolongbao,Dining,Satisfied
-Matcha Tokyo,Dining,Enjoyable
-Matcha Tokyo,Dining,Neutral
-DJI Store,Shopping,Happy
-Xintiandi,Walking,Enjoyable
-Chinese Food Restaurant,Dining,Enjoyable
-Didi,Transport,Surprised
-Cafe & Brunch,Dining,Enjoyable
-BWT Tower Café,Dining,Impressed
-M50 Creative Space,Viewing,Impressed
-fufu,Shopping,Enjoyable
-Old Millfun,Viewing,Surprised
-Michelin Guide Restaurant,Dining,Enjoyable
-Gucheng Park,Walking,Relaxed
-Louis Vuitton Ship,Visiting,Impressed
-Wukang Mansion,Viewing,Excited
-Haidilao (Shimao Plaza),Dining,Enjoyable
-To Summer,Shopping,Enjoyable
-Songmont,Shopping,Impressed
-Goodbai,Shopping,Enjoyable
-Avenn,Shopping,Impressed
-Brunch Restaurant,Dining,Enjoyable
-Back Street,Shopping,Surprised
-Art Gallery,Visiting,Frustrated
-Traditional SPA & Massage,Relax,Relaxed
-Fancy Restaurant,Dining,Enjoyable
-Miss Sensor,Shopping,Enjoyable
-Not Just Pajama,Shopping,Enjoyable
-Brandy Melville,Shopping,Enjoyable
-Rugfish,Shopping,Enjoyable
-Greenway,Shopping,Enjoyable
-Bund,Viewing,Impressed
-Bund,Shopping,Enjoyable
-Bund,Walking,Impressed
-Bund,Walking,Enjoyable
+Restaurant,Dining,Impressed
+Hotel and Spa,Relax,Surprised
+Yu Yuan Garden,Viewing,Relaxed
+Other Stores,Shopping,Enjoyable
+Pudong,Sightseeing,Excited
+Bund,Sightseeing,Enjoyable
+Pudong,Sightseeing,Enjoyable
+Pudong,Viewing,Impressed
+Restaurant,Dining,Enjoyable
+Restaurant,Dining,Enjoyable
+Zhujiajiao,Sightseeing,Impressed
+Tianzifang,Shopping,Enjoyable
+Restaurant,Dining,Enjoyable
 Nanjing Road,Shopping,Excited
-Nanjing Road,Shopping,Enjoyable
-Yu Yuan Garden,Viewing,Impressed
-Yu Yuan Garden,Viewing,Relaxed
-Yu Yuan Garden,Viewing,Enjoyable
-Tianzifang,Shopping,Enjoyable
-Tianzifang,Viewing,Enjoyable
-Warehouse No.3 Restaurant,Dining,Impressed
-Traditional SPA & Massage,Relax,Surprised
-Yuyuan Bazaar,Shopping,Enjoyable
-Bund,Viewing,Excited
-Viewing Tunnel,Viewing,Enjoyable
-Shanghai Tower,Viewing,Impressed
-Nanxiang Steamed Buns,Dining,Enjoyable
-Night Food Stalls,Dining,Enjoyable
-Zhujiajiao,Viewing,Impressed
-Zhujiajiao,Viewing,Impressed
-Waterfront Restaurant,Dining,Enjoyable
-Bund Light Show,Viewing,Impressed
-Long Bar,Relax,Enjoyable
-Apoli Itabakery,Dining,Enjoyable
-Apoli Itabakery,Dining,Delighted
-Wukang Building,Viewing,Enjoyable
-Subdued,Shopping,Enjoyable
-Rosa Gallica,Shopping,Impressed
-Look Now Flagship Store,Shopping,Interested
-Wulumuqi Road,Walking,Enjoyable
-Xinzhihu Shouxiang,Shopping,Enjoyable
-Gathering,Shopping,Interested
-Anfu Road,Walking,Enjoyable
-Anfu Road,Walking,Impressed
-Jing’an Temple View Bridge,Viewing,Impressed
-Yu Bazaar,Viewing,Impressed
-French Concession,Walking,Enjoyable
-French Concession,Shopping,Enjoyable
-Haus Nowhere,Visiting,Impressed
-Gentle Monster,Visiting,Excited
-Gentle Monster,Shopping,Excited
-MUJI,Shopping,Enjoyable
-Sheep Matcha,Dining,Delighted
-Shanghai Greenhouse Gardens,Visiting,Impressed
-Xiaolongbao,Dining,Satisfied
-Matcha Tokyo,Dining,Enjoyable
-Matcha Tokyo,Dining,Neutral
-DJI Store,Shopping,Happy
-Xintiandi,Walking,Enjoyable
-Chinese Food Restaurant,Dining,Enjoyable
-Didi,Transport,Surprised
-Cafe & Brunch,Dining,Enjoyable
-BWT Tower Café,Dining,Impressed
-M50 Creative Space,Viewing,Impressed
-fufu,Shopping,Enjoyable
-Old Millfun,Viewing,Surprised
-Michelin Guide Restaurant,Dining,Enjoyable
-Gucheng Park,Walking,Relaxed
-Louis Vuitton Ship,Visiting,Impressed
-Wukang Mansion,Viewing,Excited
-Haidilao (Shimao Plaza),Dining,Enjoyable
-To Summer,Shopping,Enjoyable
-Songmont,Shopping,Impressed
-Goodbai,Shopping,Enjoyable
-Avenn,Shopping,Impressed
-Brunch Restaurant,Dining,Enjoyable
-Back Street,Shopping,Surprised
-Art Gallery,Visiting,Frustrated
-Traditional SPA & Massage,Relax,Relaxed
-Fancy Restaurant,Dining,Enjoyable
-Miss Sensor,Shopping,Enjoyable
-Not Just Pajama,Shopping,Enjoyable
-Brandy Melville,Shopping,Enjoyable
-Rugfish,Shopping,Enjoyable
-Greenway,Shopping,Enjoyable
 Bund,Viewing,Impressed
-Bund,Shopping,Enjoyable
+Café & Bar,Relax,Enjoyable
+Café & Bar,Relax,Enjoyable
+Café & Bar,Dining,Enjoyable
+Wukang Building,Viewing,Enjoyable
+Fashion Store,Shopping,Enjoyable
+Tianzifang,Shopping,Enjoyable
+Fashion Store,Shopping,Impressed
+Fashion Store,Shopping,Interested
+Streets and Neighborhoods,Walking,Enjoyable
+Other Stores,Shopping,Enjoyable
+Fashion Store,Shopping,Interested
+Fashion Store,Shopping,Enjoyable
+Zhujiajiao,Sightseeing,Delighted
+Fashion Store,Shopping,Delighted
+Fashion Store,Shopping,Interested
+Jing’an Temple View Bridge,Viewing,Interested
+Tianzifang,Shopping,Surprised
+Other Stores,Shopping,Delighted
+Other Stores,Shopping,Interested
+Fashion Store,Shopping,Excited
+Fashion Store,Shopping,Interested
+Restaurant,Dining,Enjoyable
+Jing’an Temple View Bridge,Viewing,Impressed
+Fashion Store,Shopping,Enjoyable
+Other Stores,Viewing,Impressed
+Yu Yuan Garden,Viewing,Impressed
+Streets and Neighborhoods,Walking,Enjoyable
+Zhujiajiao,Sightseeing,Impressed
+Café & Bar,Dining,Delighted
+Fashion Store,Visiting,Impressed
+Fashion Store,Visiting,Excited
+Other Stores,Shopping,Enjoyable
+Café & Bar,Dining,Delighted
+Parks and Gardens,Visiting,Impressed
+Restaurant,Dining,Satisfied
+Yu Yuan Garden,Viewing,Impressed
+Café & Bar,Dining,Enjoyable
+Streets and Neighborhoods,Shopping,Enjoyable
+Café & Bar,Dining,Enjoyable
+Other Stores,Shopping,Happy
+Other Stores,Shopping,Amused
+Zhujiajiao,Sightseeing,Relaxed
+Fashion Store,Shopping,Impressed
+Streets and Neighborhoods,Walking,Enjoyable
+Restaurant,Dining,Enjoyable
+Other Stores,Visiting,Amused
+Didi,Transport,Surprised
+Café & Bar,Dining,Enjoyable
 Bund,Walking,Impressed
-Bund,Walking,Enjoyable
-Nanjing Road,Shopping,Excited
-Nanjing Road,Shopping,Enjoyable
-Yu Yuan Garden,Viewing,Impressed
-Yu Yuan Garden,Viewing,Relaxed
-Yu Yuan Garden,Viewing,Impressed
-Tianzifang,Shopping,Enjoyable
-Tianzifang,Viewing,Enjoyable
-Warehouse No.3 Restaurant,Dining,Impressed
-Traditional SPA & Massage,Relax,Surprised
-Yuyuan Bazaar,Shopping,Enjoyable
-Bund,Viewing,Excited
-Viewing Tunnel,Viewing,Enjoyable
-Shanghai Tower,Viewing,Impressed
-Nanxiang Steamed Buns,Dining,Enjoyable
-Night Food Stalls,Dining,Enjoyable
-Zhujiajiao,Viewing,Impressed
-Zhujiajiao,Viewing,Impressed
-Waterfront Restaurant,Dining,Enjoyable
-Bund Light Show,Viewing,Impressed
-Long Bar,Relax,Enjoyable
-Apoli Itabakery,Dining,Enjoyable
-Apoli Itabakery,Dining,Delighted
-Wukang Building,Viewing,Enjoyable
-Subdued,Shopping,Enjoyable
-Rosa Gallica,Shopping,Impressed
-Look Now Flagship Store,Shopping,Interested
-Wulumuqi Road,Walking,Enjoyable
-Xinzhihu Shouxiang,Shopping,Enjoyable
-Gathering,Shopping,Interested
-Anfu Road,Walking,Enjoyable
-Anfu Road,Walking,Impressed
-Jing’an Temple View Bridge,Viewing,Impressed
-Yu Bazaar,Viewing,Impressed
-French Concession,Walking,Enjoyable
-French Concession,Shopping,Enjoyable
-Haus Nowhere,Visiting,Impressed
-Gentle Monster,Visiting,Excited
-Gentle Monster,Shopping,Excited
-MUJI,Shopping,Enjoyable
-Sheep Matcha,Dining,Delighted
-Shanghai Greenhouse Gardens,Visiting,Impressed
-Xiaolongbao,Dining,Satisfied
-Matcha Tokyo,Dining,Enjoyable
-Matcha Tokyo,Dining,Neutral
-DJI Store,Shopping,Happy
-Xintiandi,Walking,Enjoyable
-Chinese Food Restaurant,Dining,Enjoyable
-Didi,Transport,Surprised
-Cafe & Brunch,Dining,Enjoyable
-BWT Tower Café,Dining,Impressed
-M50 Creative Space,Viewing,Impressed
-fufu,Shopping,Enjoyable
+Café & Bar,Dining,Impressed
+Museums & Galleries,Viewing,Impressed
+Other Stores,Shopping,Enjoyable
 Old Millfun,Viewing,Surprised
-Michelin Guide Restaurant,Dining,Enjoyable
-Gucheng Park,Walking,Relaxed
-Louis Vuitton Ship,Visiting,Impressed
-Wukang Mansion,Viewing,Excited
-Haidilao (Shimao Plaza),Dining,Enjoyable
-To Summer,Shopping,Enjoyable
-Songmont,Shopping,Impressed
-Goodbai,Shopping,Enjoyable
-Avenn,Shopping,Impressed
-Brunch Restaurant,Dining,Enjoyable
-Back Street,Shopping,Surprised
-Art Gallery,Visiting,Frustrated
-Traditional SPA & Massage,Relax,Relaxed
-Fancy Restaurant,Dining,Enjoyable
-Miss Sensor,Shopping,Enjoyable
-Not Just Pajama,Shopping,Enjoyable
-Brandy Melville,Shopping,Enjoyable
-Rugfish,Shopping,Enjoyable
-Greenway,Shopping,Enjoyable
-Bund,Viewing,Impressed
-Bund,Shopping,Enjoyable
-Bund,Viewing,Impressed
+Fashion Store,Shopping,Enjoyable
+Restaurant,Dining,Satisfied
 Bund,Walking,Enjoyable
+Restaurant,Dining,Enjoyable
+Parks and Gardens,Walking,Relaxed
+Old Millfun,Viewing,Enjoyable
+Café & Bar,Visiting,Impressed
+Fashion Store,Visiting,Impressed
+Bund,Walking,Impressed
+Old Millfun,Viewing,Enjoyable
+Bund,Walking,Impressed
+Wukang Building,Viewing,Excited
+Café & Bar,Dining,Enjoyable
+Fashion Store,Shopping,Enjoyable
+Café & Bar,Dining,Neutral
+Fashion Store,Shopping,Enjoyable
+Didi,Transport,Surprised
 Bund,Viewing,Impressed
-Bund,Shopping,Enjoyable
-Bund,Viewing,Impressed
-Bund,Walking,Enjoyable
-Zhujiajiao,Viewing,Impressed
-Zhujiajiao,Viewing,Impressed
-Zhujiajiao,Viewing,Impressed
-Zhujiajiao,Viewing,Impressed
-Gentle Monster,Visiting,Excited
-Gentle Monster,Shopping,Excited
-MUJI,Shopping,Enjoyable
-Apoli Itabakery,Dining,Enjoyable
-Apoli Itabakery,Dining,Delighted
-French Concession,Shopping,Enjoyable
-French Concession,Shopping,Satisfied
-French Concession,Shopping,Enjoyable
-French Concession,Shopping,Enjoyable
-French Concession,Walking,Satisfied
-French Concession,Walking,Enjoyable
-Didi,Transport,Satisfied
-Didi,Transport,Enjoyable
-Didi,Transport,Enjoyable
-Didi,Transport,Enjoyable
-Didi,Transport,Delighted
-Didi,Transport,Delighted
+Old Millfun,Viewing,Enjoyable
+Fashion Store,Shopping,Enjoyable
+Fashion Store,Shopping,Impressed
 Didi,Transport,Relaxed
+Fashion Store,Shopping,Enjoyable
+Fashion Store,Shopping,Impressed
+Fashion Store,Shopping,Excited
+Café & Bar,Dining,Enjoyable
+Museums & Galleries,Visiting,Interested
+Bund,Walking,Enjoyable
+Bund,Viewing,Impressed
+Other Stores,Shopping,Surprised
+Café & Bar,Dining,Enjoyable
+Café & Bar,Dining,Enjoyable
+Bund,Walking,Enjoyable
+Restaurant,Dining,Enjoyable
+Old Millfun,Viewing,Surprised
+Café & Bar,Dining,Enjoyable
+Streets and Neighborhoods,Walking,Impressed
+Fashion Store,Shopping,Inspired
+Museums & Galleries,Visiting,Interested
+Fashion Store,Shopping,Interested
+Fashion Store,Visiting,Inspired
+Museums & Galleries,Visiting,Frustrated
+Hotel and Spa,Relax,Relieved
+Bund,Walking,Enjoyable
+Bund,Viewing,Enjoyable
+Museums & Galleries,Visiting,Interested
+Restaurant,Dining,Enjoyable
+Streets and Neighborhoods,Shopping,Enjoyable
+Fashion Store,Shopping,Enjoyable
+Fashion Store,Shopping,Enjoyable
+Fashion Store,Shopping,Enjoyable
+Fashion Store,Shopping,Enjoyable
+Other Stores,Shopping,Enjoyable
+Hotel and Spa,Staying,Impressed
+Hotel and Spa,Visiting,Impressed
+Museums & Galleries,Visiting,Impressed
+Restaurant,Dining,Impressed
+Restaurant,Dining,Enjoyable
+Old Millfun,Viewing,Inspired
+Bund,Walking,Enjoyable
+Bund,Viewing,Enjoyable
+Hotel and Spa,Relax,Relaxed
+Hotel and Spa,Dining,Enjoyable
+Hotel and Spa,Visiting,Inspired
+Café & Bar,Dining,Enjoyable
+Museums & Galleries,Visiting,Impressed
+Streets and Neighborhoods,Walking,Enjoyable
+Streets and Neighborhoods,Shopping,Enjoyable
+Fashion Store,Shopping,Interested
+Fashion Store,Shopping,Enjoyable
+Bund,Walking,Enjoyable
+Bund,Viewing,Enjoyable
+Fashion Store,Shopping,Enjoyable
+Streets and Neighborhoods,Shopping,Enjoyable
+Streets and Neighborhoods,Walking,Impressed
+Café & Bar,Dining,Relaxed
+Streets and Neighborhoods,Walking,Impressed
+Café & Bar,Dining,Enjoyable
+Yu Yuan Garden,Walking,Impressed
+Yu Yuan Garden,Dining,Enjoyable
+Café & Bar,Dining,Enjoyable
+Café & Bar,Viewing,Impressed
+Café & Bar,People-watching,Relaxed
+Restaurant,Dining,Enjoyable
+Café & Bar,Shopping,Enjoyable
+Other Stores,Shopping,Enjoyable
+Other Stores,Shopping,Enjoyable
+Other Stores,Staying,Enjoyable
+Fashion Store,Shopping,Interested
+Bund,Viewing,Impressed
+Nanjing Road,Shopping,Enjoyable
+Yu Yuan Garden,Viewing,Surprised
+Tianzifang,Shopping,Enjoyable
+Restaurant,Dining,Impressed
+Hotel and Spa,Relax,Surprised
+Yu Yuan Garden,Viewing,Relaxed
+Other Stores,Shopping,Enjoyable
+Pudong,Sightseeing,Excited
+Bund,Sightseeing,Enjoyable
+Pudong,Sightseeing,Enjoyable
+Pudong,Viewing,Impressed
+Restaurant,Dining,Enjoyable
+Restaurant,Dining,Enjoyable
+Zhujiajiao,Sightseeing,Impressed
+Tianzifang,Shopping,Enjoyable
+Restaurant,Dining,Enjoyable
+Nanjing Road,Shopping,Excited
+Bund,Viewing,Impressed
+Café & Bar,Relax,Enjoyable
+Café & Bar,Relax,Enjoyable
+Café & Bar,Dining,Enjoyable
+Wukang Building,Viewing,Enjoyable
+Fashion Store,Shopping,Enjoyable
+Tianzifang,Shopping,Enjoyable
+Fashion Store,Shopping,Impressed
+Fashion Store,Shopping,Interested
+Streets and Neighborhoods,Walking,Enjoyable
+Other Stores,Shopping,Enjoyable
+Fashion Store,Shopping,Interested
+Fashion Store,Shopping,Enjoyable
+Zhujiajiao,Sightseeing,Delighted
+Fashion Store,Shopping,Delighted
+Fashion Store,Shopping,Interested
+Jing’an Temple View Bridge,Viewing,Interested
+Tianzifang,Shopping,Surprised
+Other Stores,Shopping,Delighted
+Other Stores,Shopping,Interested
+Fashion Store,Shopping,Excited
+Fashion Store,Shopping,Interested
+Restaurant,Dining,Enjoyable
+Jing’an Temple View Bridge,Viewing,Impressed
+Fashion Store,Shopping,Enjoyable
+Other Stores,Viewing,Impressed
+Yu Yuan Garden,Viewing,Impressed
+Streets and Neighborhoods,Walking,Enjoyable
+Zhujiajiao,Sightseeing,Impressed
+Café & Bar,Dining,Delighted
+Fashion Store,Visiting,Impressed
+Fashion Store,Visiting,Excited
+Other Stores,Shopping,Enjoyable
+Café & Bar,Dining,Delighted
+Parks and Gardens,Visiting,Impressed
+Restaurant,Dining,Satisfied
+Yu Yuan Garden,Viewing,Impressed
+Café & Bar,Dining,Enjoyable
+Streets and Neighborhoods,Shopping,Enjoyable
+Café & Bar,Dining,Enjoyable
+Other Stores,Shopping,Happy
+Other Stores,Shopping,Amused
+Zhujiajiao,Sightseeing,Relaxed
+Fashion Store,Shopping,Impressed
+Streets and Neighborhoods,Walking,Enjoyable
+Restaurant,Dining,Enjoyable
+Other Stores,Visiting,Amused
+Didi,Transport,Surprised
+Café & Bar,Dining,Enjoyable
+Bund,Walking,Impressed
+Café & Bar,Dining,Impressed
+Museums & Galleries,Viewing,Impressed
+Other Stores,Shopping,Enjoyable
+Old Millfun,Viewing,Surprised
+Fashion Store,Shopping,Enjoyable
+Restaurant,Dining,Satisfied
+Bund,Walking,Enjoyable
+Restaurant,Dining,Enjoyable
+Parks and Gardens,Walking,Relaxed
+Old Millfun,Viewing,Enjoyable
+Café & Bar,Visiting,Impressed
+Fashion Store,Visiting,Impressed
+Bund,Walking,Impressed
+Old Millfun,Viewing,Enjoyable
+Bund,Walking,Impressed
+Wukang Building,Viewing,Excited
+Café & Bar,Dining,Enjoyable
+Fashion Store,Shopping,Enjoyable
+Café & Bar,Dining,Neutral
+Fashion Store,Shopping,Enjoyable
+Didi,Transport,Surprised
+Bund,Viewing,Impressed
+Old Millfun,Viewing,Enjoyable
+Fashion Store,Shopping,Enjoyable
+Fashion Store,Shopping,Impressed
 Didi,Transport,Relaxed
-Didi,Transport,Surprised
-Didi,Transport,Surprised
-Didi,Transport,Surprised
-Shanghai Museum,Visiting,Satisfied
-Shanghai Museum,Visiting,Satisfied
-Shanghai Museum,Visiting,Surprised
-Shanghai Museum,Visiting,Happy
-Shanghai Museum,Visiting,Satisfied
-Shanghai Museum,Visiting,Satisfied
+Fashion Store,Shopping,Enjoyable
+Fashion Store,Shopping,Impressed
+Fashion Store,Shopping,Excited
+Café & Bar,Dining,Enjoyable
+Museums & Galleries,Visiting,Interested
+Bund,Walking,Enjoyable
+Bund,Viewing,Impressed
+Other Stores,Shopping,Surprised
+Café & Bar,Dining,Enjoyable
+Café & Bar,Dining,Enjoyable
+Bund,Walking,Enjoyable
+Restaurant,Dining,Enjoyable
+Old Millfun,Viewing,Surprised
+Café & Bar,Dining,Enjoyable
+Streets and Neighborhoods,Walking,Impressed
+Fashion Store,Shopping,Inspired
+Museums & Galleries,Visiting,Interested
+Fashion Store,Shopping,Interested
+Fashion Store,Visiting,Inspired
+Museums & Galleries,Visiting,Frustrated
+Hotel and Spa,Relax,Relieved
+Bund,Walking,Enjoyable
+Bund,Viewing,Enjoyable
+Museums & Galleries,Visiting,Interested
+Restaurant,Dining,Enjoyable
+Streets and Neighborhoods,Shopping,Enjoyable
+Fashion Store,Shopping,Enjoyable
+Fashion Store,Shopping,Enjoyable
+Fashion Store,Shopping,Enjoyable
+Fashion Store,Shopping,Enjoyable
+Other Stores,Shopping,Enjoyable
+Hotel and Spa,Staying,Impressed
+Hotel and Spa,Visiting,Impressed
+Museums & Galleries,Visiting,Impressed
+Restaurant,Dining,Impressed
+Restaurant,Dining,Enjoyable
+Old Millfun,Viewing,Inspired
+Bund,Walking,Enjoyable
+Bund,Viewing,Enjoyable
+Hotel and Spa,Relax,Relaxed
+Hotel and Spa,Dining,Enjoyable
+Hotel and Spa,Visiting,Inspired
+Café & Bar,Dining,Enjoyable
+Museums & Galleries,Visiting,Impressed
+Streets and Neighborhoods,Walking,Enjoyable
+Streets and Neighborhoods,Shopping,Enjoyable
+Fashion Store,Shopping,Interested
+Fashion Store,Shopping,Enjoyable
+Bund,Walking,Enjoyable
+Bund,Viewing,Enjoyable
+Fashion Store,Shopping,Enjoyable
+Streets and Neighborhoods,Shopping,Enjoyable
+Streets and Neighborhoods,Walking,Impressed
+Café & Bar,Dining,Relaxed
+Streets and Neighborhoods,Walking,Impressed
+Café & Bar,Dining,Enjoyable
+Yu Yuan Garden,Walking,Impressed
+Yu Yuan Garden,Dining,Enjoyable
+Café & Bar,Dining,Enjoyable
+Café & Bar,Viewing,Impressed
+Café & Bar,People-watching,Relaxed
+Restaurant,Dining,Enjoyable
+Café & Bar,Shopping,Enjoyable
+Other Stores,Shopping,Enjoyable
+Other Stores,Shopping,Enjoyable
+Other Stores,Staying,Enjoyable
+Fashion Store,Shopping,Interested

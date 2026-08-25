@@ -384,7 +384,7 @@ console.log("Shanghai JS Loaded");
         chartContainerId: 'placeTypeChart',
 
         // Same CSV used by Q5
-        csvPath: 'assets/data/description.csv',
+        csvPath: 'assets/data/poi.csv',
 
         // SVG height
         height: 540,
@@ -1723,7 +1723,7 @@ console.log("Shanghai JS Loaded");
 
 
 /* ==========================================
-   Q4.Emotion sankey
+   Q3.Emotion sankey
 ========================================== */
 
 // Load Sankey data from CSV and build nodes/links dynamically
@@ -2141,7 +2141,7 @@ window.addEventListener("resize", () => {
 
 
 /* ==========================================
-   Q5.Description
+   Q4.Description
 ========================================== */
 
 (function () {
@@ -2157,7 +2157,7 @@ window.addEventListener("resize", () => {
         maxPOIs: 6,
 
         minWordsPerPOI: 3,
-        maxWordsPerPOI: 10,
+        maxWordsPerPOI: 8,
 
         poiLabelSize: 13,
 
@@ -2244,7 +2244,7 @@ window.addEventListener("resize", () => {
        DATA RESOLUTION
     ========================================================== */
 
-    const DATA_PATH = "assets/data/description.csv";
+    const DATA_PATH = "assets/data/poi.csv";
 
     async function resolveDataset() {
         try {
@@ -2619,12 +2619,12 @@ window.addEventListener("resize", () => {
         */
 
         const clusterRatios = [
-            0.27,
-            0.39,
+            0.23,
+            0.45,
             0.25,
             0.40,
-            0.29,
-            0.42,
+            0.22,
+            0.48,
             0.33,
             0.38
         ];
@@ -2726,11 +2726,11 @@ window.addEventListener("resize", () => {
 
         const slots = [
             /* strongest / central impression */
-            [0, -4],
+            [0, -10],
 
             /* upper-left / upper-right */
             [-48, -48],
-            [48, -44],
+            [48, -40],
 
             /* middle-left / middle-right */
             [-72, 5],
@@ -3056,72 +3056,47 @@ window.addEventListener("resize", () => {
     POI SILHOUETTES
     ========================================================== */
 
+
     /* ---------- Bund ---------- */
 
     function drawBundSilhouette(group, scale = 1) {
         const g = group.append("g")
             .attr("transform", `scale(${scale})`);
 
-        /*
-        * Bund silhouette
-        *
-        * Visual idea:
-        * Oriental Pearl Tower + dense Lujiazui skyline
-        *
-        * Unlike an icon:
-        * - buildings are filled masses
-        * - skyline forms one continuous visual silhouette
-        * - Oriental Pearl is the dominant landmark
-        */
-
-
-        /* ======================================================
-        Lujiazui skyline masses
-        ====================================================== */
-
         const skyline = [
 
-            /* far-left low buildings */
             {
                 d: "M-54,50 L-54,30 L-46,30 L-46,24 L-38,24 L-38,50 Z"
             },
 
-            /* rounded old-style tower */
             {
                 d: "M-39,50 L-39,29 Q-39,22 -32,20 Q-25,22 -25,29 L-25,50 Z"
             },
 
-            /* mid-rise */
             {
                 d: "M-28,50 L-28,20 L-18,20 L-18,14 L-8,14 L-8,50 Z"
             },
 
-            /* building with antenna */
             {
                 d: "M-10,50 L-10,22 L-4,22 L-4,17 L2,17 L2,50 Z"
             },
 
-            /* Shanghai Tower-like curved tower */
             {
                 d: "M7,50 L9,18 Q11,10 16,5 Q21,10 23,18 L25,50 Z"
             },
 
-            /* Shanghai World Financial Center */
             {
                 d: "M27,50 L27,13 L31,10 L39,10 L39,50 Z"
             },
 
-            /* Jin Mao Tower */
             {
                 d: "M41,50 L41,19 L44,15 L47,19 L47,50 Z"
             },
 
-            /* right-side building */
             {
                 d: "M49,50 L49,24 L55,20 L58,23 L58,50 Z"
             }
         ];
-
 
         g.selectAll(".bund-skyline")
             .data(skyline)
@@ -3132,12 +3107,6 @@ window.addEventListener("resize", () => {
             .attr("fill", CONFIG.accent)
             .attr("fill-opacity", 0.16);
 
-
-        /* ======================================================
-        Architectural cuts / roof details
-        These are subtle — not icon outlines.
-        ====================================================== */
-
         // Jin Mao stepped roof
         g.append("path")
             .attr(
@@ -3146,7 +3115,6 @@ window.addEventListener("resize", () => {
             )
             .attr("fill", CONFIG.accent)
             .attr("fill-opacity", 0.16);
-
 
         // Shanghai Tower antenna
         g.append("path")
@@ -3158,18 +3126,12 @@ window.addEventListener("resize", () => {
             .attr("fill-opacity", 0.16);
 
 
-        /* ======================================================
-        Oriental Pearl Tower
-        Main visual anchor
-        ====================================================== */
+        /* Oriental Pearl Tower */
 
         const tower = g.append("g")
             .attr("class", "oriental-pearl-silhouette");
 
-
-        /*
-        * Tower legs
-        */
+        // Tower legs
         tower.append("path")
             .attr(
                 "d",
@@ -3178,10 +3140,7 @@ window.addEventListener("resize", () => {
             .attr("fill", CONFIG.accent)
             .attr("fill-opacity", 0.20);
 
-
-        /*
-        * Lower sphere
-        */
+        // Lower sphere
         tower.append("circle")
             .attr("cx", 0)
             .attr("cy", 27)
@@ -3189,10 +3148,7 @@ window.addEventListener("resize", () => {
             .attr("fill", CONFIG.accent)
             .attr("fill-opacity", 0.20);
 
-
-        /*
-        * Tower shaft
-        */
+        // Tower shaft
         tower.append("path")
             .attr(
                 "d",
@@ -3201,10 +3157,7 @@ window.addEventListener("resize", () => {
             .attr("fill", CONFIG.accent)
             .attr("fill-opacity", 0.22);
 
-
-        /*
-        * Main upper sphere
-        */
+        // Main upper sphere
         tower.append("circle")
             .attr("cx", 0)
             .attr("cy", 4)
@@ -3212,10 +3165,7 @@ window.addEventListener("resize", () => {
             .attr("fill", CONFIG.accent)
             .attr("fill-opacity", 0.22);
 
-
-        /*
-        * Upper shaft
-        */
+        // Upper shaft
         tower.append("path")
             .attr(
                 "d",
@@ -3224,10 +3174,7 @@ window.addEventListener("resize", () => {
             .attr("fill", CONFIG.accent)
             .attr("fill-opacity", 0.20);
 
-
-        /*
-        * Small upper sphere
-        */
+        // Small upper sphere
         tower.append("circle")
             .attr("cx", 0)
             .attr("cy", -17)
@@ -3235,10 +3182,7 @@ window.addEventListener("resize", () => {
             .attr("fill", CONFIG.accent)
             .attr("fill-opacity", 0.22);
 
-
-        /*
-        * Antenna
-        */
+        // Antenna
         tower.append("path")
             .attr(
                 "d",
@@ -3246,12 +3190,6 @@ window.addEventListener("resize", () => {
             )
             .attr("fill", CONFIG.accent)
             .attr("fill-opacity", 0.20);
-
-
-        /* ======================================================
-        Subtle architectural negative spaces
-        Gives the silhouette some recognisable structure.
-        ====================================================== */
 
         // Shanghai World Financial Center opening
         g.append("path")
@@ -3262,8 +3200,7 @@ window.addEventListener("resize", () => {
             .attr("fill", "#04070d")
             .attr("fill-opacity", 0.75);
 
-
-        // Oriental Pearl tower openings
+        // Oriental Pearl openings
         tower.append("rect")
             .attr("x", -0.8)
             .attr("y", 10)
@@ -3271,7 +3208,6 @@ window.addEventListener("resize", () => {
             .attr("height", 5)
             .attr("fill", "#04070d")
             .attr("fill-opacity", 0.75);
-
 
         tower.append("rect")
             .attr("x", -0.8)
@@ -3281,11 +3217,7 @@ window.addEventListener("resize", () => {
             .attr("fill", "#04070d")
             .attr("fill-opacity", 0.75);
 
-
-        /* ======================================================
-        Ground / river edge
-        ====================================================== */
-
+        // Ground
         g.append("rect")
             .attr("x", -58)
             .attr("y", 49)
@@ -3293,7 +3225,6 @@ window.addEventListener("resize", () => {
             .attr("height", 2)
             .attr("fill", CONFIG.accent)
             .attr("fill-opacity", 0.18);
-
 
         g.append("line")
             .attr("x1", -58)
@@ -3312,7 +3243,6 @@ window.addEventListener("resize", () => {
         const g = group.append("g")
             .attr("transform", `scale(${scale})`);
 
-        // Layered commercial buildings
         g.append("path")
             .attr(
                 "d",
@@ -3324,7 +3254,6 @@ window.addEventListener("resize", () => {
             .attr("stroke-opacity", 0.38)
             .attr("stroke-width", 0.9);
 
-        // Storefront rhythm
         [-35, -17, 0, 17, 34].forEach(x => {
             g.append("line")
                 .attr("x1", x)
@@ -3336,7 +3265,6 @@ window.addEventListener("resize", () => {
                 .attr("stroke-width", 0.8);
         });
 
-        // Ground
         g.append("line")
             .attr("x1", -53)
             .attr("x2", 53)
@@ -3348,13 +3276,12 @@ window.addEventListener("resize", () => {
     }
 
 
-    /* ---------- Yu Yuan Garden ---------- */
+    /* ---------- YuYuan Garden ---------- */
 
     function drawYuYuanSilhouette(group, scale = 1) {
         const g = group.append("g")
             .attr("transform", `scale(${scale})`);
 
-        // Traditional roof silhouette
         g.append("path")
             .attr(
                 "d",
@@ -3366,7 +3293,6 @@ window.addEventListener("resize", () => {
             .attr("stroke-opacity", 0.42)
             .attr("stroke-width", 0.9);
 
-        // Columns
         [-27, -9, 9, 27].forEach(x => {
             g.append("rect")
                 .attr("x", x - 2)
@@ -3377,7 +3303,6 @@ window.addEventListener("resize", () => {
                 .attr("fill-opacity", 0.16);
         });
 
-        // Base
         g.append("path")
             .attr("d", "M-38,49 L38,49 L31,44 L-31,44 Z")
             .attr("fill", CONFIG.accent)
@@ -3400,178 +3325,253 @@ window.addEventListener("resize", () => {
         const g = group.append("g")
             .attr("transform", `scale(${scale})`);
 
-        // Old villa
+        // Left historic villa
         g.append("path")
             .attr(
                 "d",
-                "M-38,48 L-38,14 L-25,14 L-25,7 L-10,7 L-10,14 L10,14 L10,4 L25,4 L25,14 L38,14 L38,48 Z"
-            )
-            .attr("fill", CONFIG.accent)
-            .attr("fill-opacity", 0.13)
-            .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.36)
-            .attr("stroke-width", 0.9);
-
-        // Tree canopy
-        g.append("path")
-            .attr(
-                "d",
-                "M-53,29 Q-48,18 -39,21 Q-35,8 -24,15 Q-18,4 -10,14 Q-5,8 0,18 L0,34 L-53,34 Z"
-            )
-            .attr("fill", CONFIG.accent)
-            .attr("fill-opacity", 0.10);
-
-        // Tree trunk
-        g.append("path")
-            .attr(
-                "d",
-                "M-29,31 Q-28,40 -32,50 M-25,32 Q-24,41 -21,50"
-            )
-            .attr("fill", "none")
-            .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.3)
-            .attr("stroke-width", 1.2);
-
-        // Ground
-        g.append("line")
-            .attr("x1", -53)
-            .attr("x2", 53)
-            .attr("y1", 50)
-            .attr("y2", 50)
-            .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.32)
-            .attr("stroke-width", 1);
-    }
-
-
-    /* ---------- Bakery ---------- */
-
-    function drawBakerySilhouette(group, scale = 1) {
-        const g = group.append("g")
-            .attr("transform", `scale(${scale})`);
-
-        // Small shop
-        g.append("path")
-            .attr(
-                "d",
-                "M-38,48 L-38,18 L-30,8 L30,8 L38,18 L38,48 Z"
-            )
-            .attr("fill", CONFIG.accent)
-            .attr("fill-opacity", 0.13)
-            .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.36)
-            .attr("stroke-width", 0.9);
-
-        // Awning
-        g.append("path")
-            .attr(
-                "d",
-                "M-42,18 L42,18 L35,27 L-35,27 Z"
+                "M-52,48 L-52,13 L-42,13 L-42,7 L-29,7 L-29,13 L-18,13 L-18,48 Z"
             )
             .attr("fill", CONFIG.accent)
             .attr("fill-opacity", 0.18);
 
-        // Bread / pastry symbol
+        // Central arched building
         g.append("path")
             .attr(
                 "d",
-                "M-10,40 Q-5,31 0,40 Q5,31 10,40"
+                "M-10,48 L-10,19 Q0,4 10,19 L10,48 Z"
+            )
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.20);
+
+        g.append("path")
+            .attr(
+                "d",
+                "M-14,20 Q0,1 14,20"
             )
             .attr("fill", "none")
             .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.38)
-            .attr("stroke-width", 1);
+            .attr("stroke-opacity", 0.28)
+            .attr("stroke-width", 2);
 
-        // Ground
+        // Right historic building
+        g.append("path")
+            .attr(
+                "d",
+                "M18,48 L18,15 L28,15 L28,8 L40,8 L40,15 L51,15 L51,48 Z"
+            )
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.16);
+
+        // Street trees
         g.append("line")
-            .attr("x1", -46)
-            .attr("x2", 46)
+            .attr("x1", -63)
+            .attr("x2", -63)
+            .attr("y1", 19)
+            .attr("y2", 48)
+            .attr("stroke", CONFIG.accent)
+            .attr("stroke-opacity", 0.18)
+            .attr("stroke-width", 2);
+
+        g.append("circle")
+            .attr("cx", -63)
+            .attr("cy", 14)
+            .attr("r", 11)
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.12);
+
+        g.append("line")
+            .attr("x1", 63)
+            .attr("x2", 63)
+            .attr("y1", 20)
+            .attr("y2", 48)
+            .attr("stroke", CONFIG.accent)
+            .attr("stroke-opacity", 0.18)
+            .attr("stroke-width", 2);
+
+        g.append("circle")
+            .attr("cx", 63)
+            .attr("cy", 15)
+            .attr("r", 10)
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.12);
+
+        g.append("line")
+            .attr("x1", -68)
+            .attr("x2", 68)
             .attr("y1", 50)
             .attr("y2", 50)
             .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.32)
+            .attr("stroke-opacity", 0.22)
             .attr("stroke-width", 1);
     }
 
 
-    /* ---------- Tianzifang ---------- */
+    /* ---------- Café & Restaurant ---------- */
 
-    function drawTianzifangSilhouette(group, scale = 1) {
+    function drawCafeRestaurantSilhouette(group, scale = 1) {
         const g = group.append("g")
             .attr("transform", `scale(${scale})`);
 
-        // Shikumen-style layered houses
+        // Coffee cup
+        g.append("ellipse")
+            .attr("cx", 0)
+            .attr("cy", 39)
+            .attr("rx", 31)
+            .attr("ry", 4)
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.16);
+
         g.append("path")
             .attr(
                 "d",
-                "M-48,48 L-48,17 L-35,17 L-35,7 L-18,7 L-18,14 L-3,14 L-3,2 L14,2 L14,12 L29,12 L29,7 L42,7 L42,18 L48,18 L48,48 Z"
+                "M-28,0 L-25,34 Q-23,43 0,45 Q23,43 25,34 L28,0 Z"
             )
             .attr("fill", CONFIG.accent)
-            .attr("fill-opacity", 0.14)
+            .attr("fill-opacity", 0.20);
+
+        // Handle
+        g.append("path")
+            .attr(
+                "d",
+                "M28,10 Q47,9 47,23 Q47,36 27,34"
+            )
+            .attr("fill", "none")
+            .attr("stroke", CONFIG.accent)
+            .attr("stroke-opacity", 0.22)
+            .attr("stroke-width", 3);
+
+        // Steam
+        g.append("path")
+            .attr(
+                "d",
+                "M-10,-5 Q-16,-16 -9,-26 M3,-7 Q-3,-18 4,-29 M15,-5 Q9,-16 16,-25"
+            )
+            .attr("fill", "none")
+            .attr("stroke", CONFIG.accent)
+            .attr("stroke-opacity", 0.22)
+            .attr("stroke-width", 1.4)
+            .attr("stroke-linecap", "round");
+    }
+
+
+    /* ---------- Fashion Store ---------- */
+
+    function drawFashionStoreSilhouette(group, scale = 1) {
+        const g = group.append("g")
+            .attr("transform", `scale(${scale})`);
+
+        // Dress silhouette
+        g.append("path")
+            .attr(
+                "d",
+                "M-10,-35 L-16,-24 L-11,-17 L-9,-5 L-18,17 L-34,47 L34,47 L18,17 L9,-5 L11,-17 L16,-24 L10,-35 L4,-28 L0,-22 L-4,-28 Z"
+            )
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.20);
+
+        // Waist detail
+        g.append("path")
+            .attr(
+                "d",
+                "M-11,-17 Q0,-11 11,-17"
+            )
+            .attr("fill", "none")
+            .attr("stroke", CONFIG.accent)
+            .attr("stroke-opacity", 0.30)
+            .attr("stroke-width", 1.2);
+
+        // Skirt detail
+        g.append("path")
+            .attr(
+                "d",
+                "M-9,-5 Q0,0 9,-5"
+            )
+            .attr("fill", "none")
+            .attr("stroke", CONFIG.accent)
+            .attr("stroke-opacity", 0.24)
+            .attr("stroke-width", 1);
+
+        g.append("line")
+            .attr("x1", -34)
+            .attr("x2", 34)
+            .attr("y1", 49)
+            .attr("y2", 49)
+            .attr("stroke", CONFIG.accent)
+            .attr("stroke-opacity", 0.22)
+            .attr("stroke-width", 1);
+    }
+
+
+    /* ---------- Museums & Galleries ---------- */
+
+    function drawMuseumGallerySilhouette(group, scale = 1) {
+        const g = group.append("g")
+            .attr("transform", `scale(${scale})`);
+
+        // Main museum building
+        g.append("path")
+            .attr(
+                "d",
+                "M-46,48 L-46,21 L-38,21 L-38,14 L-30,14 L-30,21 L-22,21 L-22,14 L-14,14 L-14,21 L-6,21 L-6,14 L6,14 L6,21 L14,21 L14,14 L22,14 L22,21 L30,21 L30,14 L38,14 L38,21 L46,21 L46,48 Z"
+            )
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.17)
             .attr("stroke", CONFIG.accent)
             .attr("stroke-opacity", 0.38)
             .attr("stroke-width", 0.9);
 
-        // Alley / doorway rhythm
-        [-32, -11, 10, 31].forEach(x => {
-            g.append("path")
-                .attr(
-                    "d",
-                    `M${x - 5},48 L${x - 5},32 Q${x},25 ${x + 5},32 L${x + 5},48`
-                )
-                .attr("fill", "none")
-                .attr("stroke", CONFIG.accent)
-                .attr("stroke-opacity", 0.3)
-                .attr("stroke-width", 0.8);
+        // Classical roof / pediment
+        g.append("path")
+            .attr(
+                "d",
+                "M-52,21 L0,-4 L52,21 Z"
+            )
+            .attr("fill", CONFIG.accent)
+            .attr("fill-opacity", 0.18)
+            .attr("stroke", CONFIG.accent)
+            .attr("stroke-opacity", 0.34)
+            .attr("stroke-width", 0.9);
+
+        // Central gallery entrance
+        g.append("path")
+            .attr(
+                "d",
+                "M-10,48 L-10,34 Q0,24 10,34 L10,48 Z"
+            )
+            .attr("fill", "#04070d")
+            .attr("fill-opacity", 0.55);
+
+        // Columns
+        [-30, -15, 15, 30].forEach(x => {
+            g.append("rect")
+                .attr("x", x - 1.5)
+                .attr("y", 23)
+                .attr("width", 3)
+                .attr("height", 25)
+                .attr("fill", CONFIG.accent)
+                .attr("fill-opacity", 0.22);
         });
 
         // Ground
         g.append("line")
-            .attr("x1", -53)
-            .attr("x2", 53)
+            .attr("x1", -55)
+            .attr("x2", 55)
             .attr("y1", 50)
             .attr("y2", 50)
             .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.32)
-            .attr("stroke-width", 1);
-    }
-
-
-    /* ---------- Generic ---------- */
-
-    function drawGenericSilhouette(group, scale = 1) {
-        const g = group.append("g")
-            .attr("transform", `scale(${scale})`);
-
-        // Abstract urban mass
-        g.append("path")
-            .attr(
-                "d",
-                "M-35,48 L-35,20 L-18,20 L-18,9 L0,9 L0,16 L18,16 L18,4 L35,4 L35,48 Z"
-            )
-            .attr("fill", CONFIG.accent)
-            .attr("fill-opacity", 0.13)
-            .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.3)
-            .attr("stroke-width", 0.8);
-
-        g.append("line")
-            .attr("x1", -42)
-            .attr("x2", 42)
-            .attr("y1", 50)
-            .attr("y2", 50)
-            .attr("stroke", CONFIG.accent)
-            .attr("stroke-opacity", 0.3)
+            .attr("stroke-opacity", 0.30)
             .attr("stroke-width", 1);
     }
 
 
     /* ==========================================================
-    POI → SILHOUETTE MAPPING
-    ========================================================== */
+        POI → SILHOUETTE MAPPING
+        ========================================================== */
 
     function selectSilhouette(label) {
         const value = normalizeKey(label);
+
+        /* ---------- Bund ---------- */
 
         if (
             value.includes("bund") ||
@@ -3581,6 +3581,9 @@ window.addEventListener("resize", () => {
             return "bund";
         }
 
+
+        /* ---------- Nanjing Road ---------- */
+
         if (
             value.includes("nanjing road") ||
             value.includes("nanjing")
@@ -3588,14 +3591,19 @@ window.addEventListener("resize", () => {
             return "nanjing";
         }
 
+
+        /* ---------- YuYuan Garden ---------- */
+
         if (
             value.includes("yu yuan") ||
             value.includes("yuyuan") ||
-            value.includes("garden") ||
             value.includes("豫园")
         ) {
             return "yuyuan";
         }
+
+
+        /* ---------- French Concession ---------- */
 
         if (
             value.includes("french concession") ||
@@ -3604,30 +3612,63 @@ window.addEventListener("resize", () => {
             return "french";
         }
 
-        if (
-            value.includes("bakery") ||
-            value.includes("面包")
-        ) {
-            return "bakery";
-        }
+
+        /* ---------- Café & Restaurant ---------- */
 
         if (
-            value.includes("tianzifang") ||
-            value.includes("田子坊")
+            value.includes("café & restaurant") ||
+            value.includes("cafe & restaurant") ||
+            value.includes("café") ||
+            value.includes("cafe") ||
+            value.includes("restaurant")
         ) {
-            return "tianzifang";
+            return "cafe";
         }
 
-        return "generic";
+
+        /* ---------- Fashion Store ---------- */
+
+        if (
+            value.includes("fashion store") ||
+            value.includes("fashion")
+        ) {
+            return "fashion";
+        }
+
+
+        /* ---------- Museums & Galleries ---------- */
+
+        if (
+            value.includes("museums & galleries") ||
+            value.includes("museum & gallery") ||
+            value.includes("museum") ||
+            value.includes("gallery") ||
+            value.includes("galleries") ||
+            value.includes("美术馆") ||
+            value.includes("博物馆")
+        ) {
+            return "museum";
+        }
+
+
+        /* ---------- No Generic ---------- */
+
+        return null;
     }
 
 
     /* ==========================================================
-    DRAW POI SILHOUETTE
-    ========================================================== */
+        DRAW POI SILHOUETTE
+        ========================================================== */
 
     function drawPOIAnchor(group, poi) {
         const type = selectSilhouette(poi.label);
+
+        // If this POI does not belong to the 7 selected categories,
+        // do not draw a silhouette.
+        if (!type) {
+            return;
+        }
 
         const iconGroup = group
             .append("g")
@@ -3639,25 +3680,32 @@ window.addEventListener("resize", () => {
                 : 1;
 
         if (type === "bund") {
+
             drawBundSilhouette(iconGroup, scale);
 
         } else if (type === "nanjing") {
+
             drawNanjingSilhouette(iconGroup, scale);
 
         } else if (type === "yuyuan") {
+
             drawYuYuanSilhouette(iconGroup, scale);
 
         } else if (type === "french") {
+
             drawFrenchConcessionSilhouette(iconGroup, scale);
 
-        } else if (type === "bakery") {
-            drawBakerySilhouette(iconGroup, scale);
+        } else if (type === "cafe") {
 
-        } else if (type === "tianzifang") {
-            drawTianzifangSilhouette(iconGroup, scale);
+            drawCafeRestaurantSilhouette(iconGroup, scale);
 
-        } else {
-            drawGenericSilhouette(iconGroup, scale);
+        } else if (type === "fashion") {
+
+            drawFashionStoreSilhouette(iconGroup, scale);
+
+        } else if (type === "museum") {
+
+            drawMuseumGallerySilhouette(iconGroup, scale);
         }
     }
 

@@ -1,0 +1,327 @@
+Video_ID,Stop_Order,POI,Activity,Impression,Emo_Tone,Time_Code,Q2_LA,Q2_CO
+SH001,1,Bund,Viewing,Beautiful,Impressed,2,1,1
+SH001,2,Nanjing Road,Shopping,Amazing,Enjoyable,1,1,1
+SH001,3,Yu Yuan Garden,Viewing,Beautiful,Aesthetic,1,1,1
+SH001,4,Tianzifang,Shopping,Nice,Enjoyable,1,1,1
+SH001,5,Café & Restaurant,Dining,Futuristic,Impressed,2,0,1
+SH001,6,Hotel & Spa,Relax,Unique,Surprised,2,0,1
+SH002,1,Yu Yuan Garden,Viewing,Peaceful,Relaxed,1,1,0
+SH002,2,Other Stores,Shopping,Local,Enjoyable,1,0,1
+SH002,3,Didi,Transport,Cheap,Surprised,1,0,1
+SH002,4,Bund,Viewing,Iconic,Enjoyable,1,1,0
+SH002,5,Shanghai Tower,Viewing,Touristy,Enjoyable,1,0,1
+SH002,6,Shanghai Tower,Viewing,Incredible,Impressed,1,1,0
+SH002,7,Café & Restaurant,Dining,Delicious,Enjoyable,2,0,1
+SH002,8,Café & Restaurant,Dining,Local,Enjoyable,2,0,1
+SH002,9,Zhujiajiao,Viewing,Historic,Impressed,1,1,0
+SH002,10,Café & Restaurant,Dining,Beautiful,Enjoyable,1,0,1
+SH002,11,Nanjing Road,Shopping,Next-level,Excited,2,1,1
+SH002,12,Bund,Viewing,Spectacular,Impressed,2,1,0
+SH002,13,French Concession,Relax,Fancy,Enjoyable,2,0,1
+SH002,14,Café & Restaurant,Relax,Luxurious,Enjoyable,2,0,1
+SH003,1,Café & Restaurant,Dining,Harry Potter-style,Enjoyable,1,0,1
+SH003,2,Wukang Building,Viewing,Famous,Enjoyable,1,1,0
+SH003,3,Fashion Store,Shopping,Cute,Enjoyable,1,0,1
+SH003,4,Fashion Store,Shopping,Beautiful,Impressed,1,0,1
+SH003,5,Fashion Store,Shopping,Minimalist,Interested,1,0,1
+SH003,6,Wulumuqi Road,Walking,Cute,Enjoyable,1,0,0
+SH003,7,Fashion Store,Shopping,Cute,Enjoyable,1,0,1
+SH003,8,Fashion Store,Shopping,Creative,Interested,1,0,1
+SH003,9,Fashion Store,Shopping,Whimsical,Enjoyable,1,0,1
+SH003,10,French Concession,Walking,Cute,Enjoyable,1,0,0
+SH003,11,Fashion Store,Shopping,Minimalist,Interested,1,0,1
+SH003,12,Fashion Store,Shopping,Relaxed,Enjoyable,1,0,1
+SH003,13,Fashion Store,Shopping,Unique,Interested,1,0,1
+SH003,14,Other Stores,Shopping,Heaven,Delighted,1,0,1
+SH003,15,Museums & Galleries,Viewing,Artistic,Impressed,1,1,0
+SH003,16,Fashion Store,Shopping,Cool,Excited,2,0,1
+SH003,17,Fashion Store,Shopping,Minimalist,Interested,2,0,1
+SH003,18,Café & Restaurant,Dining,Fresh,Enjoyable,2,0,1
+SH003,19,Jing’an Temple,Viewing,Famous,Impressed,2,1,0
+SH003,20,Other Stores,Shopping,Cute,Enjoyable,2,0,1
+SH003,21,Other Stores,Viewing,Magical,Impressed,2,1,1
+SH003,22,Yu Yuan Garden,Viewing,Speechless,Awe,2,1,0
+SH004,1,French Concession,Walking,Cool,Enjoyable,1,0,0
+SH004,2,Café & Restaurant,Dining,Harry Potter-esque,Delighted,1,0,1
+SH004,3,Fashion Store,Visiting,Crazy,Impressed,1,0,1
+SH004,4,Fashion Store,Visiting,Cool,Excited,1,0,1
+SH004,5,Bund,Viewing,Futuristic,Impressed,2,1,0
+SH004,6,Café & Restaurant,Dining,Cute,Delighted,1,0,1
+SH004,7,Parks & Gardens,Visiting,Cool,Impressed,1,1,1
+SH004,8,French Concession,Dining,Delicious,Satisfied,2,0,1
+SH005,1,Bund,Viewing,Futuristic,Impressed,2,1,0
+SH005,2,Yu Yuan Garden,Viewing,Beautiful,Impressed,1,1,0
+SH005,3,Nanjing Road,Shopping,Crazy,Excited,2,1,0
+SH005,4,Tianzifang,Viewing,Artistic,Enjoyable,2,1,0
+SH005,5,Zhujiajiao,Viewing,Historic,Awe,1,1,1
+SH006,1,Café & Restaurant,Dining,Good,Enjoyable,1,0,1
+SH006,2,French Concession,Shopping,Nice,Enjoyable,1,0,1
+SH006,3,Café & Restaurant,Dining,Insane,Enjoyable,1,0,1
+SH006,4,Other Stores,Shopping,Popular,Happy,1,1,1
+SH006,5,Other Stores,Shopping,Crazy,Amused,1,0,1
+SH006,6,Fashion Store,Shopping,Cool,Impressed,1,0,1
+SH006,7,Other Stores,Walking,Cool,Satisfied,2,1,1
+SH006,8,Café & Restaurant,Dining,Amazing,Enjoyable,2,0,1
+SH006,9,Other Stores,Visiting,Fun,Amused,2,0,1
+SH006,10,Didi,Transport,Cheap,Surprised,1,0,1
+SH007,1,Café & Restaurant,Dining,Cute,Enjoyable,1,0,1
+SH007,2,Bund,Walking,Iconic,Impressed,1,1,0
+SH007,3,Café & Restaurant,Dining,Surreal,Impressed,1,0,1
+SH007,4,Museums & Galleries,Viewing,Artistic,Impressed,1,0,0
+SH007,5,Fashion Store,Shopping,Cute,Enjoyable,1,0,1
+SH007,6,Old Millfun,Viewing,Unique,Surprised,1,1,0
+SH007,7,Fashion Store,Shopping,Trendy,Enjoyable,1,0,1
+SH007,8,Café & Restaurant,Dining,Delicious,Satisfied,2,0,1
+SH007,9,Bund,Walking,Iconic,Enjoyable,2,1,0
+SH008,1,Café & Restaurant,Dining,Rich,Enjoyable,1,0,1
+SH008,2,Parks & Gardens,Walking,Beautiful,Relaxed,1,0,0
+SH008,3,French Concession,Visiting,Western,Impressed,1,0,1
+SH008,4,Louis Vuitton Ship,Visiting,Iconic,Impressed,1,1,1
+SH008,5,Wukang Building,Viewing,Iconic,Excited,1,1,0
+SH008,6,Café & Restaurant,Dining,Delicious,Enjoyable,1,0,1
+SH008,7,Fashion Store,Shopping,Popular,Enjoyable,1,0,1
+SH008,8,Café & Restaurant,Dining,So-so,Neutral,1,0,1
+SH008,9,Fashion Store,Shopping,Various,Enjoyable,2,0,1
+SH008,10,Café & Restaurant,Dining,Delicious,Enjoyable,2,0,1
+SH008,11,Bund,Viewing,Beautiful,Impressed,2,1,0
+SH009,1,Fashion Store,Shopping,Beautiful,Enjoyable,1,0,1
+SH009,2,Fashion Store,Shopping,Cool,Impressed,1,0,1
+SH009,3,Fashion Store,Shopping,Cool,Enjoyable,1,0,1
+SH009,4,Fashion Store,Shopping,Unique,Impressed,1,0,1
+SH009,5,Fashion Store,Shopping,Experiential,Excited,1,0,1
+SH009,6,French Concession,Visiting,Western,Vibrant,1,1,1
+SH009,7,Yu Yuan Garden,Viewing,Aesthetic,Impressed,1,1,0
+SH010,1,Café & Restaurant,Dining,Perfect,Enjoyable,1,0,1
+SH010,2,Fashion Store,Shopping,Cool,Interested,1,0,1
+SH010,3,Café & Restaurant,Dining,Good,Enjoyable,1,0,1
+SH010,4,Café & Restaurant,Dining,Good,Enjoyable,1,0,1
+SH010,5,Bund,Walking,Iconic,Enjoyable,2,1,0
+SH010,6,French Concession,Shopping,Lovely,Enjoyable,1,1,1
+SH011,1,Café & Restaurant,Dining,Cool,Enjoyable,1,0,1
+SH011,2,Café & Restaurant,Dining,Fresh,Enjoyable,1,0,1
+SH011,3,Anfu Road,Walking,Beautiful,Impressed,1,1,0
+SH011,4,Fashion Store,Shopping,Cool,Inspired,1,0,1
+SH011,5,Fashion Store,Shopping,Cool,Interested,1,0,1
+SH011,6,Fashion Store,Visiting,Creative,Inspired,1,0,1
+SH011,7,Museums & Galleries,Visiting,Closed,Frustrated,1,0,0
+SH011,8,Hotel & Spa,Relax,Incredible,Relieved,2,0,1
+SH011,9,Café & Restaurant,Dining,Delicious,Enjoyable,2,0,1
+SH012,1,Anfu Road,Shopping,Cute,Enjoyable,1,0,1
+SH012,2,Fashion Store,Shopping,Cute,Enjoyable,1,0,1
+SH012,3,Fashion Store,Shopping,Beautiful,Enjoyable,1,0,1
+SH012,4,Fashion Store,Shopping,Cool,Enjoyable,1,0,1
+SH012,5,Fashion Store,Shopping,Cool,Surprised,1,0,1
+SH012,6,Fashion Store,Shopping,Fancy,Enjoyable,1,0,1
+SH012,7,Hotel & Spa,Visiting,Traditional,Inspired,1,1,1
+SH012,8,French Concession,Shopping,Western,Enjoyable,1,0,1
+SH012,9,Nanjing Road,Shopping,Fancy,Excited,2,1,1
+SH012,10,Yu Yuan Garden,Viewing,Aesthetic,Impressed,1,1,1
+SH013,1,Hotel & Spa,Staying,Beautiful,Impressed,1,0,1
+SH013,2,Hotel & Spa,Visiting,Artistic,Impressed,1,0,1
+SH013,3,Café & Restaurant,Dining,Unique,Impressed,2,0,1
+SH013,4,Café & Restaurant,Dining,Delicious,Enjoyable,2,0,1
+SH013,5,Hotel & Spa,Relax,Cozy,Relaxed,2,0,1
+SH013,6,Hotel & Spa,Dining,Delicious,Enjoyable,1,0,1
+SH013,7,Hotel & Spa,Visiting,Traditional,Inspired,1,1,1
+SH013,8,Nanjing Road,Shopping,Next-level,Excited,2,1,1
+SH013,9,Louis Vuitton Ship,Visiting,Trendy,Impressed,1,1,1
+SH014,1,Café & Restaurant,Dining,Creamy,Enjoyable,1,0,1
+SH014,2,Other Stores,Visiting,Pretty,Impressed,1,0,1
+SH014,3,Anfu Road,Walking,Picturesque,Enjoyable,1,1,0
+SH014,4,Anfu Road,Shopping,Cute,Enjoyable,1,0,1
+SH014,5,Fashion Store,Shopping,Huge,Interested,1,0,1
+SH014,6,Fashion Store,Shopping,Amazing,Enjoyable,1,0,1
+SH014,7,Bund,Walking,Scenic,Enjoyable,2,1,0
+SH014,8,Bund,Viewing,Beautiful,Enjoyable,2,1,0
+SH014,9,Louis Vuitton Ship,Visiting,Artistic,Excited,1,1,1
+SH015,1,Fashion Store,Shopping,Trendy,Enjoyable,1,0,1
+SH015,2,Huaihai Road,Shopping,Great,Enjoyable,1,0,1
+SH015,3,Huaihai Road,Walking,Vibrant,Impressed,1,1,0
+SH015,4,Café & Restaurant,Dining,Local,Relaxed,1,0,1
+SH015,5,Anfu Road,Walking,Historical,Impressed,1,1,0
+SH015,6,Bund,Viewing,Beautiful,Impressed,2,1,0
+SH015,7,Café & Restaurant,Dining,Lively,Enjoyable,2,0,1
+SH015,8,Yu Yuan Garden,Walking,Beautiful,Impressed,2,1,0
+SH015,9,Yu Yuan Garden,Dining,Enjoyable,Enjoyable,2,0,1
+SH016,1,Café & Restaurant,Dining,Beautiful,Enjoyable,1,0,1
+SH016,2,Café & Restaurant,Viewing,Artistic,Impressed,1,0,1
+SH016,3,Café & Restaurant,People-watching,Relaxed,Relaxed,1,0,1
+SH016,4,Café & Restaurant,Dining,Creative,Enjoyable,1,0,1
+SH016,5,Wukang Building,Viewing,Iconic,Excited,1,0,0
+SH016,6,Louis Vuitton Ship,Visiting,Artistic,Excited,1,1,1
+SH016,7,Nanjing Road,Shopping,Fancy,Surprised,2,1,1
+SH016,8,Tianzifang,Visiting,Crowded,Excited,1,1,1
+SH016,9,Louis Vuitton Ship,Visiting,Iconic,Impressed,1,1,0
+SH017,1,Café & Restaurant,Shopping,Cute,Enjoyable,1,0,1
+SH017,2,Museums & Galleries,Viewing,Artistic,Impressed,1,1,0
+SH017,3,Other Stores,Shopping,Cute,Enjoyable,1,0,1
+SH017,4,Other Stores,Playing,Sweet,Enjoyable,1,0,1
+SH017,5,Fashion Store,Shopping,Rare,Interested,1,0,1
+SH017,6,Wukang Building,Viewing,Famous,Enjoyable,1,1,0
+SH017,7,Café & Restaurant,Viewing,Artistic,Impressed,1,1,1
+SH017,8,Louis Vuitton Ship,Visiting,Iconic,Impressed,1,0,1
+SH017,9,Zhujiajiao,Viewing,Historic,Relaxed,1,0,1
+SH018,1,Bund,Viewing,Beautiful,Impressed,2,1,1
+SH018,2,Nanjing Road,Shopping,Amazing,Enjoyable,1,1,1
+SH018,3,Yu Yuan Garden,Viewing,Beautiful,Relaxed,1,1,1
+SH018,4,Tianzifang,Shopping,Nice,Enjoyable,1,1,1
+SH018,5,Café & Restaurant,Dining,Futuristic,Impressed,2,0,1
+SH018,6,Hotel & Spa,Relax,Unique,Surprised,2,0,1
+SH019,1,Yu Yuan Garden,Viewing,Peaceful,Relaxed,1,1,1
+SH019,2,Other Stores,Shopping,Local,Enjoyable,1,0,1
+SH019,3,Museums & Galleries,Viewing,Artistic,Impressed,1,1,0
+SH019,4,Bund,Viewing,Iconic,Enjoyable,1,1,0
+SH019,5,Shanghai Tower,Viewing,Touristy,Enjoyable,1,0,1
+SH019,6,Shanghai Tower,Viewing,Incredible,Impressed,1,1,0
+SH019,7,Café & Restaurant,Dining,Delicious,Enjoyable,2,0,1
+SH019,8,Café & Restaurant,Dining,Local,Enjoyable,2,0,1
+SH019,9,Zhujiajiao,Viewing,Historic,Impressed,1,1,0
+SH019,10,Café & Restaurant,Dining,Beautiful,Enjoyable,1,0,1
+SH019,11,Nanjing Road,Shopping,Various,Satisfied,2,1,1
+SH019,12,Bund,Viewing,Spectacular,Impressed,2,1,0
+SH019,13,Café & Restaurant,Relax,Fancy,Enjoyable,2,0,1
+SH019,14,Café & Restaurant,Relax,Luxurious,Enjoyable,2,0,1
+SH020,1,Café & Restaurant,Dining,Harry Potter-style,Enjoyable,1,0,1
+SH020,2,Wukang Building,Viewing,Famous,Enjoyable,1,1,0
+SH020,3,Fashion Store,Shopping,Cute,Enjoyable,1,0,1
+SH020,4,Fashion Store,Shopping,Beautiful,Impressed,1,0,1
+SH020,5,Fashion Store,Shopping,Minimalist,Interested,1,0,1
+SH020,6,Wulumuqi Road,Walking,Cute,Enjoyable,1,0,0
+SH020,7,Fashion Store,Shopping,Cute,Enjoyable,1,0,1
+SH020,8,Fashion Store,Shopping,Creative,Interested,1,0,1
+SH020,9,Fashion Store,Shopping,Whimsical,Enjoyable,1,0,1
+SH020,10,Anfu Road,Walking,Cute,Enjoyable,1,0,0
+SH020,11,Fashion Store,Shopping,Minimalist,Interested,1,0,1
+SH020,12,Fashion Store,Shopping,Relaxed,Enjoyable,1,0,1
+SH020,13,Fashion Store,Shopping,Unique,Interested,1,1,1
+SH020,14,Fashion Store,Shopping,Cool,Excited,2,0,1
+SH020,15,Fashion Store,Shopping,Minimalist,Interested,2,0,1
+SH020,16,Café & Restaurant,Dining,Fresh,Enjoyable,2,0,1
+SH020,17,Jing’an Temple,Viewing,Famous,Impressed,2,1,1
+SH020,18,Museums & Galleries,Viewing,Artistic,Impressed,1,1,0
+SH020,19,Yu Yuan Garden,Viewing,Speechless,Awe,2,1,0
+SH021,1,French Concession,Walking,Cool,Enjoyable,1,1,1
+SH021,2,Café & Restaurant,Dining,Harry Potter-esque,Delighted,1,0,1
+SH021,3,Fashion Store,Visiting,Crazy,Impressed,1,0,1
+SH021,4,Fashion Store,Visiting,Cool,Excited,1,0,1
+SH021,5,Museums & Galleries,Viewing,Artistic,Impressed,1,1,0
+SH021,6,Café & Restaurant,Dining,Cute,Delighted,1,0,1
+SH021,7,Parks & Gardens,Visiting,Cool,Impressed,1,1,1
+SH021,8,Café & Restaurant,Dining,Delicious,Satisfied,2,0,1
+SH022,1,Bund,Viewing,Futuristic,Impressed,2,1,0
+SH022,2,Yu Yuan Garden,Viewing,Beautiful,Impressed,1,1,0
+SH022,3,Nanjing Road,Shopping,Crazy,Excited,2,1,0
+SH022,4,Tianzifang,Viewing,Artistic,Enjoyable,2,0,0
+SH022,5,Zhujiajiao,Viewing,Historic,Awe,1,1,0
+SH023,1,Bund,Walking,Iconic,Impressed,1,1,0
+SH023,2,Café & Restaurant,Dining,Good,Enjoyable,1,0,1
+SH023,3,French Concession,Shopping,Nice,Enjoyable,1,1,1
+SH023,4,Café & Restaurant,Dining,Insane,Enjoyable,1,0,1
+SH023,5,Other Stores,Shopping,Popular,Happy,1,0,1
+SH023,6,Other Stores,Shopping,Crazy,Amused,1,0,1
+SH023,7,Fashion Store,Shopping,Cool,Impressed,1,0,1
+SH023,8,Jing’an Temple,Walking,Peaceful,Enjoyable,2,0,1
+SH023,9,Café & Restaurant,Dining,Amazing,Enjoyable,2,0,1
+SH023,10,Other Stores,Visiting,Fun,Amused,2,0,1
+SH023,11,Didi,Transport,Cheap,Surprised,1,0,1
+SH024,1,Café & Restaurant,Dining,Cute,Enjoyable,1,0,1
+SH024,2,Bund,Walking,Iconic,Impressed,1,1,0
+SH024,3,Café & Restaurant,Dining,Surreal,Impressed,1,0,1
+SH024,4,Museums & Galleries,Viewing,Artistic,Impressed,1,0,0
+SH024,5,Fashion Store,Shopping,Cute,Enjoyable,1,0,1
+SH024,6,Old Millfun,Viewing,Unique,Surprised,1,0,0
+SH024,7,Fashion Store,Shopping,Trendy,Enjoyable,1,1,1
+SH024,8,Café & Restaurant,Dining,Delicious,Satisfied,2,0,1
+SH024,9,Bund,Walking,Iconic,Enjoyable,2,1,0
+SH025,1,Café & Restaurant,Dining,Rich,Enjoyable,1,0,1
+SH025,2,Parks & Gardens,Walking,Beautiful,Relaxed,1,0,0
+SH025,3,Café & Restaurant,Visiting,Crazy,Impressed,1,0,1
+SH025,4,Louis Vuitton Ship,Visiting,Iconic,Impressed,1,0,1
+SH025,5,Wukang Building,Viewing,Iconic,Excited,1,1,0
+SH025,6,Café & Restaurant,Dining,Delicious,Enjoyable,1,0,1
+SH025,7,Fashion Store,Shopping,Popular,Enjoyable,1,0,1
+SH025,8,Café & Restaurant,Dining,So-so,Neutral,1,0,1
+SH025,9,Fashion Store,Shopping,Various,Enjoyable,2,0,1
+SH025,10,Café & Restaurant,Dining,Delicious,Enjoyable,2,0,1
+SH025,11,Bund,Viewing,Beautiful,Impressed,2,1,0
+SH026,1,Fashion Store,Shopping,Beautiful,Enjoyable,1,0,1
+SH026,2,Fashion Store,Shopping,Cool,Impressed,1,0,1
+SH026,3,Fashion Store,Shopping,Cool,Enjoyable,1,0,1
+SH026,4,Fashion Store,Shopping,Unique,Impressed,1,0,1
+SH026,5,Fashion Store,Shopping,Experiential,Excited,1,0,1
+SH026,6,Jing’an Temple,Viewing,Famous,Impressed,2,1,1
+SH026,7,French Concession,Viewing,Lovely,Surprised,1,0,0
+SH027,1,Café & Restaurant,Dining,Perfect,Enjoyable,1,0,1
+SH027,2,Other Stores,Shopping,Cheap,Surprised,1,0,1
+SH027,3,Café & Restaurant,Dining,Good,Enjoyable,1,0,1
+SH027,4,Café & Restaurant,Dining,Good,Enjoyable,1,0,1
+SH027,5,Bund,Walking,Iconic,Enjoyable,2,1,0
+SH027,6,Museums & Galleries,Viewing,Creative,Impressed,1,0,1
+SH027,7,Jing’an Temple,Viewing,Traditional,Calm,2,1,1
+SH028,1,Café & Restaurant,Dining,Cool,Enjoyable,1,0,0
+SH028,2,Café & Restaurant,Dining,Fresh,Enjoyable,1,0,1
+SH028,3,Anfu Road,Walking,Beautiful,Impressed,1,1,0
+SH028,4,Fashion Store,Shopping,Cool,Inspired,1,0,1
+SH028,5,Fashion Store,Shopping,Cool,Interested,1,0,1
+SH028,6,Fashion Store,Visiting,Creative,Inspired,1,0,1
+SH028,7,Hotel & Spa,Relax,Incredible,Relieved,2,0,1
+SH028,8,Café & Restaurant,Dining,Delicious,Enjoyable,2,0,1
+SH029,1,Anfu Road,Shopping,Incredible,Enjoyable,1,0,1
+SH029,2,Fashion Store,Shopping,Incredible,Enjoyable,1,0,1
+SH029,3,Fashion Store,Shopping,Lovely,Enjoyable,1,0,1
+SH029,4,Fashion Store,Shopping,Creative,Impressed,1,1,1
+SH029,5,Fashion Store,Shopping,Cute,Enjoyable,1,0,1
+SH029,6,Fashion Store,Shopping,Trendy,Enjoyable,1,1,1
+SH030,1,Hotel & Spa,Staying,Beautiful,Impressed,1,0,1
+SH030,2,Hotel & Spa,Visiting,Artistic,Impressed,1,0,1
+SH030,3,Café & Restaurant,Dining,Unique,Impressed,2,0,1
+SH030,4,Café & Restaurant,Dining,Delicious,Enjoyable,2,0,1
+SH030,5,Hotel & Spa,Relax,Cozy,Relaxed,2,0,1
+SH030,6,Hotel & Spa,Dining,Delicious,Enjoyable,1,0,1
+SH030,7,Hotel & Spa,Visiting,Traditional,Inspired,1,0,1
+SH030,8,Old Millfun,Viewing,Unique,Surprised,1,1,0
+SH030,9,Yu Yuan Garden,Shopping,Enjoyable,Enjoyable,2,0,1
+SH030,10,Huaihai Road,Shopping,Great,Enjoyable,1,1,1
+SH030,11,Shanghai Tower,Viewing,Incredible,Impressed,1,1,1
+SH031,1,Café & Restaurant,Dining,Creamy,Enjoyable,1,0,1
+SH031,2,Other Stores,Visiting,Pretty,Impressed,1,0,1
+SH031,3,Anfu Road,Walking,Picturesque,Enjoyable,1,1,1
+SH031,4,Anfu Road,Shopping,Cute,Enjoyable,1,0,1
+SH031,5,Fashion Store,Shopping,Huge,Interested,1,0,1
+SH031,6,Fashion Store,Shopping,Amazing,Enjoyable,1,0,1
+SH031,7,Bund,Walking,Scenic,Enjoyable,2,1,0
+SH031,8,Bund,Viewing,Beautiful,Enjoyable,2,1,0
+SH031,9,Huaihai Road,Shopping,Great,Enjoyable,1,1,1
+SH031,10,Old Millfun,Viewing,Unique,Surprised,1,1,0
+SH031,11,Wukang Building,Viewing,Famous,Enjoyable,1,1,0
+SH031,12,Shanghai Tower,Viewing,Incredible,Impressed,1,1,1
+SH032,1,Fashion Store,Shopping,Trendy,Enjoyable,1,0,1
+SH032,2,Huaihai Road,Shopping,Great,Enjoyable,1,0,1
+SH032,3,Huaihai Road,Walking,Vibrant,Impressed,1,1,0
+SH032,4,Café & Restaurant,Dining,Local,Relaxed,1,0,1
+SH032,5,Anfu Road,Walking,Historical,Impressed,1,1,0
+SH032,6,Bund,Viewing,Beautiful,Impressed,2,1,0
+SH032,7,Café & Restaurant,Dining,Lively,Enjoyable,2,0,1
+SH032,8,Yu Yuan Garden,Walking,Beautiful,Impressed,2,1,0
+SH032,9,Yu Yuan Garden,Dining,Enjoyable,Enjoyable,2,1,1
+SH032,10,Huaihai Road,Shopping,Great,Enjoyable,1,0,1
+SH032,11,Old Millfun,Viewing,Unique,Enjoyable,1,1,0
+SH033,1,Café & Restaurant,Dining,Beautiful,Enjoyable,1,0,1
+SH033,2,Café & Restaurant,Viewing,Artistic,Impressed,1,0,1
+SH033,3,Café & Restaurant,People-watching,Relaxed,Relaxed,1,0,1
+SH033,4,Café & Restaurant,Dining,Creative,Enjoyable,1,0,1
+SH033,5,Parks & Gardens,Visiting,Cool,Impressed,1,0,1
+SH033,6,Nanjing Road,Shopping,Crazy,Excited,2,0,1
+SH033,7,Huaihai Road,Walking,Excited,Satisfied,1,1,0
+SH033,8,Museums & Galleries,Viewing,Artistic,Impressed,1,0,1
+SH033,9,Parks & Gardens,Walking,Beautiful,Relaxed,1,0,0
+SH033,10,Wulumuqi Road,Shopping,Cute,Enjoyable,1,0,1
+SH034,1,Café & Restaurant,Shopping,Cute,Enjoyable,1,0,1
+SH034,2,Fashion Store,Shopping,Rare,Interested,1,0,1
+SH034,3,Zhujiajiao,Viewing,Historic,Impressed,1,1,0
+SH034,4,French Concession,Walking,Trendy,Enjoyable,1,1,0
+SH034,5,Huaihai Road,Shopping,Great,Enjoyable,1,0,1
+SH034,6,Bund,Walking,Iconic,Enjoyable,2,1,0
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
