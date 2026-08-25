@@ -186,7 +186,7 @@ SH020,2,Wukang Building,Viewing,Famous,Enjoyable,1,1,0
 SH020,3,Fashion Store,Shopping,Cute,Enjoyable,1,0,1
 SH020,4,Fashion Store,Shopping,Beautiful,Impressed,1,0,1
 SH020,5,Fashion Store,Shopping,Minimalist,Interested,1,0,1
-SH020,6,Wulumuqi Road,Walking,Cute,Enjoyable,1,1,0
+SH020,6,Wulumuqi Road,Walking,Cute,Enjoyable,1,1,1
 SH020,7,Fashion Store,Shopping,Cute,Enjoyable,1,0,1
 SH020,8,Fashion Store,Shopping,Creative,Interested,1,0,1
 SH020,9,Fashion Store,Shopping,Whimsical,Enjoyable,1,0,1
@@ -206,7 +206,7 @@ SH021,3,Fashion Store,Visiting,Crazy,Impressed,1,0,1
 SH021,4,Fashion Store,Visiting,Cool,Excited,1,0,1
 SH021,5,Museums & Galleries,Viewing,Artistic,Impressed,1,0,0
 SH021,6,Café & Restaurant,Dining,Cute,Delighted,1,0,1
-SH021,7,Parks & Gardens,Visiting,Cool,Impressed,1,1,1
+SH021,7,Parks & Gardens,Visiting,Cool,Impressed,1,1,0
 SH021,8,Café & Restaurant,Dining,Delicious,Satisfied,2,0,1
 SH022,1,Bund,Viewing,Futuristic,Impressed,2,1,0
 SH022,2,Yu Yuan Garden,Viewing,Beautiful,Impressed,1,1,0
@@ -310,7 +310,7 @@ SH033,1,Café & Restaurant,Dining,Beautiful,Enjoyable,1,0,1
 SH033,2,Café & Restaurant,Viewing,Artistic,Impressed,1,0,1
 SH033,3,Café & Restaurant,People-watching,Relaxed,Relaxed,1,0,1
 SH033,4,Café & Restaurant,Dining,Creative,Enjoyable,1,0,1
-SH033,5,Parks & Gardens,Visiting,Cool,Impressed,1,0,1
+SH033,5,Parks & Gardens,Visiting,Cool,Impressed,1,0,0
 SH033,6,Nanjing Road,Shopping,Crazy,Excited,2,0,1
 SH033,7,Huaihai Road,Walking,Excited,Satisfied,1,1,0
 SH033,8,Museums & Galleries,Viewing,Artistic,Impressed,1,0,1
