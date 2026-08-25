@@ -2154,7 +2154,7 @@ window.addEventListener("resize", () => {
     const CONFIG = {
         container: "#placePerceptionChart",
 
-        maxPOIs: 6,
+        maxPOIs: 7,
 
         minWordsPerPOI: 3,
         maxWordsPerPOI: 8,
