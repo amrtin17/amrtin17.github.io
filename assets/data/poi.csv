@@ -28,7 +28,7 @@ SH003,6,Wulumuqi Road,Walking,Cute,Enjoyable,1,,0
 SH003,7,Fashion Store,Shopping,Cute,Enjoyable,1,0,1
 SH003,8,Fashion Store,Shopping,Creative,Interested,1,0,1
 SH003,9,Fashion Store,Shopping,Whimsical,Enjoyable,1,0,1
-SH003,10,French Concession,Walking,Cute,Enjoyable,1,0,0
+SH003,10,French Concession,Walking,Cute,Enjoyable,1,1,0
 SH003,11,Fashion Store,Shopping,Minimalist,Interested,1,0,1
 SH003,12,Fashion Store,Shopping,Relaxed,Enjoyable,1,0,1
 SH003,13,Fashion Store,Shopping,Unique,Interested,1,0,1
@@ -75,7 +75,7 @@ SH007,8,Café & Restaurant,Dining,Delicious,Satisfied,2,0,1
 SH007,9,Bund,Walking,Iconic,Enjoyable,2,1,0
 SH008,1,Café & Restaurant,Dining,Rich,Enjoyable,1,0,1
 SH008,2,Parks & Gardens,Walking,Beautiful,Relaxed,1,0,0
-SH008,3,French Concession,Visiting,Western,Impressed,1,0,1
+SH008,3,French Concession,Visiting,Western,Impressed,1,1,1
 SH008,4,Louis Vuitton Ship,Visiting,Iconic,Impressed,1,1,1
 SH008,5,Wukang Building,Viewing,Iconic,Excited,1,1,0
 SH008,6,Café & Restaurant,Dining,Delicious,Enjoyable,1,0,1
@@ -250,7 +250,7 @@ SH026,3,Fashion Store,Shopping,Cool,Enjoyable,1,0,1
 SH026,4,Fashion Store,Shopping,Unique,Impressed,1,0,1
 SH026,5,Fashion Store,Shopping,Experiential,Excited,1,0,1
 SH026,6,Jing’an Temple,Viewing,Famous,Impressed,2,1,1
-SH026,7,French Concession,Viewing,Lovely,Surprised,1,0,0
+SH026,7,French Concession,Viewing,Lovely,Surprised,1,1,0
 SH027,1,Café & Restaurant,Dining,Perfect,Enjoyable,1,0,1
 SH027,2,Other Stores,Shopping,Cheap,Surprised,1,0,1
 SH027,3,Café & Restaurant,Dining,Good,Enjoyable,1,0,1
