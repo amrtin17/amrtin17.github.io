@@ -1,10 +1,6 @@
 /* ==========================================
    Load CSV Data
 ========================================== */
-console.log("Shanghai JS Loaded");
-
-
-
 /* ==========================================
    Q1. Map
 ========================================== */
@@ -45,9 +41,6 @@ console.log("Shanghai JS Loaded");
                 category: item.category,
                 description: item.description || ''
             }));
-
-            console.table(poiData);
-
 
             /* =========================================================
              * Helper Functions
@@ -253,63 +246,65 @@ console.log("Shanghai JS Loaded");
                     updateFindingPanel(poi);
                 });
 
-                /* =========================================================
-                * Auto label avoidance
-                * ======================================================= */
-
-                const updateLabelPositions = () => {
-
-                    const placed = [];
-
-                    markers.forEach(marker => {
-
-                        const el = marker.getElement();
-                        if (!el) return;
-
-                        const label = el.querySelector('.marker-label');
-                        if (!label) return;
-
-                        const candidates = [
-                            [12, -10],
-                            [12, -32],
-                            [12, 12],
-                            [-12, -32],
-                            [-12, 12],
-                            [-80, -10],
-                            [0, -45],
-                            [0, 25]
-                        ];
-
-                        let position = candidates[0];
-
-                        for (const [x, y] of candidates) {
-
-                            label.style.left = `${x}px`;
-                            label.style.top = `${y}px`;
-
-                            const rect = label.getBoundingClientRect();
-
-                            const overlap = placed.some(r =>
-                                rect.left < r.right &&
-                                rect.right > r.left &&
-                                rect.top < r.bottom &&
-                                rect.bottom > r.top
-                            );
-
-                            if (!overlap) {
-                                position = [x, y];
-                                placed.push(rect);
-                                break;
-                            }
-                        }
-
-                        label.style.left = `${position[0]}px`;
-                        label.style.top = `${position[1]}px`;
-                    });
-                };
-
-                setTimeout(updateLabelPositions, 100);
             });
+
+
+            /* =========================================================
+             * Auto label avoidance
+             * ======================================================= */
+
+            const updateLabelPositions = () => {
+
+                const placed = [];
+
+                markers.forEach(marker => {
+
+                    const el = marker.getElement();
+                    if (!el) return;
+
+                    const label = el.querySelector('.marker-label');
+                    if (!label) return;
+
+                    const candidates = [
+                        [12, -10],
+                        [12, -32],
+                        [12, 12],
+                        [-12, -32],
+                        [-12, 12],
+                        [-80, -10],
+                        [0, -45],
+                        [0, 25]
+                    ];
+
+                    let position = candidates[0];
+
+                    for (const [x, y] of candidates) {
+
+                        label.style.left = `${x}px`;
+                        label.style.top = `${y}px`;
+
+                        const rect = label.getBoundingClientRect();
+
+                        const overlap = placed.some(r =>
+                            rect.left < r.right &&
+                            rect.right > r.left &&
+                            rect.top < r.bottom &&
+                            rect.bottom > r.top
+                        );
+
+                        if (!overlap) {
+                            position = [x, y];
+                            placed.push(rect);
+                            break;
+                        }
+                    }
+
+                    label.style.left = `${position[0]}px`;
+                    label.style.top = `${position[1]}px`;
+                });
+            };
+
+            setTimeout(updateLabelPositions, 100);
 
 
             /* =========================================================
@@ -1986,6 +1981,8 @@ function loadEmotionData() {
         const script = document.createElement("script");
         script.id = scriptId;
         script.src = "https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js";
+        script.integrity = "sha384-D/t0ZMqQW31H3az8ktEiNb39wyKnS82iFY52QPACM+IjKW3jDUhyIgh2PApRqJZs";
+        script.crossOrigin = "anonymous";
         script.async = true;
         script.onload = () => {
             Papa.parse(csvPath, {
@@ -2262,13 +2259,6 @@ window.addEventListener("resize", () => {
                 );
                 return [];
             }
-
-            console.log(
-                "[PlacePerception] Loaded:",
-                dataset.length,
-                "rows from",
-                DATA_PATH
-            );
 
             return dataset;
 
@@ -4850,7 +4840,6 @@ window.addEventListener("resize", () => {
         }
 
         const rawData = await resolveDataset();
-
         if (!rawData.length) {
             container
                 .html("")
@@ -4866,7 +4855,6 @@ window.addEventListener("resize", () => {
         }
 
         const pois = prepareData(rawData);
-
         if (!pois.length) {
             container
                 .html("")
@@ -5047,11 +5035,10 @@ window.addEventListener("resize", () => {
     /*
      * Render after D3 / existing DATA are available.
      *
-     * requestAnimationFrame allows this module to coexist with
-     * other dashboard modules that initialise during page load.
+     * shanghai.js is loaded with defer, so the DOM is already parsed
+     * here. Calling directly also works in background tabs, where
+     * requestAnimationFrame may be throttled.
      */
-    requestAnimationFrame(() => {
-        renderPlacePerception();
-    });
+    renderPlacePerception();
 
 })();

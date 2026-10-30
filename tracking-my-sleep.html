@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tracking My Sleep</title>
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tracking My Sleep | Shiqi Ge</title>
     <link rel="stylesheet" href="assets/css/style.css" />
     <style>
         body { 
@@ -18,7 +18,7 @@
         
         /* 标题和公共样式 */
         .header { text-align: center; margin-bottom: 20px; }
-        h1 { color: #cdb4db; font-size: 2.5rem; margin-bottom: 10px; }
+        h1 { color: #6b4c7a; font-size: 2.5rem; margin-bottom: 10px; }
         p {
           font-size: 16px;
           line-height: 1.6;
@@ -27,7 +27,7 @@
           opacity: 1;
         }
         .header p {
-          opacity: 0.7;
+          opacity: 1;
           font-size: 14px;
           text-align: center;
         }
@@ -125,7 +125,7 @@
             text-align: center;
             margin-top: 6px;
             font-size: 0.85rem;
-            color: #888;
+            color: #5c5c6e;
         }
         
         .essay-intro-layout {
@@ -154,7 +154,7 @@
         .intro-images figcaption {
           text-align: center;
           font-size: 0.8rem;
-          color: #888;
+          color: #5c5c6e;
         }
         /*
         .intro-questions {
@@ -192,25 +192,44 @@
         }
 
     </style>
+  <meta name="description" content="A personal data visualisation project exploring sleep habits, bedtime patterns, and the gap between intention and routine." />
+  <meta name="author" content="Shiqi Ge" />
+  <meta name="theme-color" content="#795c3f" />
+  <link rel="canonical" href="https://amrtin17.github.io/tracking-my-sleep.html" />
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Shiqi Ge" />
+  <meta property="og:title" content="Tracking My Sleep | Shiqi Ge" />
+  <meta property="og:description" content="A personal data visualisation project exploring sleep habits, bedtime patterns, and the gap between intention and routine." />
+  <meta property="og:url" content="https://amrtin17.github.io/tracking-my-sleep.html" />
+  <meta property="og:image" content="https://amrtin17.github.io/assets/img/og-cover.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Shiqi Ge — Digital Arts &amp; Humanities" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Tracking My Sleep | Shiqi Ge" />
+  <meta name="twitter:description" content="A personal data visualisation project exploring sleep habits, bedtime patterns, and the gap between intention and routine." />
+  <meta name="twitter:image" content="https://amrtin17.github.io/assets/img/og-cover.jpg" />
 </head>
 
     
 <body>
 
-<header class="site-header">
-    <div class="container nav-bar" >
-        <div class="logo">Shiqi Ge</div>
-        <nav class="nav-links">
-            <a href="index.html">Home</a>
-            <!--<a href="projects.html">Portfolio</a>-->
-            <a href="essays.html">Essays</a>
-            <a href="about.html">About</a>
-            <a href="mailto:17amrtin@gmail.com">Contact</a>
-        </nav>
+  <header class="site-header">
+    <div class="container nav-bar">
+      <a class="logo" href="index.html">Shiqi Ge</a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Portfolio</a>
+        <a href="essays.html" aria-current="page">Essays</a>
+        <a href="about.html">About</a>
+        <a href="mailto:17amrtin@gmail.com">Contact</a>
+      </nav>
     </div>
-</header>
+  </header>
 
-<div class="container">
+<main class="container">
 
     <div class="header">
         <br>
@@ -251,12 +270,12 @@
             <!-- 右边图片 -->
             <div class="intro-images">
                 <figure>
-                    <img src="assets/img/locationdata.jpg" alt="My Location records" />
+                    <img src="assets/img/locationdata.webp" alt="My Location records"  width="1241" height="1697" loading="lazy" decoding="async" />
                     <figcaption>My location records during the past 8 months</figcaption>
                 </figure>
 
                 <figure>
-                    <img src="assets/img/filmwatchingrecord.jpg" alt="My film watching records" />
+                    <img src="assets/img/filmwatchingrecord.webp" alt="My film watching records"  width="1242" height="1142" loading="lazy" decoding="async" />
                     <figcaption>My film watching records</figcaption>
                 </figure>
             </div>
@@ -277,7 +296,7 @@
                 </p>
 
                 <figure class="essay-figure">
-                    <img src="assets/img/wearing device.jpg" alt="Wearable device" />
+                    <img src="assets/img/wearing-device.webp" alt="Wearable device"  width="1400" height="1050" loading="lazy" decoding="async" />
                     <figcaption>Wearable device used for sleep tracking</figcaption>
                 </figure>
             </div>
@@ -288,7 +307,7 @@
                 </p>
 
                 <figure>
-                    <img src="assets/img/bedtimeraw.jpg" alt="Raw sleep data" />
+                    <img src="assets/img/bedtimeraw.webp" alt="Raw sleep data"  width="1400" height="745" loading="lazy" decoding="async" />
                     <figcaption>Raw sleep data records</figcaption>
                 </figure>
 
@@ -305,7 +324,7 @@
         </section>
 
         <div class="header">
-            <h1>📈 Overview</h1>
+            <h2>📈 Overview</h2>
             <div class="legend">
                 <div class="legend-item">
                     <div class="dot home"></div>
@@ -388,7 +407,7 @@
         </div>
     
         <div class="header">
-            <h1>📈 Sleep & Wake Density</h1>
+            <h2>📈 Sleep &amp; Wake Density</h2>
             <div class="legend">
                 <div class="legend-item">
                     <div class="dot home" style="background: rgba(189, 224, 254, 0.75);"></div>
@@ -464,7 +483,7 @@
         <div style="margin-top:40px;">
           
           <div class="header">
-            <h1>📈 Sleep Quality</h1>
+            <h2>📈 Sleep Quality</h2>
         
             <!-- legend -->
             <div class="legend">
@@ -486,13 +505,13 @@
           <!-- 排序控件 -->
           <div style="margin-bottom:10px;">
             Sort by:
-            <select id="sortKey2">
+            <select id="sortKey2" aria-label="Sort data by">
               <option value="total">Total Sleep</option>
               <option value="sleep">Sleep Time</option>
               <option value="wake">Wake Time</option>
             </select>
         
-            <select id="sortOrder2">
+            <select id="sortOrder2" aria-label="Sort order">
               <option value="asc">Ascending</option>
               <option value="desc">Descending</option>
             </select>
@@ -573,8 +592,18 @@
           </li>
         </ul>
     </article>
-</div>
+</main>
 
+<footer class="site-footer">
+  <div class="container">
+    <p>© 2026 Shiqi Ge · Digital Arts &amp; Humanities</p>
+    <p class="footer-links"><a href="index.html">Home</a> · <a href="projects.html">Projects</a> · <a href="essays.html">Essays</a> · <a href="mailto:17amrtin@gmail.com">Email</a></p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"
+        integrity="sha384-o5uz97et3bErHvpKfD4Jz4n0JfhJDWABFuF4NP+iEEDxE1VwMWJ19QGR0lqFZnr6"
+        crossorigin="anonymous"></script>
 <script>
     // 1. 统一原始数据，字段名：date	sleeptime	wakeuptime	night sleep	interrupt	sober time	day nap	 total	quality	type	note
     var rawData = [

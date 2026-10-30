@@ -771,3 +771,25 @@ Research Overview Section
     }
 
 }
+
+.page-footer {
+    padding: 40px 30px 64px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #8a8f9c;
+}
+
+.page-footer a {
+    color: inherit;
+    margin: 0 6px;
+}
+
+.page-footer a:hover {
+    color: var(--accent, #c8a27a);
+}
+
+/* Keep Leaflet attribution legible on light basemap areas. */
+.leaflet-control-attribution a {
+    color: #005a80;
+    text-decoration: underline;
+}

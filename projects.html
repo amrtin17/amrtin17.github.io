@@ -5,43 +5,115 @@
   <title>Projects | Shiqi Ge</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="assets/css/style.css" />
+  <meta name="description" content="Selected projects by Shiqi Ge, including film poster design, Python Turtle fractals, and interactive digital humanities research." />
+  <meta name="author" content="Shiqi Ge" />
+  <meta name="theme-color" content="#795c3f" />
+  <link rel="canonical" href="https://amrtin17.github.io/projects.html" />
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Shiqi Ge" />
+  <meta property="og:title" content="Projects | Shiqi Ge" />
+  <meta property="og:description" content="Selected projects by Shiqi Ge, including film poster design, Python Turtle fractals, and interactive digital humanities research." />
+  <meta property="og:url" content="https://amrtin17.github.io/projects.html" />
+  <meta property="og:image" content="https://amrtin17.github.io/assets/img/og-cover.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Shiqi Ge — Digital Arts &amp; Humanities" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Projects | Shiqi Ge" />
+  <meta name="twitter:description" content="Selected projects by Shiqi Ge, including film poster design, Python Turtle fractals, and interactive digital humanities research." />
+  <meta name="twitter:image" content="https://amrtin17.github.io/assets/img/og-cover.jpg" />
 </head>
 <body>
   <header class="site-header">
     <div class="container nav-bar">
-      <div class="logo">Shiqi Ge</div>
-      <nav class="nav-links">
+      <a class="logo" href="index.html">Shiqi Ge</a>
+      <nav class="nav-links" aria-label="Main navigation">
         <a href="index.html">Home</a>
-        <a href="projects.html">Portfolio</a>
+        <a href="projects.html" aria-current="page">Portfolio</a>
         <a href="essays.html">Essays</a>
         <a href="about.html">About</a>
-        <a href="mailto:your-email@example.com">Contact</a>
+        <a href="mailto:17amrtin@gmail.com">Contact</a>
       </nav>
     </div>
   </header>
 
   <main class="section">
     <div class="container">
-      <h2>Portfolio</h2>
+      <h1 class="page-title">Portfolio</h1>
       <p style="color:#666; max-width:640px;">
         A selection of posters, Python graphics, and digital humanities projects.
-        I will keep updating this page as new work is completed.
+        Each project page includes the process, tools, and outcomes behind the work.
       </p>
 
+      <h2 style="font-size:1.1rem; margin-top:32px;">Selected projects</h2>
+
       <div class="card-grid">
-        <!-- 暂时可以先复用首页三张卡，后面我们再扩展更多项目 -->
-        <!-- 可以直接写 “Coming soon” 等占位文字 -->
+        <article class="card">
+          <div class="card-image">
+            <img src="assets/img/dead-poets-society.webp" alt="Dead Poets Society film poster"  width="1400" height="1980" loading="lazy" decoding="async">
+          </div>
+          <div class="card-body">
+            <h3>Dead Poets Society Poster</h3>
+            <p>A film poster designed in GIMP, plus a Python-Fu plug-in that automates the layout from user images.</p>
+            <div class="card-tags">
+              <span class="tag">Poster</span><span class="tag">Python</span><span class="tag">GIMP</span>
+            </div>
+            <a href="dead-poets-poster.html" class="card-link">View project →</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-image">
+            <img src="assets/img/turtle-fractals.webp" alt="Python Turtle fractal artwork"  width="1400" height="957" loading="lazy" decoding="async">
+          </div>
+          <div class="card-body">
+            <h3>Turtle Fractals Collection</h3>
+            <p>A small library of Python Turtle fractals, including trees and ferns used in class projects and experiments.</p>
+            <div class="card-tags">
+              <span class="tag">Python</span><span class="tag">Turtle</span><span class="tag">Fractals</span>
+            </div>
+            <a href="turtle-fractals.html" class="card-link">View project →</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-image">
+            <img src="assets/img/re-visualizing-a-city.webp" alt="Re-visualising city promotional videos"  width="1400" height="788" loading="lazy" decoding="async">
+          </div>
+          <div class="card-body">
+            <h3>Digital Humanities Project</h3>
+            <p>A thesis project re-visualising city promotional videos for cultural analysis, including an interactive Shanghai dashboard.</p>
+            <div class="card-tags">
+              <span class="tag">DH</span><span class="tag">Data Viz</span><span class="tag">Research</span>
+            </div>
+            <a href="dh-project.html" class="card-link">View project →</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-image">
+            <img src="assets/img/action2026-cardcover.webp" alt="ACTION 2026 website cover"  width="800" height="415" loading="lazy" decoding="async">
+          </div>
+          <div class="card-body">
+            <h3>ACTION English Website</h3>
+            <p>Asian Climate-SDG Technology Innovation Hackathon for Next-Generation.</p>
+            <div class="card-tags">
+              <span class="tag">UN COP</span><span class="tag">Climate</span><span class="tag">SDG</span>
+            </div>
+            <a href="action2026.html" class="card-link">View project →</a>
+          </div>
+        </article>
       </div>
     </div>
   </main>
 
   <footer class="site-footer">
     <div class="container">
-      <p>© <span id="year"></span> Shiqi Ge · Digital Arts &amp; Humanities</p>
+      <p>© 2026 Shiqi Ge · Digital Arts &amp; Humanities</p>
+      <p class="footer-links"><a href="index.html">Home</a> · <a href="projects.html">Projects</a> · <a href="essays.html">Essays</a> · <a href="mailto:17amrtin@gmail.com">Email</a></p>
     </div>
-    <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
   </footer>
 </body>
 </html>
